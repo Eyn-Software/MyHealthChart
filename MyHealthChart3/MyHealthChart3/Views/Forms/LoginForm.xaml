@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:dataform="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
+    xmlns:richTextEditor="clr-namespace:Syncfusion.XForms.RichTextEditor;assembly=Syncfusion.SfRichTextEditor.XForms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    BackgroundImageSource="LoginBackground.png"
+    x:Class="MyHealthChart3.Views.LoginForm">
+    <ContentPage.Content>
+        <StackLayout>
+            
+            <dataform:SfDataForm x:Name="dataForm" LayoutOptions="TextInputLayout"
+                                 DataObject="{Binding DataObject}"/>
+            <Label Text="{Binding Error}" IsVisible="{Binding HasError}"/>
+            <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Command="{Binding SubmitCmd}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

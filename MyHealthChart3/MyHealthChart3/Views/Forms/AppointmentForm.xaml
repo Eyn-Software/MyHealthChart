@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:sfSwitch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+xmlns:sfDatePicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.AppointmentForm"
+             BackgroundImageSource="LoginBackground.png">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <!--Choose Doctor-->
+                <inputLayout:SfTextInputLayout Hint="Doctor" HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                    <Picker ItemsSource="{Binding DoctorNames}" SelectedIndex="{Binding Row}" />
+                </inputLayout:SfTextInputLayout>
+
+                <!--Choose Date-->
+                <inputLayout:SfTextInputLayout Hint="Date of Appointment"  HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                    <DatePicker Date="{Binding Date, Mode=TwoWay}"/>
+                </inputLayout:SfTextInputLayout>
+
+                <!--Choose Time-->
+                <inputLayout:SfTextInputLayout Hint="Time of Appointment" HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                    <TimePicker Time="{Binding Time, Mode=TwoWay}"/>
+                </inputLayout:SfTextInputLayout>
+
+                <Grid IsVisible="{Binding IsPast}">
+                    <StackLayout>
+                        <!--Reason for visit-->
+                        <inputLayout:SfTextInputLayout Hint="Reason For Visit" 
+                                                   ContainerType ="Outlined" 
+                                                   OutlineCornerRadius="7" BindingContext="{Binding AppointmentObject}">
+                            <Entry Text="{Binding Reason}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Diagnosis-->
+                        <inputLayout:SfTextInputLayout Hint="Diagnosis" ContainerType ="Outlined"
+                                                       BindingContext="{Binding AppointmentObject}"
+                                                       OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
+                            <Entry Text="{Binding Diagnosis}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Aftercare-->
+                        <inputLayout:SfTextInputLayout Hint="Aftercare instructions" BindingContext="{Binding AppointmentObject}"
+                                                   ContainerType ="Outlined"
+                                                   OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
+                            <Entry Text="{Binding Aftercare}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Switch-->
+                        <Label Text="Did you schedule a follow-up appointment?" IsVisible="{Binding IsPast}"/>
+
+                        <Switch
+                            IsVisible="{Binding IsPast}"
+                            IsToggled="{Binding WantsFollowup}"/>
+                    </StackLayout>
+                </Grid>
+                
+                <!--Follow up appointment-->
+                <Grid IsVisible="{Binding WantsFollowup}">
+                    <StackLayout>
+                        <!--Follow Up Date-->
+                        <inputLayout:SfTextInputLayout Hint="Follow Up Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <DatePicker Date="{Binding FollowupDate}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Follow Up Time-->
+                        <inputLayout:SfTextInputLayout Hint="Follow Up Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <TimePicker Time="{Binding FollowupTime}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+                
+                <!--Prescription 0-->
+                <Grid IsVisible="{Binding IsPast}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Name" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <Entry Text="{Binding Rx0Name}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--Start Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Start Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription0}">
+                            <DatePicker Date="{Binding StartDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--End Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription End Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription0}">
+                            <DatePicker Date="{Binding EndDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!--Prescription 1-->
+                <Grid IsVisible="{Binding Rx0Exists}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Name" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <Entry Text="{Binding Rx1Name}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--Start Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Start Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription1}">
+                            <DatePicker Date="{Binding StartDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--End Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription End Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription1}">
+                            <DatePicker Date="{Binding EndDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+                
+                <!--Prescription 2-->
+                <Grid IsVisible="{Binding Rx1Exists}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Name" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <Entry Text="{Binding Rx2Name}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--Start Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription Start Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription2}">
+                            <DatePicker Date="{Binding StartDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--End Date-->
+                        <inputLayout:SfTextInputLayout Hint="Prescription End Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Prescription2}">
+                            <DatePicker Date="{Binding EndDate}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+                
+                <!--Vaccine 0-->
+                <Grid IsVisible="{Binding IsPast}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Vaccine" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <Entry Text="{Binding Vax0Name}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--Date-->
+                        <inputLayout:SfTextInputLayout Hint="Date of Vaccination" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Vaccine0}">
+                            <DatePicker Date="{Binding Date}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!--Vaccine 1-->
+                <Grid IsVisible="{Binding Vax0Exists}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Vaccine" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                            <Entry Text="{Binding Vax1Name}"/>
+                        </inputLayout:SfTextInputLayout>
+                        <!--Date-->
+                        <inputLayout:SfTextInputLayout Hint="Date of Vaccination" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Vaccine1}">
+                            <DatePicker Date="{Binding Date}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+                <!--Vaccine 2-->
+                <Grid IsVisible="{Binding Vax1Exists}">
+                    <StackLayout>
+                        <!--Name-->
+                        <inputLayout:SfTextInputLayout Hint="Vaccine" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Vaccine2}">
+                            <Entry Text="{Binding Name}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Date-->
+                        <inputLayout:SfTextInputLayout Hint="Date of Vaccination" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7" BindingContext="{Binding Vaccine2}">
+                            <DatePicker Date="{Binding Date}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+                
+                <Image x:Name="image"
+                       Margin="20,0,0,10"/>
+
+                <Button
+                    x:Name="takePhoto"
+                    Clicked="PictureClicked"
+                    CornerRadius="20"
+                    BorderWidth="1"
+                    BorderColor="Black"
+                    Text="Add An Image"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Fill"
+                    Margin="8,20,8,0"/>
+                
+                <sfSwitch:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                                 Command="{Binding SubmitCmd}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

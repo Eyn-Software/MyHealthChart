@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:views="clr-namespace:MyHealthChart3.Views"
+            x:Class="MyHealthChart3.Views.MainPage" 
+            BackgroundImageSource="LoginBackground.png">
+
+    <MasterDetailPage.Master>
+        <ContentPage
+            Title="Menu"
+            BackgroundColor="White"
+            Icon="FormBackground.png">
+            <Grid>
+                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Image Source="FormBackground.png" Aspect="AspectFill" />
+
+                </Grid>
+                <Grid Margin="0,20,0,20" Padding="0,20" >
+                    <ListView HasUnevenRows="False"
+                              BackgroundColor="Transparent"
+                              ItemSelected="UserSelected"
+                              ItemsSource="{Binding Users}"
+                              IsVisible="{Binding Authenticated}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
+                                        <Label Text="{Binding Name}" FontSize="24"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <ListView HasUnevenRows="False"
+                              BackgroundColor="Transparent"
+                              ItemsSource="{Binding UnauthenticatedList}"
+                              ItemSelected="UnauthenticatedSelected"
+                              IsVisible="{Binding Unauthenticated}">
+                        <d:ListView.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Item 1</x:String>
+                                <x:String>Item 2</x:String>
+                            </x:Array>
+                        </d:ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10">
+                                        <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_feed.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+
+</MasterDetailPage>

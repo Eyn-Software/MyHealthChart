@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:accordion="clr-namespace:Syncfusion.XForms.Accordion;assembly=Syncfusion.Expander.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.AppointmentDetail"
+             BackgroundImageSource="LoginBackground.png">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Appointment"
+                     Command="{Binding EditAppointmentCmd}"
+                     Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid BindingContext="{Binding Appointment}">
+                    <StackLayout>
+                        <!--Doctor's Name-->
+                        <Label
+                            Text="Doctor's Name:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,20,0,0"/>
+
+                        <Label
+                            Text="{Binding DoctorName}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!--Address-->
+                        <Label
+                            Text="Address:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,20,0,0"/>
+
+                        <Label
+                            Text="{Binding Address}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Appointment Date -->
+                        <Label
+                            Text="Appointment Date:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,20,0,0"/>
+
+                        <Label
+                            Text="{Binding Date}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Reason For Visit -->
+                        <Label
+                            Text="Reason For Doctor's Visit:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,0,0,0"/>
+
+                        <Label
+                            Text="{Binding Reason}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Diagnosis -->
+                        <Label
+                            Text="Diagnosis:"
+                            IsVisible="{Binding IsPast}"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,0,0,0"/>
+
+                        <Label
+                            IsVisible="{Binding IsPast}"
+                            Text="{Binding Diagnosis}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Aftercare -->
+                        <Label
+                            Text="Aftercare Instructions:"
+                            IsVisible="{Binding IsPast}"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,0,0,0"/>
+
+                        <Label
+                            Text="{Binding FollowUpAdvice}"
+                            IsVisible="{Binding IsPast}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Prescriptions -->
+                        <Label
+                            Text="Prescriptions Received:"
+                            IsVisible="{Binding IsPast}"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,0,0,0"/>
+
+                        <Label
+                            Text="{Binding Prescriptions}"
+                            IsVisible="{Binding IsPast}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!-- Vaccines -->
+                        <Label
+                            Text="Vaccines Received:"
+                            IsVisible="{Binding IsPast}"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,0,0,0"/>
+
+                        <Label
+                            Text="{Binding Vaccines}"
+                            IsVisible="{Binding IsPast}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
