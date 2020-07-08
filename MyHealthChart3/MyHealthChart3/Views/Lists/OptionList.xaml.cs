@@ -47,7 +47,7 @@ namespace MyHealthChart3.Views
         }
         public void ConditionsClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new ConditionList(User));
+            Navigation.PushAsync(new ConditionList(User, NetworkModule));
         }
         public async void DoctorsClicked(object sender, EventArgs e)
         {

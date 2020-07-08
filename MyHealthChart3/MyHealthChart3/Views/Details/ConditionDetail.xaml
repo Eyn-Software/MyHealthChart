@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.ConditionDetail"
+             BackgroundImageSource="LoginBackground.png">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete Condition"
+                     Clicked="DeleteCondition"
+                     Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid BindingContext="{Binding Condition}">
+            <StackLayout>
+                <!--Condition Type-->
+                <Label
+                    Text="Type of Condition:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding Type}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

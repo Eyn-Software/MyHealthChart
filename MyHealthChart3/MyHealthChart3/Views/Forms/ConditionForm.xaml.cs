@@ -1,5 +1,4 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.Services;
+﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
@@ -14,19 +13,26 @@ using Xamarin.Forms.Xaml;
 namespace MyHealthChart3.Views.Forms
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppointmentEditForm : ContentPage
+    public partial class ConditionForm : ContentPage
     {
-        public AppointmentEditForm(UserViewModel User, AppointmentDetailModel Appointment, IServerComms NetworkModule)
+        public ConditionForm(UserViewModel User, IServerComms networkModule)
         {
             InitializeComponent();
             IPageService PS = new PageService();
-            ViewModel = new AppointmentEditViewModel(User, Appointment, PS, NetworkModule);
+            ViewModel = new ConditionFormViewModel(User, networkModule, PS);
         }
-        public AppointmentEditViewModel ViewModel
+        public async void Submit(object sender, EventArgs e)
+        {
+            if(await ViewModel.Submit())
+            {
+                await Navigation.PopAsync();
+            }
+        }
+        public ConditionFormViewModel ViewModel
         {
             get
             {
-                return BindingContext as AppointmentEditViewModel;
+                return BindingContext as ConditionFormViewModel;
             }
             set
             {

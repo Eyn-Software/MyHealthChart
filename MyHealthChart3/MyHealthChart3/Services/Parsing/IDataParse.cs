@@ -2,6 +2,7 @@
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,5 +24,6 @@ namespace MyHealthChart3.Services
         Task<List<AppointmentListModel>> DownloadAppointments(string ReceivedData);
         Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
         Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
+        Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData);
     }
 }

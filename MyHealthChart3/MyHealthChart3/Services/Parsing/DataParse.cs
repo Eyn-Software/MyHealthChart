@@ -3,6 +3,7 @@ using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -249,11 +250,11 @@ namespace MyHealthChart3.Services.Parsing
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
-            Appointment.Prescriptions = ReceivedData.Substring(0, index - 1);
+            Appointment.Prescriptions = ReceivedData.Substring(0, index - 2);
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
-            Appointment.Vaccines = ReceivedData.Substring(0, index - 1);
+            Appointment.Vaccines = ReceivedData.Substring(0, index - 2);
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
@@ -264,6 +265,19 @@ namespace MyHealthChart3.Services.Parsing
             Appointment.Address = ReceivedData.Substring(0, index);
             ReceivedData = ReceivedData.Substring(index + 3);
             return Appointment;
+        }
+        public async Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData)
+        {
+            ObservableCollection<ConditionViewModel> Conditions = new ObservableCollection<ConditionViewModel>();
+            while(!ReceivedData.Equals(""))
+            {
+                ConditionViewModel Condition = new ConditionViewModel();
+                int index = ReceivedData.IndexOf("///");
+                Condition.Type = ReceivedData.Substring(0, index);
+                Conditions.Add(Condition);
+                ReceivedData = ReceivedData.Substring(index + 3);
+            }
+            return Conditions;
         }
     }
 }

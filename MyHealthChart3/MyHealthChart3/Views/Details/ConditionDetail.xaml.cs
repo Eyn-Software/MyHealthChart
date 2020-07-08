@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
 using System.Collections.Generic;
@@ -11,22 +10,27 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyHealthChart3.Views.Forms
+namespace MyHealthChart3.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppointmentEditForm : ContentPage
+    public partial class ConditionDetail : ContentPage
     {
-        public AppointmentEditForm(UserViewModel User, AppointmentDetailModel Appointment, IServerComms NetworkModule)
+        public ConditionDetail(ConditionFormModel Condition, IServerComms NetworkModule)
         {
             InitializeComponent();
             IPageService PS = new PageService();
-            ViewModel = new AppointmentEditViewModel(User, Appointment, PS, NetworkModule);
+            ViewModel = new ConditionDetailViewModel(Condition, NetworkModule, PS);
         }
-        public AppointmentEditViewModel ViewModel
+        public async void DeleteCondition(object sender, EventArgs e)
+        {
+            ViewModel.DeleteConditionCmd.Execute(null);
+            await Navigation.PopAsync();
+        }
+        public ConditionDetailViewModel ViewModel
         {
             get
             {
-                return BindingContext as AppointmentEditViewModel;
+                return BindingContext as ConditionDetailViewModel;
             }
             set
             {

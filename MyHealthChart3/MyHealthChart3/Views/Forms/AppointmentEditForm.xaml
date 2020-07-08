@@ -3,13 +3,91 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:sfSwitch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Forms.AppointmentEditForm">
+             x:Class="MyHealthChart3.Views.Forms.AppointmentEditForm"
+             BackgroundImageSource="LoginBackground.png">
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content> 
+        <ScrollView>
+            <StackLayout>
+                <Grid BindingContext="{Binding Appointment}">
+                    <StackLayout>
+                        <!--Doctor's Name-->
+                        <Label
+                            Text="Doctor's Name:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,20,0,0"/>
+
+                        <Label
+                            Text="{Binding DoctorName}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!--Address-->
+                        <Label
+                            Text="Address:"
+                            TextColor="#005486"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            FontSize="18"
+                            Margin="20,20,0,0"/>
+
+                        <Label
+                            Text="{Binding Address}"
+                            FontSize="16"
+                            TextColor="Black"
+                            Margin="20,0,0,10"/>
+
+                        <!--Appointment Date-->
+                        <inputLayout:SfTextInputLayout Hint="Date of Appointment"  HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                            <DatePicker Date="{Binding Date, Mode=TwoWay}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Appointment Time-->
+                        <inputLayout:SfTextInputLayout Hint="Time of Appointment" HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                            <TimePicker Time="{Binding Time, Mode=TwoWay}"/>
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </Grid>
+
+                <Grid IsVisible="{Binding IsPast}">
+                    <StackLayout>
+
+                        <!--Reason for visit-->
+                        <inputLayout:SfTextInputLayout Hint="Reason For Visit" 
+                                                   ContainerType ="Outlined" 
+                                                   OutlineCornerRadius="7" BindingContext="{Binding Appointment}">
+                            <Entry Text="{Binding Reason}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Diagnosis-->
+                        <inputLayout:SfTextInputLayout Hint="Diagnosis" ContainerType ="Outlined"
+                                                       BindingContext="{Binding AppointmentObject}"
+                                                       OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
+                            <Entry Text="{Binding Diagnosis}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Aftercare-->
+                        <inputLayout:SfTextInputLayout Hint="Aftercare instructions" BindingContext="{Binding AppointmentObject}"
+                                                   ContainerType ="Outlined"
+                                                   OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
+                            <Entry Text="{Binding Aftercare}"/>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Submit-->
+                        <sfSwitch:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                                 Command="{Binding SubmitCmd}"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

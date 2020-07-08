@@ -10,6 +10,7 @@ namespace MyHealthChart3.Models.ViewDataObjects
         private string doctorname;
         private string address;
         private DateTime date;
+        private TimeSpan time;
         private DateTime remindertime;
         private string reason;
         private string diagnosis;
@@ -66,6 +67,17 @@ namespace MyHealthChart3.Models.ViewDataObjects
             set
             {
                 date = value;
+            }
+        }
+        public TimeSpan Time
+        {
+            get
+            {
+                return time;
+            }
+            set
+            {
+                time = value;
             }
         }
         public DateTime ReminderTime

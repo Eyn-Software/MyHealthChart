@@ -6,6 +6,7 @@ using MyHealthChart3.ViewModels.ModelCounterparts;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -148,6 +149,36 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAppointments(Details);
         }
+        /*
+        Name: GetConditions
+        Purpose: Gets a list of all conditions for the chosen user
+        Author: Samuel McManus
+        Uses: DownloadConditions
+        Used by: ConditionList
+        Date: July 7, 2020
+        */
+        public async Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListConditions")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadConditions(Details);
+        }
+        /*
+        Name: GetAppointment
+        Purpose: Gets all the details of one of a user's appointments
+        Author: Samuel McManus
+        Uses: DownloadAppointment
+        Used by: AppointmentDetail
+        Date: July 6, 2020
+        */
         public async Task<AppointmentDetailModel> GetAppointment(AppointmentDetailModel Appointment)
         {
             IDataParse dp = new DataParse();
@@ -278,6 +309,20 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return Details;
         }
+        public async Task<string> AddCondition(ConditionFormModel Condition)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Condition.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Condition.Password),
+                new KeyValuePair<string, string>("Type", Condition.Type),
+                new KeyValuePair<string, string>("Function", "AddCondition")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return Details;
+        }
         /*
         Name: EditDoctor
         Purpose: Submits an update for one of the doctors on the server
@@ -300,6 +345,44 @@ namespace MyHealthChart3.Services
                 new KeyValuePair<string, string>("Phone", Doctor.Phone),
                 new KeyValuePair<string, string>("Email", Doctor.Email),
                 new KeyValuePair<string, string>("Function", "UpdateDoctor")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            return await Response.Content.ReadAsStringAsync();
+        }
+        /*
+        Name: EditAppointment
+        Purpose: Submits an update for one of the appointments on the server
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: EditAppointmentFormViewModel
+        Date: July 6, 2020
+        */
+        public async Task<string> EditAppointment(AppointmentDetailModel Appointment)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Appointment.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Appointment.Password),
+                new KeyValuePair<string, string>("AId", Appointment.AId.ToString()),
+                new KeyValuePair<string, string>("Date", Appointment.Date.ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("Reason", Appointment.Reason),
+                new KeyValuePair<string, string>("Diagnosis", Appointment.Diagnosis),
+                new KeyValuePair<string, string>("Aftercare", Appointment.Aftercare),
+                new KeyValuePair<string, string>("Function", "UpdateAppointment")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            return await Response.Content.ReadAsStringAsync();
+        }
+        public async Task<string> DeleteCondition(ConditionFormModel Condition)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Condition.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Condition.Password),
+                new KeyValuePair<string, string>("Type", Condition.Type),
+                new KeyValuePair<string, string>("Function", "DeleteCondition")
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
