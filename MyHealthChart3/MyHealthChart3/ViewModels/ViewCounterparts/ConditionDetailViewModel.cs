@@ -12,7 +12,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class ConditionDetailViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private IPageService PS;
         private ConditionFormModel condition;
 
         public ConditionFormModel Condition
@@ -26,19 +25,19 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref condition, value);
             }
         }
-        public ICommand DeleteConditionCmd
-        {
-            get;
-            private set;
-        }
-        public ConditionDetailViewModel(ConditionFormModel Cond, IServerComms networkModule, IPageService Ps)
+        public ConditionDetailViewModel(ConditionFormModel Cond, IServerComms networkModule)
         {
             Condition = Cond;
             NetworkModule = networkModule;
-            PS = Ps;
-
-            DeleteConditionCmd = new Command(async () => await DeleteCondition());
         }
+        /*
+        Name: DeleteCondition
+        Purpose: Deletes the condition from the users_conditions table
+        Author: Samuel McManus
+        Uses: DeleteCondition
+        Used by: ConditionDetail
+        Date: July 7, 2020
+        */
         public async Task DeleteCondition()
         {
             await NetworkModule.DeleteCondition(Condition);

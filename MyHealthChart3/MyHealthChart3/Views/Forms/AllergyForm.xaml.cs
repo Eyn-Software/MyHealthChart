@@ -1,5 +1,4 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
 using System.Collections.Generic;
@@ -13,33 +12,33 @@ using Xamarin.Forms.Xaml;
 namespace MyHealthChart3.Views.Forms
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConditionForm : ContentPage
+    public partial class AllergyForm : ContentPage
     {
-        public ConditionForm(UserViewModel User, IServerComms networkModule)
+        public AllergyForm(UserViewModel User, Services.IServerComms NetworkModule)
         {
             InitializeComponent();
-            ViewModel = new ConditionFormViewModel(User, networkModule);
+            ViewModel = new AllergyFormViewModel(User, NetworkModule);
         }
         /*
         Name: Submit
-        Purpose: Submits the condition being entered
+        Purpose: Adds the user to the user_allergy table and returns to the list
         Author: Samuel McManus
         Uses: Submit
         Used by: N/A
-        Date: July 7, 2020
+        Date: July 8, 2020
         */
         public async void Submit(object sender, EventArgs e)
         {
             if(await ViewModel.Submit())
             {
                 await Navigation.PopAsync();
-            }
+            }  
         }
-        public ConditionFormViewModel ViewModel
+        public AllergyFormViewModel ViewModel
         {
             get
             {
-                return BindingContext as ConditionFormViewModel;
+                return BindingContext as AllergyFormViewModel;
             }
             set
             {

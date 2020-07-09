@@ -56,7 +56,7 @@ namespace MyHealthChart3.Views
         }
         public void AllergiesClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new AllergyList(User));
+            Navigation.PushAsync(new AllergyList(User, NetworkModule));
         }
         public void PrescriptionsClicked(object sender, EventArgs e)
         {

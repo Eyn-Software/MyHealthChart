@@ -18,12 +18,19 @@ namespace MyHealthChart3.Views
         public ConditionDetail(ConditionFormModel Condition, IServerComms NetworkModule)
         {
             InitializeComponent();
-            IPageService PS = new PageService();
-            ViewModel = new ConditionDetailViewModel(Condition, NetworkModule, PS);
+            ViewModel = new ConditionDetailViewModel(Condition, NetworkModule);
         }
+        /*
+        Name: Delete Condition
+        Purpose: Deletes the chosen condition
+        Author: Samuel McManus
+        Uses: DeleteConditionCmd
+        Used by: MainPage
+        Date: July 7, 2020
+        */
         public async void DeleteCondition(object sender, EventArgs e)
         {
-            ViewModel.DeleteConditionCmd.Execute(null);
+            await ViewModel.DeleteCondition();
             await Navigation.PopAsync();
         }
         public ConditionDetailViewModel ViewModel

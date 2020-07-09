@@ -14,7 +14,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class ConditionListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private IPageService PS;
         private UserViewModel user;
         private ObservableCollection<ConditionViewModel> conditions;
 
@@ -46,15 +45,22 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public ConditionListViewModel(UserViewModel Usr, IServerComms networkModule, IPageService ps)
+        public ConditionListViewModel(UserViewModel Usr, IServerComms networkModule)
         {
             User = Usr; 
             NetworkModule = networkModule;
-            PS = ps;
             Conditions = new ObservableCollection<ConditionViewModel>();
 
             SetConditionsCmd = new Command(async () => await SetConditions());
         }
+        /*
+        Name: SetConditions
+        Purpose: Sets the relevant conditions
+        Author: Samuel McManus
+        Uses: GetConditions
+        Used by: ConditionList
+        Date: July 7, 2020
+        */
         public async Task SetConditions()
         {
             Conditions = await NetworkModule.GetConditions(User);

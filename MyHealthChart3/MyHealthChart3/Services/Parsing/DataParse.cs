@@ -216,6 +216,56 @@ namespace MyHealthChart3.Services.Parsing
             }
             return Appointments;
         }
+        /*
+        Name: DownloadConditions
+        Purpose: Parses the string sent from the server when conditions are downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ConditionList
+        Date: July 6, 2020
+        */
+        public async Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData)
+        {
+            ObservableCollection<ConditionViewModel> Conditions = new ObservableCollection<ConditionViewModel>();
+            while (!ReceivedData.Equals(""))
+            {
+                ConditionViewModel Condition = new ConditionViewModel();
+                int index = ReceivedData.IndexOf("///");
+                Condition.Type = ReceivedData.Substring(0, index);
+                Conditions.Add(Condition);
+                ReceivedData = ReceivedData.Substring(index + 3);
+            }
+            return Conditions;
+        }
+        /*
+        Name: DownloadAllergies
+        Purpose: Parses a list of allergies
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetAllergies
+        Date: July 8, 2020
+        */
+        public async Task<ObservableCollection<AllergyViewModel>> DownloadAllergies(string ReceivedData)
+        {
+            ObservableCollection<AllergyViewModel> Allergies = new ObservableCollection<AllergyViewModel>();
+            while(!ReceivedData.Equals(""))
+            {
+                AllergyViewModel Allergy = new AllergyViewModel();
+                int index = ReceivedData.IndexOf("///");
+                Allergy.Type = ReceivedData.Substring(0, index);
+                Allergies.Add(Allergy);
+                ReceivedData = ReceivedData.Substring(index + 3);
+            }
+            return Allergies;
+        }
+        /*
+        Name: DownloadAppointment
+        Purpose: Parses the string sent from the server when a single appointment is downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AppointmentDetail
+        Date: July 6, 2020
+        */
         public async Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData)
         {
             AppointmentDetailModel Appointment = new AppointmentDetailModel();
@@ -265,19 +315,6 @@ namespace MyHealthChart3.Services.Parsing
             Appointment.Address = ReceivedData.Substring(0, index);
             ReceivedData = ReceivedData.Substring(index + 3);
             return Appointment;
-        }
-        public async Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData)
-        {
-            ObservableCollection<ConditionViewModel> Conditions = new ObservableCollection<ConditionViewModel>();
-            while(!ReceivedData.Equals(""))
-            {
-                ConditionViewModel Condition = new ConditionViewModel();
-                int index = ReceivedData.IndexOf("///");
-                Condition.Type = ReceivedData.Substring(0, index);
-                Conditions.Add(Condition);
-                ReceivedData = ReceivedData.Substring(index + 3);
-            }
-            return Conditions;
         }
     }
 }

@@ -24,14 +24,29 @@ namespace MyHealthChart3.Views.Lists
             InitializeComponent();
             user = User;
             networkmodule = NetworkModule;
-            IPageService PS = new PageService();
-            ViewModel = new ConditionListViewModel(User, NetworkModule, PS);
+            ViewModel = new ConditionListViewModel(User, NetworkModule);
         }
+        /*
+        Name: OnAppearing
+        Purpose: Calls the command which sets all the user's conditions
+        Author: Samuel McManus
+        Uses: SetConditionsCmd
+        Used by: N/A
+        Date: July 7, 2020
+        */
         protected override void OnAppearing()
         {
             ViewModel.SetConditionsCmd.Execute(null);
             base.OnAppearing();
         }
+        /*
+        Name: ConditionSelected
+        Purpose: Sends the selected condition to the condition detail page
+        Author: Samuel McManus
+        Uses: ConditionDetail
+        Used by: N/A
+        Date: July 7, 2020
+        */
         private async void ConditionSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
             ConditionViewModel Condition = e.ItemData as ConditionViewModel;
@@ -39,6 +54,14 @@ namespace MyHealthChart3.Views.Lists
             cond.Type = Condition.Type;
             await Navigation.PushAsync(new ConditionDetail(cond, networkmodule));
         }
+        /*
+        Name: NewCondition
+        Purpose: Redirects the user to the condition form page
+        Author: Samuel McManus
+        Uses: ConditionForm
+        Used by: MainPage
+        Date: July 7, 2020
+        */
         private async void NewCondition(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ConditionForm(user, networkmodule));

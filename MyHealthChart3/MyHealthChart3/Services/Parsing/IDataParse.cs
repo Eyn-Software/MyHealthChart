@@ -25,5 +25,6 @@ namespace MyHealthChart3.Services
         Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
         Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
         Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData);
+        Task<ObservableCollection<AllergyViewModel>> DownloadAllergies(string ReceivedData);
     }
 }
