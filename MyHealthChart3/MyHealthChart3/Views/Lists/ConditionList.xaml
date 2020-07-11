@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Lists.ConditionList"
+             BackgroundImageSource="LoginBackground.png">
+    
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New Condition"
+                     Clicked="NewCondition"
+                     Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <listview:SfListView ItemsSource="{Binding Conditions}" ItemTapped="ConditionSelected"
+                                     ItemSize="55">
+                    <listview:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <StackLayout>
+                                    <Label Text="{Binding Type}" FontSize="Medium"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </listview:SfListView.ItemTemplate>
+                </listview:SfListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

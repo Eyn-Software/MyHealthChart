@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.ConditionForm"
+             BackgroundImageSource="LoginBackground.png">
+    <ContentPage.Content>
+        <StackLayout>
+            <inputLayout:SfTextInputLayout Hint="Type of Condition" BindingContext="{Binding Condition}"
+                                               ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                <Entry Text = "{Binding Type}" />
+            </inputLayout:SfTextInputLayout>
+            
+            <Label Text="{Binding Error}" IsVisible="{Binding HasError}" TextColor="Red"/>
+            
+            <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Clicked="Submit"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

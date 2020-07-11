@@ -1,8 +1,10 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
+using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,6 +122,118 @@ namespace MyHealthChart3.Services.Parsing
             return Doctors;
         }
         /*
+        Name: DownloadUsers
+        Purpose: Parses the string sent from the server when appointments are downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: Login, Register
+        Date: July 2, 2020
+        */
+        public async Task<List<AppointmentListModel>> DownloadAppointments(string ReceivedData)
+        {
+            int Id;
+            string Doctor;
+            string Date;
+            int index;
+            List<AppointmentListModel> Appointments = new List<AppointmentListModel>();
+            AppointmentListModel Appointment;
+
+            while (!ReceivedData.Equals(""))
+            {
+                index = ReceivedData.IndexOf("///");
+                Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Date = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Appointment = new AppointmentListModel();
+                Appointment.Id = Id;
+                Appointment.Doctor = Doctor;
+                Appointment.Date = Date;
+                Appointment.DateAsDateTime = DateTime.Parse(Date);
+                Appointment.Date = Appointment.DateAsDateTime.ToShortDateString();
+                Appointments.Add(Appointment);
+            }
+            return Appointments;
+        }
+        /*
+        Name: DownloadConditions
+        Purpose: Parses the string sent from the server when conditions are downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ConditionList
+        Date: July 6, 2020
+        */
+        public async Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData)
+        {
+            ObservableCollection<ConditionViewModel> Conditions = new ObservableCollection<ConditionViewModel>();
+            while (!ReceivedData.Equals(""))
+            {
+                ConditionViewModel Condition = new ConditionViewModel();
+                int index = ReceivedData.IndexOf("///");
+                Condition.Type = ReceivedData.Substring(0, index);
+                Conditions.Add(Condition);
+                ReceivedData = ReceivedData.Substring(index + 3);
+            }
+            return Conditions;
+        }
+        /*
+        Name: DownloadAllergies
+        Purpose: Parses a list of allergies
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetAllergies
+        Date: July 8, 2020
+        */
+        public async Task<ObservableCollection<AllergyViewModel>> DownloadAllergies(string ReceivedData)
+        {
+            ObservableCollection<AllergyViewModel> Allergies = new ObservableCollection<AllergyViewModel>();
+            while(!ReceivedData.Equals(""))
+            {
+                AllergyViewModel Allergy = new AllergyViewModel();
+                int index = ReceivedData.IndexOf("///");
+                Allergy.Type = ReceivedData.Substring(0, index);
+                Allergies.Add(Allergy);
+                ReceivedData = ReceivedData.Substring(index + 3);
+            }
+            return Allergies;
+        }
+        public async Task<CalendarEventCollection> DownloadCalendar(string ReceivedData)
+        {
+            CalendarEventCollection Events = new CalendarEventCollection();
+            CalendarInlineEvent Event;
+            int index;
+            string UName;
+            string DName;
+
+            while (!ReceivedData.Equals(""))
+            {
+                Event = new CalendarInlineEvent();
+                index = ReceivedData.IndexOf("///");
+                Event.StartTime = DateTime.Parse(ReceivedData.Substring(0, index));
+                Event.EndTime = Event.StartTime;
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                UName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                DName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Event.Subject = UName + " has an appointment with " + DName + " at " + Event.StartTime.ToShortTimeString();
+                Events.Add(Event);
+            }
+            return Events;
+        }
+        /*
         Name: DownloadDoctor
         Purpose: Parses the string sent from the server when a doctor is downloaded
         Author: Samuel McManus
@@ -175,46 +289,13 @@ namespace MyHealthChart3.Services.Parsing
             return Doctor;
         }
         /*
-        Name: DownloadUsers
-        Purpose: Parses the string sent from the server when appointments are downloaded
+        Name: DownloadAppointment
+        Purpose: Parses the string sent from the server when a single appointment is downloaded
         Author: Samuel McManus
         Uses: N/A
-        Used by: Login, Register
-        Date: July 2, 2020
+        Used by: AppointmentDetail
+        Date: July 6, 2020
         */
-        public async Task<List<AppointmentListModel>> DownloadAppointments(string ReceivedData)
-        {
-            int Id;
-            string Doctor;
-            string Date;
-            int index;
-            List<AppointmentListModel> Appointments = new List<AppointmentListModel>();
-            AppointmentListModel Appointment;
-
-            while (!ReceivedData.Equals(""))
-            {
-                index = ReceivedData.IndexOf("///");
-                Id = int.Parse(ReceivedData.Substring(0, index));
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Doctor = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Date = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                Appointment = new AppointmentListModel();
-                Appointment.Id = Id;
-                Appointment.Doctor = Doctor;
-                Appointment.Date = Date;
-                Appointment.DateAsDateTime = DateTime.Parse(Date);
-                Appointment.Date = Appointment.DateAsDateTime.ToShortDateString();
-                Appointments.Add(Appointment);
-            }
-            return Appointments;
-        }
         public async Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData)
         {
             AppointmentDetailModel Appointment = new AppointmentDetailModel();
@@ -249,11 +330,11 @@ namespace MyHealthChart3.Services.Parsing
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
-            Appointment.Prescriptions = ReceivedData.Substring(0, index - 1);
+            Appointment.Prescriptions = ReceivedData.Substring(0, index - 2);
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
-            Appointment.Vaccines = ReceivedData.Substring(0, index - 1);
+            Appointment.Vaccines = ReceivedData.Substring(0, index - 2);
             ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");

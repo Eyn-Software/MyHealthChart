@@ -3,9 +3,9 @@ using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services.Parsing;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -148,6 +148,72 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAppointments(Details);
         }
+        public async Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListAllAppointments")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadCalendar(Details);
+        }
+        /*
+        Name: GetConditions
+        Purpose: Gets a list of all conditions for the chosen user
+        Author: Samuel McManus
+        Uses: DownloadConditions
+        Used by: ConditionList
+        Date: July 7, 2020
+        */
+        public async Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListConditions")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadConditions(Details);
+        }
+        /*
+        Name: GetAllergies
+        Purpose: Gets a list of all the user's allergies
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AllergyListViewModel
+        Date: July 8, 2020
+        */
+        public async Task<ObservableCollection<AllergyViewModel>> GetAllergies(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListAllergies")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadAllergies(Details);
+        }
+        /*
+        Name: GetAppointment
+        Purpose: Gets all the details of one of a user's appointments
+        Author: Samuel McManus
+        Uses: DownloadAppointment
+        Used by: AppointmentDetail
+        Date: July 6, 2020
+        */
         public async Task<AppointmentDetailModel> GetAppointment(AppointmentDetailModel Appointment)
         {
             IDataParse dp = new DataParse();
@@ -279,6 +345,50 @@ namespace MyHealthChart3.Services
             return Details;
         }
         /*
+        Name: Add Condition
+        Purpose: Submits a condition on the server
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ConditionFormViewModel
+        Date: July 7, 2020
+        */
+        public async Task<string> AddCondition(ConditionFormModel Condition)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Condition.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Condition.Password),
+                new KeyValuePair<string, string>("Type", Condition.Type),
+                new KeyValuePair<string, string>("Function", "AddCondition")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return Details;
+        }
+        /*
+        Name: AddAllergy
+        Purpose: Adds an allergy to the user_allergy table
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AllergyFormViewModel
+        Date: July 8, 2020
+        */
+        public async Task<string> AddAllergy(AllergyFormModel Allergy)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Allergy.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Allergy.Password),
+                new KeyValuePair<string, string>("Type", Allergy.Type),
+                new KeyValuePair<string, string>("Function", "AddAllergy")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return Details;
+        }
+        /*
         Name: EditDoctor
         Purpose: Submits an update for one of the doctors on the server
         Author: Samuel McManus
@@ -304,6 +414,72 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             return await Response.Content.ReadAsStringAsync();
+        }
+        /*
+        Name: EditAppointment
+        Purpose: Submits an update for one of the appointments on the server
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: EditAppointmentFormViewModel
+        Date: July 6, 2020
+        */
+        public async Task<string> EditAppointment(AppointmentDetailModel Appointment)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Appointment.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Appointment.Password),
+                new KeyValuePair<string, string>("AId", Appointment.AId.ToString()),
+                new KeyValuePair<string, string>("Date", Appointment.Date.ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("Reason", Appointment.Reason),
+                new KeyValuePair<string, string>("Diagnosis", Appointment.Diagnosis),
+                new KeyValuePair<string, string>("Aftercare", Appointment.Aftercare),
+                new KeyValuePair<string, string>("Function", "UpdateAppointment")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            return await Response.Content.ReadAsStringAsync();
+        }
+        /*
+        Name: DeleteCondition
+        Purpose: Deletes a condition from the user_conditions table
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ConditionListViewModel
+        Date: July 7, 2020
+        */
+        public async Task<string> DeleteCondition(ConditionFormModel Condition)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Condition.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Condition.Password),
+                new KeyValuePair<string, string>("Type", Condition.Type),
+                new KeyValuePair<string, string>("Function", "DeleteCondition")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            return await Response.Content.ReadAsStringAsync();
+        }
+        /*
+        Name: DeleteAllergy
+        Purpose: Deletes an allergy from the user_allergies table
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AllergyistViewModel
+        Date: July 8, 2020
+        */
+        public async Task DeleteAllergy(AllergyFormModel Allergy)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Allergy.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Allergy.Password),
+                new KeyValuePair<string, string>("Type", Allergy.Type),
+                new KeyValuePair<string, string>("Function", "DeleteAllergy")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
         }
     }
 }

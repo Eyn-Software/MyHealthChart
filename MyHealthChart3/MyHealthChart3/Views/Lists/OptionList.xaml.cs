@@ -47,7 +47,7 @@ namespace MyHealthChart3.Views
         }
         public void ConditionsClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new ConditionList(User));
+            Navigation.PushAsync(new ConditionList(User, NetworkModule));
         }
         public async void DoctorsClicked(object sender, EventArgs e)
         {
@@ -56,7 +56,7 @@ namespace MyHealthChart3.Views
         }
         public void AllergiesClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new AllergyList(User));
+            Navigation.PushAsync(new AllergyList(User, NetworkModule));
         }
         public void PrescriptionsClicked(object sender, EventArgs e)
         {
@@ -64,7 +64,7 @@ namespace MyHealthChart3.Views
         }
         public void CalendarClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new Calendar(User));
+            Navigation.PushAsync(new Calendar(User, NetworkModule));
         }
         public async void NotesClicked(object sender, EventArgs e)
         {
