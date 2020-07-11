@@ -64,7 +64,7 @@ namespace MyHealthChart3.Views
         }
         public void CalendarClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new Calendar(User));
+            Navigation.PushAsync(new Calendar(User, NetworkModule));
         }
         public async void NotesClicked(object sender, EventArgs e)
         {

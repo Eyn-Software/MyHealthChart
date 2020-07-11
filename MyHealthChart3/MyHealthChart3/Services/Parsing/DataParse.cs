@@ -1,6 +1,7 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
+using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -121,61 +122,6 @@ namespace MyHealthChart3.Services.Parsing
             return Doctors;
         }
         /*
-        Name: DownloadDoctor
-        Purpose: Parses the string sent from the server when a doctor is downloaded
-        Author: Samuel McManus
-        Uses: N/A
-        Used by: GetDoctor
-        Date: July 1, 2020
-        */
-        public async Task<DoctorViewModel> DownloadDoctor(string ReceivedData)
-        {
-            int Id;
-            string Name;
-            string Practice;
-            string Type;
-            string Address;
-            string Email;
-            string Phone;
-            int index;
-
-            index = ReceivedData.IndexOf("///");
-            Id = int.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Name = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Practice = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Type = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Address = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Email = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            Phone = ReceivedData;
-
-            DoctorViewModel Doctor = new DoctorViewModel();
-            Doctor.Id = (int)Id;
-            Doctor.Name = Name;
-            Doctor.Practice = Practice;
-            Doctor.Type = Type;
-            Doctor.Address = Address;
-            Doctor.Email = Email;
-            Doctor.Phone = Phone;
-            return Doctor;
-        }
-        /*
         Name: DownloadUsers
         Purpose: Parses the string sent from the server when appointments are downloaded
         Author: Samuel McManus
@@ -257,6 +203,90 @@ namespace MyHealthChart3.Services.Parsing
                 ReceivedData = ReceivedData.Substring(index + 3);
             }
             return Allergies;
+        }
+        public async Task<CalendarEventCollection> DownloadCalendar(string ReceivedData)
+        {
+            CalendarEventCollection Events = new CalendarEventCollection();
+            CalendarInlineEvent Event;
+            int index;
+            string UName;
+            string DName;
+
+            while (!ReceivedData.Equals(""))
+            {
+                Event = new CalendarInlineEvent();
+                index = ReceivedData.IndexOf("///");
+                Event.StartTime = DateTime.Parse(ReceivedData.Substring(0, index));
+                Event.EndTime = Event.StartTime;
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                UName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                DName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Event.Subject = UName + " has an appointment with " + DName + " at " + Event.StartTime.ToShortTimeString();
+                Events.Add(Event);
+            }
+            return Events;
+        }
+        /*
+        Name: DownloadDoctor
+        Purpose: Parses the string sent from the server when a doctor is downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetDoctor
+        Date: July 1, 2020
+        */
+        public async Task<DoctorViewModel> DownloadDoctor(string ReceivedData)
+        {
+            int Id;
+            string Name;
+            string Practice;
+            string Type;
+            string Address;
+            string Email;
+            string Phone;
+            int index;
+
+            index = ReceivedData.IndexOf("///");
+            Id = int.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Name = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Practice = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Type = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Address = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Email = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            Phone = ReceivedData;
+
+            DoctorViewModel Doctor = new DoctorViewModel();
+            Doctor.Id = (int)Id;
+            Doctor.Name = Name;
+            Doctor.Practice = Practice;
+            Doctor.Type = Type;
+            Doctor.Address = Address;
+            Doctor.Email = Email;
+            Doctor.Phone = Phone;
+            return Doctor;
         }
         /*
         Name: DownloadAppointment

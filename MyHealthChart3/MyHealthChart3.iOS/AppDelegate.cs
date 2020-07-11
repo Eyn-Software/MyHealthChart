@@ -1,3 +1,4 @@
+using Syncfusion.SfCalendar.XForms.iOS;
 using Syncfusion.XForms.iOS.Accordion;
 using Syncfusion.RangeNavigator.XForms.iOS;
 using Syncfusion.XForms.Pickers.iOS;
@@ -31,6 +32,7 @@ namespace MyHealthChart3.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 global::Xamarin.Forms.Forms.Init();
+SfCalendarRenderer.Init();
 SfAccordionRenderer.Init();
 SfSwitchRenderer.Init();
 SfRangeNavigatorRenderer.Init();

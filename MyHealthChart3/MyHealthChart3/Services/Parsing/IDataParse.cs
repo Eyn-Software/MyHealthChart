@@ -22,9 +22,10 @@ namespace MyHealthChart3.Services
         Task<List<UserViewModel>> DownloadUsers(string ReceivedData);
         Task<List<DoctorViewModel>> DownloadDoctors(string ReceivedData);
         Task<List<AppointmentListModel>> DownloadAppointments(string ReceivedData);
-        Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
-        Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
+        Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> DownloadCalendar(string ReceivedData);
         Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData);
         Task<ObservableCollection<AllergyViewModel>> DownloadAllergies(string ReceivedData);
+        Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
+        Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
     }
 }

@@ -3,7 +3,6 @@ using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services.Parsing;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -148,6 +147,20 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAppointments(Details);
+        }
+        public async Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListAllAppointments")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadCalendar(Details);
         }
         /*
         Name: GetConditions

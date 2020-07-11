@@ -140,6 +140,9 @@
     <PackageReference Include="Syncfusion.Xamarin.Expander">
       <Version>18.1.0.59</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
+      <Version>18.1.0.59</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfChart">
       <Version>18.1.0.59</Version>
     </PackageReference>

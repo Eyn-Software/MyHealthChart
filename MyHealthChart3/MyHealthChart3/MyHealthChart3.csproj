@@ -16,6 +16,7 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="18.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.Expander" Version="18.1.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="18.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.1.0.59" />
@@ -58,6 +59,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Lists\AppointmentList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lists\Calendar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Lists\ConditionList.xaml">
