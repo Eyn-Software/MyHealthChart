@@ -104,29 +104,6 @@ namespace MyHealthChart3.Services
             return Doctors;
         }
         /*
-        Name: GetDoctor
-        Purpose: Gets the relevant doctor from the server
-        Author: Samuel McManus
-        Uses: DownloadDoctor
-        Used by: DoctorEditFormViewModel
-        Date: June 31, 2020
-        */
-        public async Task<DoctorViewModel> GetDoctor(UserViewModel User, int Id)
-        {
-            IDataParse dp = new DataParse();
-            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("Id", Id.ToString()),
-                new KeyValuePair<string, string>("UId", User.Id.ToString()),
-                new KeyValuePair<string, string>("Password", User.Password),
-                new KeyValuePair<string, string>("Function", "GetDoctor")
-            };
-            HttpContent Content = new FormUrlEncodedContent(PostFields);
-            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
-            string ResponseString = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadDoctor(ResponseString);
-        }
-        /*
         Name: GetAppointments
         Purpose: Gets a list of all appointments for the chosen user
         Author: Samuel McManus
@@ -148,6 +125,14 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAppointments(Details);
         }
+        /*
+        Name: GetAllAppointments
+        Purpose: Gets a list of all appointments on the account for the calendar
+        Author: Samuel McManus
+        Uses: DownloadVaccines
+        Used by: VaccineList
+        Date: July 11, 2020
+        */
         public async Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User)
         {
             IDataParse dp = new DataParse();
@@ -205,6 +190,43 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAllergies(Details);
+        }
+        public async Task<ObservableCollection<VaccineViewModel>> GetVaccines(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListVaccines")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return null;
+        }
+        /*
+        Name: GetDoctor
+        Purpose: Gets the relevant doctor from the server
+        Author: Samuel McManus
+        Uses: DownloadDoctor
+        Used by: DoctorEditFormViewModel
+        Date: June 31, 2020
+        */
+        public async Task<DoctorViewModel> GetDoctor(UserViewModel User, int Id)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Id", Id.ToString()),
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "GetDoctor")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string ResponseString = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadDoctor(ResponseString);
         }
         /*
         Name: GetAppointment

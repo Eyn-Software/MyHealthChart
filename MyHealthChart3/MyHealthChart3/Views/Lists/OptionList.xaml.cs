@@ -77,7 +77,7 @@ namespace MyHealthChart3.Views
         }
         public void VaccinesClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new VaccineList(User));
+            Navigation.PushAsync(new VaccineList(User, NetworkModule));
         }
     }
 }

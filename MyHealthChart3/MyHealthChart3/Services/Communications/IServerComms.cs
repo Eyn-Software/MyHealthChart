@@ -20,6 +20,7 @@ namespace MyHealthChart3.Services
         Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User);
         Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User);
         Task<ObservableCollection<AllergyViewModel>> GetAllergies(UserViewModel User);
+        Task<ObservableCollection<VaccineViewModel>> GetVaccines(UserViewModel User);
         Task<string> SubmitDoctor(DoctorFormModel dataObject, UserViewModel user);
         Task<int> AddAppointment(AppointmentFormEntryModel Appointment);
         Task<string> AddPrescription(PrescriptionFormEntryModel Prescription);
