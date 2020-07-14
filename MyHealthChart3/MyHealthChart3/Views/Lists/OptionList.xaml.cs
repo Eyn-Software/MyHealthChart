@@ -60,7 +60,7 @@ namespace MyHealthChart3.Views
         }
         public void PrescriptionsClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new PrescriptionList(User));
+            Navigation.PushAsync(new PrescriptionList(User, NetworkModule));
         }
         public void CalendarClicked(object sender, EventArgs e)
         {

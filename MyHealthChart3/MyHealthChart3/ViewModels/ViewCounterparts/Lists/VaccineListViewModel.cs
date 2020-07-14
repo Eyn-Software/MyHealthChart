@@ -1,4 +1,5 @@
-﻿using MyHealthChart3.Services;
+﻿using MyHealthChart3.Models.ViewDataObjects;
+using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
     {
         private IServerComms NetworkModule;
         private UserViewModel User;
-        private ObservableCollection<VaccineViewModel> vaccines;
+        private ObservableCollection<VaccineListModel> vaccines;
 
-        public ObservableCollection<VaccineViewModel> Vaccines
+        public ObservableCollection<VaccineListModel> Vaccines
         {
             get
             {
@@ -36,6 +37,14 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
 
             SetVaccinesCmd = new Xamarin.Forms.Command(async () => await SetVaccines());
         }
+        /*
+        Name: SetVaccines
+        Purpose: Sets the list of the user's vaccines
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: VaccineListViewModel
+        Date: July 13, 2020
+        */
         public async System.Threading.Tasks.Task SetVaccines()
         {
             Vaccines = await NetworkModule.GetVaccines(User);

@@ -5,9 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Lists.VaccineList"
+             x:Class="MyHealthChart3.Views.Lists.PrescriptionList" 
              BackgroundImageSource="LoginBackground.png"
-             Title="Vaccines">
+             Title="Prescriptions">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="70" >
@@ -19,14 +19,14 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <listview:SfListView ItemsSource="{Binding Vaccines}" ItemTapped="VaccineSelected"
+                <listview:SfListView ItemsSource="{Binding Prescriptions}" ItemTapped="PrescriptionSelected"
                                      ItemSize="55">
                     <listview:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <StackLayout>
                                     <Label Text="{Binding Name}" FontSize="Medium"/>
-                                    <Label Text="{Binding Date}" FontSize="Medium"/>
+                                    <Label Text="{Binding EndDate}" FontSize="Medium"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

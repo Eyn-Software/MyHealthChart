@@ -191,7 +191,15 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadAllergies(Details);
         }
-        public async Task<ObservableCollection<VaccineViewModel>> GetVaccines(UserViewModel User)
+        /*
+        Name: GetVaccines
+        Purpose: Gets a list of all the user's vaccines
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: VaccineListViewModel
+        Date: July 13, 2020
+        */
+        public async Task<ObservableCollection<VaccineListModel>> GetVaccines(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -203,7 +211,29 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return null;
+            return await dp.DownloadVaccines(Details);
+        }
+        /*
+        Name: GetPrescriptions
+        Purpose: Gets a list of all the user's prescriptions
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: PrescriptionListViewModel
+        Date: July 14, 2020
+        */
+        public async Task<ObservableCollection<PrescriptionListModel>> GetPrescriptions(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListPrescriptions")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadPrescriptions(Details);
         }
         /*
         Name: GetDoctor
@@ -251,6 +281,21 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             AppointmentDetailModel Appt = await dp.DownloadAppointment(Details);
             return Appt;
+        }
+        public async Task<PrescriptionListModel> GetPrescription(PrescriptionListModel Prescription)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("PId", Prescription.Id.ToString()),
+                new KeyValuePair<string, string>("UId", Prescription.User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", Prescription.User.Password),
+                new KeyValuePair<string, string>("Function", "GetPrescription")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadPrescription(Details);
         }
         
         /*
@@ -457,6 +502,25 @@ namespace MyHealthChart3.Services
                 new KeyValuePair<string, string>("Diagnosis", Appointment.Diagnosis),
                 new KeyValuePair<string, string>("Aftercare", Appointment.Aftercare),
                 new KeyValuePair<string, string>("Function", "UpdateAppointment")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            return await Response.Content.ReadAsStringAsync();
+        }
+        public async Task<string> EditPrescription(PrescriptionListModel Prescription)
+        {
+            DateTime d = DateTime.Parse(Prescription.ReminderTime);
+            string b = d.ToString("yyyy-MM-dd hh:mm:ss");
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Prescription.User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", Prescription.User.Password),
+                new KeyValuePair<string, string>("PId", Prescription.Id.ToString()),
+                new KeyValuePair<string, string>("Name", Prescription.Name.ToString()),
+                new KeyValuePair<string, string>("StartDate", DateTime.Parse(Prescription.StartDate).ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("EndDate", DateTime.Parse(Prescription.EndDate).ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("ReminderTime", DateTime.Parse(Prescription.ReminderTime).ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("Function", "UpdatePrescription")
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);

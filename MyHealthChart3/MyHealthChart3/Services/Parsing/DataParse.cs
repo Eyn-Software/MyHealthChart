@@ -204,6 +204,14 @@ namespace MyHealthChart3.Services.Parsing
             }
             return Allergies;
         }
+        /*
+        Name: DownloadCalendar
+        Purpose: Parses a list of all appointments associated with the account
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetCalendar
+        Date: July 11, 2020
+        */
         public async Task<CalendarEventCollection> DownloadCalendar(string ReceivedData)
         {
             CalendarEventCollection Events = new CalendarEventCollection();
@@ -232,6 +240,83 @@ namespace MyHealthChart3.Services.Parsing
                 Events.Add(Event);
             }
             return Events;
+        }
+        /*
+        Name: DownloadVaccines
+        Purpose: Parses a list of vaccines
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetVaccines
+        Date: July 13, 2020
+        */
+        public async Task<ObservableCollection<VaccineListModel>> DownloadVaccines(string ReceivedData)
+        {
+            ObservableCollection<VaccineListModel> Vaccines = new ObservableCollection<VaccineListModel>();
+            VaccineListModel Vaccine;
+            string Name;
+            string Date;
+            int index;
+            while(!ReceivedData.Equals(""))
+            {
+                Vaccine = new VaccineListModel();
+
+                index = ReceivedData.IndexOf("///");
+                Vaccine.Name = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Vaccine.Date = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Vaccines.Add(Vaccine);
+            }
+            return Vaccines;
+        }
+        /*
+        Name: DownloadPrescriptions
+        Purpose: Parses a list of prescriptions
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetPrescriptions
+        Date: July 14, 2020
+        */
+        public async Task<ObservableCollection<PrescriptionListModel>> DownloadPrescriptions(string ReceivedData)
+        {
+            ObservableCollection<PrescriptionListModel> Prescriptions = new ObservableCollection<PrescriptionListModel>();
+            PrescriptionListModel Prescription;
+            int index;
+
+            while (!ReceivedData.Equals(""))
+            {
+                Prescription = new PrescriptionListModel();
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.Name = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.StartDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.EndDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortTimeString();
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Prescription.DoctorName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Prescriptions.Add(Prescription);
+            }
+            return Prescriptions;
         }
         /*
         Name: DownloadDoctor
@@ -345,6 +430,37 @@ namespace MyHealthChart3.Services.Parsing
             Appointment.Address = ReceivedData.Substring(0, index);
             ReceivedData = ReceivedData.Substring(index + 3);
             return Appointment;
+        }
+        public async Task<PrescriptionListModel> DownloadPrescription(string ReceivedData)
+        {
+            int index;
+            PrescriptionListModel Prescription = new PrescriptionListModel();
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.Id = int.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.Name = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.StartDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.EndDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortTimeString();
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Prescription.DoctorName = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            return Prescription;
         }
     }
 }
