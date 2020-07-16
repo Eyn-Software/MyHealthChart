@@ -48,7 +48,7 @@ namespace MyHealthChart3.Models
             get;
             set;
         }
-        public List<PrescriptionNotificationID> PrescriptionNotificationIDs
+        public List<Notification> PrescriptionNotificationIDs
         {
             get;
             set;
