@@ -100,18 +100,39 @@ namespace MyHealthChart3.ViewModels
             {
                 List<UserViewModel> Users = await NetworkModule.Login(DataObject);
                 List<PrescriptionListModel> Prescriptions = new List<PrescriptionListModel>();
-                List<PrescriptionListModel> TempRx = new List<PrescriptionListModel>();
+                List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
+                List<PrescriptionListModel> TempRx;
+                List<AppointmentReminderModel> TempAppt;
+                //Sets all reminders for appointments and prescriptions
                 foreach (UserViewModel User in Users)
                 {
                     MessagingCenter.Send(this, Events.UserAdded, User);
                     //Get a list of all prescriptions for the user and add it to the list "Prescription"
                     TempRx = new List<PrescriptionListModel>(await NetworkModule.GetPrescriptions(User));
-                    foreach (PrescriptionListModel p in TempRx)
-                        Prescriptions.Add(p);
+                    if(TempRx.Count != 0)
+                    {
+                        foreach (PrescriptionListModel p in TempRx)
+                            Prescriptions.Add(p);
+                    }
+                    //Get a list of all future appointments for the user and add it to the list "Appointment"
+                    TempAppt = new List<AppointmentReminderModel>(await NetworkModule.GetFutureAppointments(User));
+                    if(TempAppt.Count != 0)
+                    {
+                        foreach (AppointmentReminderModel a in TempAppt)
+                            Appointments.Add(a);
+                    }
                 }
-                foreach(PrescriptionListModel p in Prescriptions)
+                if(Prescriptions.Count != 0)
                 {
-                    await NotificationService.PrescriptionHandler(p);
+                    foreach (PrescriptionListModel p in Prescriptions)
+                    {
+                        await NotificationService.PrescriptionHandler(p);
+                    }
+                }
+                if(Appointments.Count != 0)
+                {
+                    foreach (AppointmentReminderModel a in Appointments)
+                        await NotificationService.AppointmentHandler(a);
                 }
                 (Application.Current.MainPage as MasterDetailPage).Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(WelcomePage)));
             }

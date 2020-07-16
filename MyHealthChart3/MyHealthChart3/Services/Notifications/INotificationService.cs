@@ -8,5 +8,6 @@ namespace MyHealthChart3.Services.Notifications
     public interface INotificationService
     {
         System.Threading.Tasks.Task PrescriptionHandler(PrescriptionListModel Prescription);
+        System.Threading.Tasks.Task AppointmentHandler(AppointmentReminderModel Appointment);
     }
 }

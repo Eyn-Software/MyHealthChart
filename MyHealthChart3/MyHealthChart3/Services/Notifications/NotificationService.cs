@@ -14,6 +14,14 @@ namespace MyHealthChart3.Services.Notifications
         {
 
         }
+        /*
+        Name: PrescriptionHandler
+        Purpose: Sets up notifications to take prescriptions
+        Author: Samuel McManus
+        Uses: NotificationStore
+        Used by: LoginFormViewModel
+        Date: July 16, 2020
+        */
         public async System.Threading.Tasks.Task PrescriptionHandler(PrescriptionListModel Prescription)
         {
             int EndResult, StartResult;
@@ -24,7 +32,7 @@ namespace MyHealthChart3.Services.Notifications
 
             //Deletes old notifications with the same prescription from crosslocal notifications
             Notifications = await NotificationStore.GetPrescriptionNotifs(Prescription.Id);
-            foreach(Notification n in Notifications)
+            foreach (Notification n in Notifications)
             {
                 CrossLocalNotifications.Current.Cancel(n.Id);
             }
@@ -34,11 +42,11 @@ namespace MyHealthChart3.Services.Notifications
             //For each day between the start date and the end date, 
             //add a prescription reminder to the database
             EndResult = DateTime.Compare(ReminderDay, DateTime.Parse(Prescription.EndDate));
-            while(EndResult <= 0)
+            while (EndResult <= 0)
             {
                 StartResult = DateTime.Compare(ReminderDay, DateTime.Parse(Prescription.StartDate));
                 int MidResult = DateTime.Compare(ReminderDay, DateTime.Now);
-                if(StartResult > 0 & MidResult > 0)
+                if (StartResult > 0 & MidResult > 0)
                 {
                     Notification = new Notification();
                     Notification.ReminderTime = ReminderDay;
@@ -50,29 +58,52 @@ namespace MyHealthChart3.Services.Notifications
             }
             //Add each prescription reminder for this prescription to the local notifications
             Notifications = await NotificationStore.GetPrescriptionNotifs(Prescription.Id);
-            foreach(Notification n in Notifications)
+            foreach (Notification n in Notifications)
             {
                 CrossLocalNotifications.Current.Show("Prescription Reminder", "This is a reminder to take " + Prescription.Name, n.Id, n.ReminderTime);
             }
         }
-        //Need to send over reminder time in the appointment list
         /*
-        public static async void AppointmentHandler(AppointmentListModel Appointment)
+        Name: AppointmentHandler
+        Purpose: Sets up appointment reminders
+        Author: Samuel McManus
+        Uses: NotificationStore
+        Used by: LoginFormViewModel
+        Date: July 16, 2020
+        */
+        public async System.Threading.Tasks.Task AppointmentHandler(AppointmentReminderModel Appointment)
         {
-                int Result;
-                DateTime ReminderDay = DateTime.Parse(Appointment.Date);
-                List<Notification> Notifications = new List<Notification>();
-                INotificationStore NotificationStore = new DBNotification(Xamarin.Forms.DependencyService.Get<ISQLite>());
+            Notification Notification;
+            List<Notification> Notifications = new List<Notification>();
+            INotificationStore NotificationStore = new DBNotification(Xamarin.Forms.DependencyService.Get<ISQLite>());
 
-                //Deletes any old appointment reminders for this appointment
-                await NotificationStore.DeleteOldAppointment(Appointment.Id);
-                //Adds the appointment reminder
-                Notifications = await NotificationStore.GetAppointmentNotif(Appointment.Id);
+            //Gets a list of reminders for this appointment and deletes them
+            //from local notifications
+            Notifications = await NotificationStore.GetAppointmentNotif(Appointment.Id);
+            if(Notifications.Count != 0)
+            {
+                foreach (Notification n in Notifications)
+                    CrossLocalNotifications.Current.Cancel(n.Id);
+            }
+
+            //Deletes the old notification from the database
+            await NotificationStore.DeleteOldAppointment(Appointment.Id);
+
+            //Adds the appointment reminder to the database
+            Notification = new Notification();
+            Notification.AId = Appointment.Id;
+            Notification.ReminderTime = Appointment.ReminderTime;
+            await NotificationStore.Add(Notification);
+
+            //Adds the appointment reminder to the local notifications
+            Notifications = await NotificationStore.GetAppointmentNotif(Appointment.Id);
+            if(Notifications.Count != 0)
+            {
                 foreach (Notification n in Notifications)
                 {
-                    CrossLocalNotifications.Current.Show("Prescription Reminder", "You have an appointment with " + Appointment.Doctor + " at " + ReminderDay.ToShortDateString() , n.Id, n.ReminderTime);
+                    CrossLocalNotifications.Current.Show("Prescription Reminder", "You have an appointment with " + Appointment.DoctorName + " at " + Appointment.ReminderTime.ToShortTimeString(), n.Id, n.ReminderTime);
                 }
+            }
         }
-        */
     }
 }

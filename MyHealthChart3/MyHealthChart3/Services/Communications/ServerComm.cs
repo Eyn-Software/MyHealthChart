@@ -148,6 +148,28 @@ namespace MyHealthChart3.Services
             return await dp.DownloadCalendar(Details);
         }
         /*
+        Name: GetFutureAppointments
+        Purpose: Gets a list of future appointments on the account
+        Author: Samuel McManus
+        Uses: DownloadFutureAppointments
+        Used by: LoginFormViewModel
+        Date: July 16, 2020
+        */
+        public async Task<List<AppointmentReminderModel>> GetFutureAppointments(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "ListFutureAppointments")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadFutureAppointments(Details);
+        }
+        /*
         Name: GetConditions
         Purpose: Gets a list of all conditions for the chosen user
         Author: Samuel McManus

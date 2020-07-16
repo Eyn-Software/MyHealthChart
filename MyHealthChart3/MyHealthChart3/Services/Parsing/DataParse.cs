@@ -163,6 +163,43 @@ namespace MyHealthChart3.Services.Parsing
             return Appointments;
         }
         /*
+        Name: DownloadFutureAppointment
+        Purpose: Parses the list of future appoitnments
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetFutureAppointments
+        Date: July 16, 2020
+        */
+        public async Task<List<AppointmentReminderModel>> DownloadFutureAppointments(string ReceivedData)
+        {
+            int index;
+            List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
+            AppointmentReminderModel Appointment;
+            while (!ReceivedData.Equals(""))
+            {
+                Appointment = new AppointmentReminderModel();
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.UserName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.DoctorName = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Appointments.Add(Appointment);
+            }
+            return Appointments;
+        }
+        /*
         Name: DownloadConditions
         Purpose: Parses the string sent from the server when conditions are downloaded
         Author: Samuel McManus

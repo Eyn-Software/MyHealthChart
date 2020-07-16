@@ -15,6 +15,7 @@ namespace MyHealthChart3.Services
         Task<List<UserViewModel>> Register(RegistrationFormModel data);
         Task<List<DoctorViewModel>> GetDoctors(UserViewModel user);
         Task<List<AppointmentListModel>> GetAppointments(UserViewModel User);
+        Task<List<AppointmentReminderModel>> GetFutureAppointments(UserViewModel User);
         Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User);
         Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User);
         Task<ObservableCollection<AllergyViewModel>> GetAllergies(UserViewModel User);
