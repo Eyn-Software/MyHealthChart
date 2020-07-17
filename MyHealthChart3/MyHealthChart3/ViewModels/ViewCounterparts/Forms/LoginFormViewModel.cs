@@ -103,7 +103,8 @@ namespace MyHealthChart3.ViewModels
                 List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
                 List<PrescriptionListModel> TempRx;
                 List<AppointmentReminderModel> TempAppt;
-                //Sets all reminders for appointments and prescriptions
+
+                //Gets a list of all prescriptions and appointments for the user
                 foreach (UserViewModel User in Users)
                 {
                     MessagingCenter.Send(this, Events.UserAdded, User);
@@ -122,6 +123,7 @@ namespace MyHealthChart3.ViewModels
                             Appointments.Add(a);
                     }
                 }
+                //Sets up daily notifications for each prescription
                 if(Prescriptions.Count != 0)
                 {
                     foreach (PrescriptionListModel p in Prescriptions)
@@ -129,6 +131,7 @@ namespace MyHealthChart3.ViewModels
                         await NotificationService.PrescriptionHandler(p);
                     }
                 }
+                //Sets up daily notifications for each appointment
                 if(Appointments.Count != 0)
                 {
                     foreach (AppointmentReminderModel a in Appointments)
