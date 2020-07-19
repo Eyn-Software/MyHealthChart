@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.FolderForm">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--Folder Title-->
+            <inputLayout:SfTextInputLayout Hint="Title" HelperText="{Binding Error}" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                <Entry Text="{Binding Name}" BindingContext="{Binding Folder}"/>
+            </inputLayout:SfTextInputLayout>
+            
+            <button:SfButton Text="Submit" Clicked="Submit"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

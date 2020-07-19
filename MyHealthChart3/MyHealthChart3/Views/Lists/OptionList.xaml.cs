@@ -1,4 +1,5 @@
-﻿using MyHealthChart3.Services;
+﻿using MyHealthChart3.Models.ViewDataObjects;
+using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views.Lists;
 using System;
@@ -68,12 +69,11 @@ namespace MyHealthChart3.Views
         }
         public async void NotesClicked(object sender, EventArgs e)
         {
-            //IPageService ps = new PageService();
-            //IUserStore us = new DBUser(DependencyService.Get<ISQLite>());
-            //IFolderStore fs = new DBFolder(DependencyService.Get<ISQLite>());
-            //FolderViewModel folder = new FolderViewModel();
-            //folder = await InitializeRoot.CheckFolders(ps, us, fs, User, folder);
-            //await Navigation.PushAsync(new NoteList(folder));
+            FolderListModel Folder = new FolderListModel();
+            Folder.UId = User.Id;
+            Folder.Password = User.Password;
+            Folder = await NetworkModule.GetRootFolder(Folder);
+            await Navigation.PushAsync(new NoteList(Folder, NetworkModule));
         }
         public void VaccinesClicked(object sender, EventArgs e)
         {

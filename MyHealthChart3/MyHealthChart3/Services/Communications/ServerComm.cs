@@ -258,6 +258,52 @@ namespace MyHealthChart3.Services
             return await dp.DownloadPrescriptions(Details);
         }
         /*
+        Name: GetFolders
+        Purpose: Gets a list of all of a folder's children folders
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteListViewModel
+        Date: July 19, 2020
+        */
+        public async Task<ObservableCollection<FolderListModel>> GetFolders(FolderListModel Folder)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Folder.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Folder.Password),
+                new KeyValuePair<string, string>("Id", Folder.Id.ToString()),
+                new KeyValuePair<string, string>("Function", "ListChildFolders")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadFolders(Details);
+        }
+        /*
+        Name: GetNotes
+        Purpose: Gets a list of all of a folder's notes
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteListViewModel
+        Date: July 19, 2020
+        */
+        public async Task<ObservableCollection<NoteListModel>> GetNotes(FolderListModel Folder)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Folder.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Folder.Password),
+                new KeyValuePair<string, string>("Id", Folder.Id.ToString()),
+                new KeyValuePair<string, string>("Function", "ListChildNotes")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadNotes(Details);
+        }
+        /*
         Name: GetDoctor
         Purpose: Gets the relevant doctor from the server
         Author: Samuel McManus
@@ -304,6 +350,42 @@ namespace MyHealthChart3.Services
             AppointmentDetailModel Appt = await dp.DownloadAppointment(Details);
             return Appt;
         }
+        /*
+        Name: GetRootFolder
+        Purpose: Gets the user's root folder
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: OptionList
+        Date: July 19, 2020
+        */
+        public async Task<FolderListModel> GetRootFolder(FolderListModel Folder)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Folder.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Folder.Password),
+                new KeyValuePair<string, string>("Function", "GetRootFolder")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            if (!Details.Equals("No root"))
+            {
+                Folder.Id = int.Parse(Details);
+                return Folder;
+            }
+            Folder.Id = 0;
+            return null;
+        }
+        /*
+        Name: GetPrescription
+        Purpose: Gets the specified prescription
+        Author: Samuel McManus
+        Uses: DownloadPrescription
+        Used by: PrescriptionDetail
+        Date: July 11, 2020
+        */
         public async Task<PrescriptionListModel> GetPrescription(PrescriptionListModel Prescription)
         {
             IDataParse dp = new DataParse();
@@ -476,6 +558,45 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
             return Details;
+        }
+        /*
+        Name: AddFolder
+        Purpose: Adds a folder
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: FolderFormViewModel
+        Date: July 19, 2020
+        */
+        public async Task AddFolder(FolderFormModel Folder)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Folder.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Folder.Password),
+                new KeyValuePair<string, string>("Name", Folder.Name),
+                new KeyValuePair<string, string>("CreationDate", Folder.CreationDate),
+                new KeyValuePair<string, string>("ParentFolderId", Folder.ParentFolderId.ToString()),
+                new KeyValuePair<string, string>("Function", "AddFolder")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+        }
+        public async Task AddNote(NoteFormModel Note)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Note.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Note.Password),
+                new KeyValuePair<string, string>("Name", Note.Name),
+                new KeyValuePair<string, string>("Description", Note.Description),
+                new KeyValuePair<string, string>("CreationDate", Note.CreationDate),
+                new KeyValuePair<string, string>("ParentFolderId", Note.ParentFolderId.ToString()),
+                new KeyValuePair<string, string>("Function", "AddNote")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            Details = "x";
         }
         /*
         Name: EditDoctor

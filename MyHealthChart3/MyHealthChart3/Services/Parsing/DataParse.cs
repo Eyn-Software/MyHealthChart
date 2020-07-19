@@ -356,6 +356,86 @@ namespace MyHealthChart3.Services.Parsing
             return Prescriptions;
         }
         /*
+        Name: DownloadFolders
+        Purpose: Parses a list of folders
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetChildFolders
+        Date: July 19, 2020
+        */
+        public async Task<ObservableCollection<FolderListModel>> DownloadFolders(string ReceivedData)
+        {
+            ObservableCollection<FolderListModel> Folders = new ObservableCollection<FolderListModel>();
+            FolderListModel Folder;
+            int index;
+            while(!ReceivedData.Equals(""))
+            {
+                Folder = new FolderListModel();
+
+                index = ReceivedData.IndexOf("///");
+                Folder.Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Folder.Name = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                //Remove after adding creation date to every non-root item
+                try
+                {
+                    Folder.CreationDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                }
+                catch(Exception e)
+                {
+
+                }
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                Folders.Add(Folder);
+            }
+            return Folders;
+        }
+        /*
+        Name: DownloadNotes
+        Purpose: Parses a list of notes
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: GetChildNotes
+        Date: July 19, 2020
+        */
+        public async Task<ObservableCollection<NoteListModel>> DownloadNotes(string ReceivedData)
+        {
+            ObservableCollection<NoteListModel> Notes = new ObservableCollection<NoteListModel>();
+            NoteListModel Note;
+            int index;
+            while(!ReceivedData.Equals(""))
+            {
+                Note = new NoteListModel();
+
+                index = ReceivedData.IndexOf("///");
+                Note.Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Note.Name = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                try
+                {
+                    Note.CreationDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                }
+                catch(Exception e)
+                {
+
+                }
+                ReceivedData = ReceivedData.Substring(index + 3);
+                Notes.Add(Note);
+            }
+            return Notes;
+        }
+        /*
         Name: DownloadDoctor
         Purpose: Parses the string sent from the server when a doctor is downloaded
         Author: Samuel McManus
