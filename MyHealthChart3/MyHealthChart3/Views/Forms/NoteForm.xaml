@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.NoteForm"
+             BackgroundImageSource="LoginBackground.png"
+             Title="New Note">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="70" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding Note}">
+                <Image
+                    Source="logoInt.png"
+                    VerticalOptions="Center"
+                    HeightRequest="125"
+                    Margin="0,30,0,30"/>
+
+                <!-- Note Title -->
+                <inputLayout:SfTextInputLayout Hint="Title" HelperText="{Binding Error}"
+                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+                    <Entry Text="{Binding Name}"/>
+                </inputLayout:SfTextInputLayout>
+                <!--Note Description-->
+                <inputLayout:SfTextInputLayout Hint="Description"
+                                               ContainerType="Outlined" OutlineCornerRadius="7">
+                    <Entry Text="{Binding Description}"/>
+                </inputLayout:SfTextInputLayout>
+                <button:SfButton Text="Submit" Clicked="Submit"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

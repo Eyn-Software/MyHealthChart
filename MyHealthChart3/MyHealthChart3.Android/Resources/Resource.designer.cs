@@ -27,6 +27,7 @@ namespace MyHealthChart3.Droid
 		public static void UpdateIdValues()
 		{
 			global::ModernHttpClient.Resource.String.library_name = global::MyHealthChart3.Droid.Resource.String.library_name;
+			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::MyHealthChart3.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::Plugin.Media.Resource.Attribute.alpha = global::MyHealthChart3.Droid.Resource.Attribute.alpha;
 			global::Plugin.Media.Resource.Attribute.coordinatorLayoutStyle = global::MyHealthChart3.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Plugin.Media.Resource.Attribute.font = global::MyHealthChart3.Droid.Resource.Attribute.font;
@@ -12072,49 +12073,52 @@ namespace MyHealthChart3.Droid
 			public const int notify_panel_notification_icon_bg = 2131165360;
 			
 			// aapt resource value: 0x7F0700B1
-			public const int popup_forms_android_close_icon = 2131165361;
+			public const int plugin_lc_smallicon = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int popup_forms_android_shadow = 2131165362;
+			public const int popup_forms_android_close_icon = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
-			public const int popup_forms_dark_theme_close_icon = 2131165363;
+			public const int popup_forms_android_shadow = 2131165363;
 			
 			// aapt resource value: 0x7F0700B4
-			public const int popup_forms_light_theme_close_icon = 2131165364;
+			public const int popup_forms_dark_theme_close_icon = 2131165364;
 			
 			// aapt resource value: 0x7F0700B5
-			public const int prescriptions = 2131165365;
+			public const int popup_forms_light_theme_close_icon = 2131165365;
 			
 			// aapt resource value: 0x7F0700B6
-			public const int sfclosebutton = 2131165366;
+			public const int prescriptions = 2131165366;
 			
 			// aapt resource value: 0x7F0700B7
-			public const int splash = 2131165367;
+			public const int sfclosebutton = 2131165367;
 			
 			// aapt resource value: 0x7F0700B8
-			public const int SplashScreen = 2131165368;
+			public const int splash = 2131165368;
 			
 			// aapt resource value: 0x7F0700B9
-			public const int styleinfo = 2131165369;
+			public const int SplashScreen = 2131165369;
 			
 			// aapt resource value: 0x7F0700BA
-			public const int ToolbarIcon = 2131165370;
+			public const int styleinfo = 2131165370;
 			
 			// aapt resource value: 0x7F0700BB
-			public const int tooltip_frame_dark = 2131165371;
+			public const int ToolbarIcon = 2131165371;
 			
 			// aapt resource value: 0x7F0700BC
-			public const int tooltip_frame_light = 2131165372;
+			public const int tooltip_frame_dark = 2131165372;
 			
 			// aapt resource value: 0x7F0700BD
-			public const int UpButton = 2131165373;
+			public const int tooltip_frame_light = 2131165373;
 			
 			// aapt resource value: 0x7F0700BE
-			public const int vaccines = 2131165374;
+			public const int UpButton = 2131165374;
 			
 			// aapt resource value: 0x7F0700BF
-			public const int xamarin_logo = 2131165375;
+			public const int vaccines = 2131165375;
+			
+			// aapt resource value: 0x7F0700C0
+			public const int xamarin_logo = 2131165376;
 			
 			static Drawable()
 			{

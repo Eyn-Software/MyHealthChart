@@ -4,28 +4,22 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Details.AllergyDetail"
+             x:Class="MyHealthChart3.Views.Details.VaccineDetail"
              BackgroundImageSource="LoginBackground.png">
 
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="70" >
             <Image Source="ToolbarIcon.png"/>
             <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
         </StackLayout>
     </NavigationPage.TitleView>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete Allergy"
-                     Clicked="DeleteAllergy"
-                     Order="Secondary"/>
-    </ContentPage.ToolbarItems>
-
     <ContentPage.Content>
-        <Grid BindingContext="{Binding Allergy}">
+        <Grid BindingContext="{Binding Vaccine}">
             <StackLayout>
-                <!--Allergy Type-->
+                <!--Vaccine Name-->
                 <Label
-                    Text="Type of Allergy:"
+                    Text="Vaccine Name:"
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
@@ -33,7 +27,21 @@
                     Margin="20,20,0,0"/>
 
                 <Label
-                    Text="{Binding Type}"
+                    Text="{Binding Name}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+                
+                <!--Vaccine Date-->
+                <Label
+                    Text="Date of Vaccination"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+                <Label
+                    Text="{Binding Date}"
                     FontSize="16"
                     TextColor="Black"
                     Margin="20,0,0,10"/>

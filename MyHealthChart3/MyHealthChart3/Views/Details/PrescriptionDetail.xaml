@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Details.PrescriptionDetail"
+             BackgroundImageSource="LoginBackground.png">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Prescription"
+                     Clicked="EditPrescription"
+                     Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <Grid BindingContext="{Binding Prescription}">
+            <StackLayout>
+                <!--Prescription Name-->
+                <Label
+                    Text="Prescription:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding Name}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+                
+                <!--Prescribed by-->
+                <Label
+                    Text="Prescribing Doctor:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding DoctorName}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+                
+                <!--Prescription Start Date-->
+                <Label
+                    Text="Start Date:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding StartDate}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+
+                <!--Prescription End Date-->
+                <Label
+                    Text="End Date:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding EndDate}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+
+                <!--Reminder Time-->
+                <Label
+                    Text="Take At:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
+
+                <Label
+                    Text="{Binding ReminderTime}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

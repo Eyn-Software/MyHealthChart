@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.DoctorList"
              BackgroundImageSource="LoginBackground.png">
+    
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
             <Image Source="ToolbarIcon.png"/>
@@ -20,39 +22,18 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-
-        <ListView x:Name="doctorListView"
-                  HasUnevenRows="True"
-                  ItemsSource="{Binding Doctors}">
-
-            <ListView.ItemTemplate>
+        <listview:SfListView ItemsSource="{Binding Doctors}" ItemTapped="DoctorSelected"
+                                     ItemSize="55">
+            <listview:SfListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem
-                            Clicked="OnEdit"
-                            CommandParameter="{Binding Id}"
-                            Text="Edit" IsDestructive="True" />
-                        </ViewCell.ContextActions>
-                        <StackLayout Padding="15,0" Margin="0,10,0,0">
-                            <Label
-                                Text="{Binding Name}"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Start"
-                                FontSize="18"
-                                Margin="10,0,0,0" />
-
-                            <Label
-                                Text="{Binding Practice}"
-                                TextColor="Black"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Start"
-                                FontSize="16"
-                                Margin="10,0,0,10" />
+                    <Grid>
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="Medium"/>
+                            <Label Text="{Binding Practice}" FontSize="Medium"/>
                         </StackLayout>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </listview:SfListView.ItemTemplate>
+        </listview:SfListView>
     </ContentPage.Content>
 </ContentPage>

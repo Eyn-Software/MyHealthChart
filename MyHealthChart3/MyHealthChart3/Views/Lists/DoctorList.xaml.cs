@@ -24,10 +24,14 @@ namespace MyHealthChart3.Views
         Used by: OptionList
         Date: May 29 2020
         */
+        UserViewModel User;
+        IServerComms NetworkModule;
         public DoctorList(UserViewModel u, IServerComms networkModule)
         {
             InitializeComponent();
             var ps = new PageService();
+            NetworkModule = networkModule;
+            User = u;
             ViewModel = new DoctorListViewModel(ps, networkModule, u);
         }
         /*
@@ -43,6 +47,19 @@ namespace MyHealthChart3.Views
         {
             ViewModel.SetDoctorsCmd.Execute(null);
             base.OnAppearing();
+        }
+        /*
+        Name: DoctorSelected
+        Purpose: Navigates the user to the doctor detail page
+        Author: Samuel McManus
+        Uses: DoctorDetail
+        Used by: N/A
+        Date: July 16 2020
+        */
+        private void DoctorSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        {
+            DoctorViewModel Doctor = e.ItemData as DoctorViewModel;
+            Navigation.PushAsync(new Details.DoctorDetail(Doctor, User, NetworkModule));
         }
         /*
         Name: OnEdit

@@ -1,5 +1,6 @@
 ﻿using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
+using MyHealthChart3.Services.Notifications;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class AppointmentFormViewModel : BaseViewModel
     {
+        private INotificationService NotificationService;
         private IPageService PS;
         private IServerComms NetworkModule;
         private bool ispast, wantsfollowup, rx0exists, rx1exists, vax0exists, vax1exists;
@@ -421,6 +423,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             Vaccine0 = new VaccineFormEntryModel();
             Vaccine1 = new VaccineFormEntryModel();
             Vaccine2 = new VaccineFormEntryModel();
+            NotificationService = new NotificationService();
             Time = DateTime.Now.AddHours(1).TimeOfDay;
             Date = DateTime.Now;
             DoctorNames = new ObservableCollection<string>();
@@ -475,6 +478,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         */
         private async Task Submit()
         {
+            PrescriptionListModel P;
+
             AppointmentObject.Date = Date;
             AppointmentObject.ChosenDoctor = Doctors[row];
             AppointmentObject.UId = User.Id;
@@ -497,7 +502,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 Prescription0.Name = Rx0Name;
                 Prescription0.DId = AppointmentObject.ChosenDoctor.Id;
                 Prescription0.Password = AppointmentObject.Password;
-                await NetworkModule.AddPrescription(Prescription0);
+                Prescription0.ReminderTime = Prescription0.StartDate.Date + Prescription0.ReminderTime.TimeOfDay;
+                //Adds reminders for prescription 0 and stores it on the server
+                P = new PrescriptionListModel(Prescription0);
+                P.Id = int.Parse(await NetworkModule.AddPrescription(Prescription0));
+                await NotificationService.PrescriptionHandler(P);
             }
             if(Rx1Exists)
             {
@@ -506,7 +515,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 Prescription1.Name = Rx1Name;
                 Prescription1.DId = AppointmentObject.ChosenDoctor.Id;
                 Prescription1.Password = AppointmentObject.Password;
-                await NetworkModule.AddPrescription(Prescription1);
+                Prescription1.ReminderTime = Prescription1.StartDate.Date + Prescription1.ReminderTime.TimeOfDay;
+                //Adds reminders for prescription 1 and stores it on the server
+                P = new PrescriptionListModel(Prescription1);
+                P.Id = int.Parse(await NetworkModule.AddPrescription(Prescription1));
+                await NotificationService.PrescriptionHandler(P);
             }
             if (Rx2Name != null && !Rx2Name.Equals(""))
             {
@@ -515,7 +528,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 Prescription2.Name = Rx2Name;
                 Prescription2.DId = AppointmentObject.ChosenDoctor.Id;
                 Prescription2.Password = AppointmentObject.Password;
-                await NetworkModule.AddPrescription(Prescription2);
+                Prescription2.ReminderTime = Prescription2.StartDate.Date + Prescription2.ReminderTime.TimeOfDay;
+                //Adds reminders for prescription 2 and stores it on the server
+                P = new PrescriptionListModel(Prescription2);
+                P.Id = int.Parse(await NetworkModule.AddPrescription(Prescription2));
+                await NotificationService.PrescriptionHandler(P);
             }
             if(Vax0Exists)
             {

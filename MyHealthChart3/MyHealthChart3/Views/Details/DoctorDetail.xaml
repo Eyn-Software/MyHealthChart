@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Details.DoctorDetail"
+             BackgroundImageSource="LoginBackground.png">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
+            <Image Source="ToolbarIcon.png"/>
+            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Doctor"
+                     Clicked="EditDoctor"
+                     Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding Doctor}">
+            <!--Doctor's Name-->
+            <Label  Text="Doctor Name:"/>
+            <Label Text="{Binding Name}"/>
+            
+            <!--Doctor's Practice-->
+            <Label Text="Practice:"/>
+            <Label Text="{Binding Practice}"/>
+            
+            <!--Doctor's Specialty-->
+            <Label Text="Specialty"/>
+            <Label Text="{Binding Type}"/>
+
+            <!--Doctor's Address-->
+            <Label Text="Address"/>
+            <Label Text="{Binding Address}"/>
+            
+            <!--Doctor's Email-->
+            <Label Text="Email"/>
+            <Label Text="{Binding Email}"/>
+            
+            <!--Doctor's Phone-->
+            <Label Text="Phone"/>
+            <Label Text="{Binding Phone}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

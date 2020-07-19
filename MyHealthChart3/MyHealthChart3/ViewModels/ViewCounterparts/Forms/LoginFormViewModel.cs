@@ -1,5 +1,7 @@
 ﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
+using MyHealthChart3.Services.Notifications;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views;
 using System;
@@ -14,6 +16,7 @@ namespace MyHealthChart3.ViewModels
 {
     public class LoginFormViewModel : BaseViewModel
     {
+        private INotificationService NotificationService;
         private IServerComms NetworkModule;
         private LoginFormModel dataobject;
         private bool haserror;
@@ -68,7 +71,8 @@ namespace MyHealthChart3.ViewModels
         {
             NetworkModule = networkModule;
             DataObject = new LoginFormModel();
-            SubmitCmd = new Command(async () => Submit());
+            NotificationService = new NotificationService();
+            SubmitCmd = new Command(async () => await Submit());
         }
         /*
         Name: Submit
@@ -94,10 +98,44 @@ namespace MyHealthChart3.ViewModels
             }
             else
             {
-                List<UserViewModel> Users =  await NetworkModule.Login(DataObject);
-                foreach(UserViewModel User in Users)
+                List<UserViewModel> Users = await NetworkModule.Login(DataObject);
+                List<PrescriptionListModel> Prescriptions = new List<PrescriptionListModel>();
+                List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
+                List<PrescriptionListModel> TempRx;
+                List<AppointmentReminderModel> TempAppt;
+
+                //Gets a list of all prescriptions and appointments for the user
+                foreach (UserViewModel User in Users)
                 {
                     MessagingCenter.Send(this, Events.UserAdded, User);
+                    //Get a list of all prescriptions for the user and add it to the list "Prescription"
+                    TempRx = new List<PrescriptionListModel>(await NetworkModule.GetPrescriptions(User));
+                    if(TempRx.Count != 0)
+                    {
+                        foreach (PrescriptionListModel p in TempRx)
+                            Prescriptions.Add(p);
+                    }
+                    //Get a list of all future appointments for the user and add it to the list "Appointment"
+                    TempAppt = new List<AppointmentReminderModel>(await NetworkModule.GetFutureAppointments(User));
+                    if(TempAppt.Count != 0)
+                    {
+                        foreach (AppointmentReminderModel a in TempAppt)
+                            Appointments.Add(a);
+                    }
+                }
+                //Sets up daily notifications for each prescription
+                if(Prescriptions.Count != 0)
+                {
+                    foreach (PrescriptionListModel p in Prescriptions)
+                    {
+                        await NotificationService.PrescriptionHandler(p);
+                    }
+                }
+                //Sets up daily notifications for each appointment
+                if(Appointments.Count != 0)
+                {
+                    foreach (AppointmentReminderModel a in Appointments)
+                        await NotificationService.AppointmentHandler(a);
                 }
                 (Application.Current.MainPage as MasterDetailPage).Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(WelcomePage)));
             }

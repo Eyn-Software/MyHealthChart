@@ -28,7 +28,7 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
         private DateTime startdate;
         private DateTime enddate;
         private DateTime remindertime;
-        private List<PrescriptionNotificationID> prescriptionnotificationids;
+        private List<Notification> prescriptionnotificationids;
         private int did;
         private int uid;
         private int aid;
@@ -88,7 +88,7 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
                 SetValue(ref remindertime, value);
             }
         }
-        public List<PrescriptionNotificationID> PrescriptionNotificationIDs
+        public List<Notification> PrescriptionNotificationIDs
         {
             get
             {
