@@ -401,6 +401,29 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadPrescription(Details);
         }
+        /*
+        Name: GetNote
+        Purpose: Gets a note from the database
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteDetailViewModel
+        Date: July 20, 2020
+        */
+        public async Task<NoteFormModel> GetNote(NoteListModel Note)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Id", Note.Id.ToString()),
+                new KeyValuePair<string, string>("UId", Note.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Note.Password),
+                new KeyValuePair<string, string>("Function", "GetNote")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadNote(Details, Note);
+        }
         
         /*
        Name: SubmitDoctor
@@ -581,6 +604,14 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
         }
+        /*
+        Name: AddNote
+        Purpose: Adds a note
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteFormViewModel
+        Date: July 20, 2020
+        */
         public async Task AddNote(NoteFormModel Note)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -595,8 +626,6 @@ namespace MyHealthChart3.Services
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
-            string Details = await Response.Content.ReadAsStringAsync();
-            Details = "x";
         }
         /*
         Name: EditDoctor
@@ -669,6 +698,20 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             return await Response.Content.ReadAsStringAsync();
         }
+        public async Task EditNote(NoteFormModel Note)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Note.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Note.Password),
+                new KeyValuePair<string, string>("Id", Note.Id.ToString()),
+                new KeyValuePair<string, string>("Name", Note.Name),
+                new KeyValuePair<string, string>("Description", Note.Description),
+                new KeyValuePair<string, string>("Function", "UpdateNote")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+        }
         /*
         Name: DeleteCondition
         Purpose: Deletes a condition from the user_conditions table
@@ -709,6 +752,26 @@ namespace MyHealthChart3.Services
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+        }
+        /*
+        Name: DeleteNote
+        Purpose: Deletes a note
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteDetailViewModel
+        Date: July 20, 2020
+        */
+        public async Task DeleteNote(NoteFormModel Note)
+        {
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UId", Note.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Note.Password),
+                new KeyValuePair<string, string>("Id", Note.Id.ToString()),
+                new KeyValuePair<string, string>("Function", "DeleteNote")
+            };
+            HttpContent content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, content);
         }
     }
 }

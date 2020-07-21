@@ -579,5 +579,20 @@ namespace MyHealthChart3.Services.Parsing
 
             return Prescription;
         }
+        public async Task<NoteFormModel> DownloadNote(string ReceivedData, NoteListModel N)
+        {
+            NoteFormModel Note = new NoteFormModel(N);
+            int index;
+
+            index = ReceivedData.IndexOf("///");
+            Note.Name = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Note.Description = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            return Note;
+        }
     }
 }

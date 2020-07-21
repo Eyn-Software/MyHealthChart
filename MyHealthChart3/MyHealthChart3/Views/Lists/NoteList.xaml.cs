@@ -52,6 +52,13 @@ namespace MyHealthChart3.Views.Lists
             Folder.Password = F.Password;
             Navigation.PushAsync(new NoteList(Folder, NetworkModule));
         }
+        private void NoteSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        {
+            Models.ViewDataObjects.NoteListModel Note = e.ItemData as Models.ViewDataObjects.NoteListModel;
+            Note.UId = F.UId;
+            Note.Password = F.Password;
+            Navigation.PushAsync(new Details.NoteDetail(Note, NetworkModule));
+        }
         /*
         Name: NewFolder
         Purpose: Sends the user to the folder creation form

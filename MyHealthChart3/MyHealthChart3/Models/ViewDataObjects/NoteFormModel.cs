@@ -12,8 +12,20 @@ namespace MyHealthChart3.Models.ViewDataObjects
             ParentFolderId = Folder.Id;
             UId = Folder.UId;
             Password = Folder.Password;
-            
         }
+        public NoteFormModel(NoteListModel Note)
+        {
+            Id = Note.Id;
+            Name = Note.Name;
+            CreationDate = Note.CreationDate.ToString("yyyy-MM-dd hh:mm:ss");
+            UId = Note.UId;
+            Password = Note.Password;
+        }
+        public NoteFormModel()
+        {
+
+        }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string CreationDate { get; set; }
         public int ParentFolderId { get; set; }

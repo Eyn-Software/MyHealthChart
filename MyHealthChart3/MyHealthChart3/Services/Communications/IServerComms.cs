@@ -27,6 +27,7 @@ namespace MyHealthChart3.Services
         Task<AppointmentDetailModel> GetAppointment(AppointmentDetailModel Appointment);
         Task<PrescriptionListModel> GetPrescription(PrescriptionListModel Prescription);
         Task<FolderListModel> GetRootFolder(FolderListModel Folder);
+        Task<NoteFormModel> GetNote(NoteListModel Note);
         Task<string> SubmitDoctor(DoctorFormModel dataObject, UserViewModel user);
         Task<int> AddAppointment(AppointmentFormEntryModel Appointment);
         Task<string> AddPrescription(PrescriptionFormEntryModel Prescription);
@@ -38,7 +39,9 @@ namespace MyHealthChart3.Services
         Task<string> EditDoctor(DoctorEditModel Doctor, UserViewModel User);
         Task<string> EditAppointment(AppointmentDetailModel Appointment);
         Task<string> EditPrescription(PrescriptionListModel Prescription);
+        Task EditNote(NoteFormModel Note);
         Task<string> DeleteCondition(ConditionFormModel Condition);
         Task DeleteAllergy(AllergyFormModel Allergy);
+        Task DeleteNote(NoteFormModel Note);
     }
 }

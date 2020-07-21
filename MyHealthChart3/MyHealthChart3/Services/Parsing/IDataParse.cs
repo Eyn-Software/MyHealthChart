@@ -33,5 +33,6 @@ namespace MyHealthChart3.Services
         Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
         Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
         Task<PrescriptionListModel> DownloadPrescription(string ReceivedData);
+        Task<NoteFormModel> DownloadNote(string ReceivedData, NoteListModel Note);
     }
 }
