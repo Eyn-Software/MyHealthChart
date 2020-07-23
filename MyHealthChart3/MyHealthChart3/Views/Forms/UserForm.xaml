@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.UserForm">
+    <ContentPage.Content>
+        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+                                                                  PhoneLandscape='150,32',
+                                                                  TabletPortrait='200,50',
+                                                                  TabletLandscape='300,50'}">    
+            <!--Title Label-->
+            <Label
+                FontSize="40" Text="New User"
+                HorizontalTextAlignment="Center"
+                Margin="0, 0, 0, 20"/>
+            <!--Name Entry-->
+            <inputLayout:SfTextInputLayout Hint="Name" HelperText="Enter your name" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding NameError}" HasError="{Binding NameHasError}">
+                <Entry Text="{Binding Name}" BindingContext="{Binding User}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Birthday Entry-->
+            <inputLayout:SfTextInputLayout Hint="Birthday" HelperText="Enter your birthday" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding BirthdayError}" HasError="{Binding BirthdayHasError}">
+                <DatePicker Date="{Binding Birthday}" BindingContext="{Binding User}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Submit Button-->
+            <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Clicked="Submit" HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

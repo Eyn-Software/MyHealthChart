@@ -1,5 +1,4 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels;
+﻿using MyHealthChart3.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,7 +15,7 @@ namespace MyHealthChart3.Views
         Used by: MainPage
         Date: June 26 2020
         */
-        public LoginForm(IServerComms NetworkModule)
+        public LoginForm(Services.IServerComms NetworkModule)
         {
             InitializeComponent();
             ViewModel = new LoginFormViewModel(NetworkModule);

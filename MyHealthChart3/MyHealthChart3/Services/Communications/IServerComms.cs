@@ -28,6 +28,7 @@ namespace MyHealthChart3.Services
         Task<PrescriptionListModel> GetPrescription(PrescriptionListModel Prescription);
         Task<FolderListModel> GetRootFolder(FolderListModel Folder);
         Task<NoteFormModel> GetNote(NoteListModel Note);
+        Task<UserViewModel> AddUser(UserViewModel User);
         Task<string> SubmitDoctor(DoctorFormModel dataObject, UserViewModel user);
         Task<int> AddAppointment(AppointmentFormEntryModel Appointment);
         Task<string> AddPrescription(PrescriptionFormEntryModel Prescription);

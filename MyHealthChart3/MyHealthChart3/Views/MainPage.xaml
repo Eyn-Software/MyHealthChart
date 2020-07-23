@@ -4,7 +4,6 @@
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
-            xmlns:views="clr-namespace:MyHealthChart3.Views"
             x:Class="MyHealthChart3.Views.MainPage" 
             BackgroundImageSource="LoginBackground.png">
 

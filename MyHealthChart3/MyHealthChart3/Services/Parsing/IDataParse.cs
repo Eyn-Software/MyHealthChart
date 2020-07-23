@@ -30,6 +30,7 @@ namespace MyHealthChart3.Services
         Task<ObservableCollection<PrescriptionListModel>> DownloadPrescriptions(string ReceivedData);
         Task<ObservableCollection<FolderListModel>> DownloadFolders(string ReceivedData);
         Task<ObservableCollection<NoteListModel>> DownloadNotes(string ReceivedData);
+        Task<UserViewModel> DownloadUser(string ReceivedData);
         Task<DoctorViewModel> DownloadDoctor(string ReceivedData);
         Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData);
         Task<PrescriptionListModel> DownloadPrescription(string ReceivedData);

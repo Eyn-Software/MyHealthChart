@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 using MyHealthChart3.Models;
 using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;

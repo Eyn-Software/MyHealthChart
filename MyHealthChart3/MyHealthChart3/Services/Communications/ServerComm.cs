@@ -83,6 +83,7 @@ namespace MyHealthChart3.Services
             }
             return Users;
         }
+        
         /*
         Name: GetDoctors
         Purpose: Gets a list of all of a user's doctors
@@ -427,7 +428,31 @@ namespace MyHealthChart3.Services
             string Details = await Response.Content.ReadAsStringAsync();
             return await dp.DownloadNote(Details, Note);
         }
-        
+        /*
+        Name: AddUser
+        Purpose: Adds a new user
+        Author: Samuel McManus
+        Uses: DownloadUser
+        Used by: UserFormViewModel
+        Date: July 23, 2020
+        */
+        public async Task<UserViewModel> AddUser(UserViewModel User)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Name", User.Name),
+                new KeyValuePair<string, string>("Birthday", User.Birthday.ToString("yyyy-MM-dd")),
+                new KeyValuePair<string, string>("UId", User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("Function", "AddUser")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            String SerializedString = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadUser(SerializedString);
+        }
+
         /*
        Name: SubmitDoctor
        Purpose: Adds a doctor to the server

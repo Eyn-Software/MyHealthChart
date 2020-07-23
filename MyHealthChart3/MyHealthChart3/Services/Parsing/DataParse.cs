@@ -435,6 +435,29 @@ namespace MyHealthChart3.Services.Parsing
             }
             return Notes;
         }
+        public async Task<UserViewModel> DownloadUser(string ReceivedData)
+        {
+            UserViewModel User = new UserViewModel();
+            int index;
+
+            index = ReceivedData.IndexOf("///");
+            User.Id = int.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            User.Name = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            User.Birthday = DateTime.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            User.AId = int.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            return User;
+        }
         /*
         Name: DownloadDoctor
         Purpose: Parses the string sent from the server when a doctor is downloaded

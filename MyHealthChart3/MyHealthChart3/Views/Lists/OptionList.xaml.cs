@@ -3,11 +3,6 @@ using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views.Lists;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -40,7 +35,7 @@ namespace MyHealthChart3.Views
         }
         public void NewUserClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new UserForm(User));
+            Navigation.PushAsync(new Forms.UserForm(User, NetworkModule));
         }
         public void AppointmentsClicked(object sender, EventArgs e)
         {

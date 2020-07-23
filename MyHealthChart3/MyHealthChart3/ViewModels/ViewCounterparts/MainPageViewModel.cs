@@ -76,6 +76,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 (this, Events.UserAdded, OnUserAdded);
             MessagingCenter.Subscribe<RegistrationFormViewModel, UserViewModel>
                 (this, Events.UserAdded, OnUserAdded);
+            MessagingCenter.Subscribe<Forms.UserFormViewModel, UserViewModel>
+                (this, Events.UserAdded, OnUserAdded);
             NetworkModule = networkModule;
             Authenticated = false;
 
@@ -100,6 +102,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             Authenticated = true;
         }
         private void OnUserAdded(RegistrationFormViewModel src, UserViewModel user)
+        {
+            Users.Add(user);
+            Authenticated = true;
+        }
+        private void OnUserAdded(Forms.UserFormViewModel src, UserViewModel user)
         {
             Users.Add(user);
             Authenticated = true;
