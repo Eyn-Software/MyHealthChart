@@ -53,7 +53,9 @@ namespace MyHealthChart3.ViewModels
             set
             {
                 SetValue(ref emailerror, value);
-                if (!EmailError.Equals(""))
+                if (EmailError.Equals(""))
+                    EmailHasError = false;
+                else
                     EmailHasError = true;
             }
         }
@@ -66,7 +68,9 @@ namespace MyHealthChart3.ViewModels
             set
             {
                 SetValue(ref passworderror, value);
-                if (!PasswordError.Equals(""))
+                if (PasswordError.Equals(""))
+                    PasswordHasError = false;
+                else
                     PasswordHasError = true;
             }
         }

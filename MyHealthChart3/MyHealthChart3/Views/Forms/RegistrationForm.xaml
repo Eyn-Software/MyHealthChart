@@ -3,18 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dataform="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.RegistrationForm"
              BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
-        <StackLayout>
-            <dataform:SfDataForm x:Name="dataForm" LayoutOptions="TextInputLayout"
-                                 DataObject="{Binding DataObject}"/>
-            <Label Text="{Binding Error}" IsVisible="{Binding HasError}"/>
+        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+            <!--Title Label-->
+            <Label
+                FontSize="40" Text="Sign Up"
+                HorizontalTextAlignment="Center"
+                Margin="0, 0, 0, 20"/>
+            <!--Name Entry-->
+            <inputLayout:SfTextInputLayout Hint="Name" HelperText="Enter your name" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding NameError}" HasError="{Binding NameHasError}">
+                <Entry Text="{Binding Name}" BindingContext="{Binding DataObject}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Birthday Entry-->
+            <inputLayout:SfTextInputLayout Hint="Birthday" HelperText="Enter your birthday" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding BirthdayError}" HasError="{Binding BirthdayHasError}">
+                <DatePicker Date="{Binding Birthday}" BindingContext="{Binding DataObject}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Email Entry-->
+            <inputLayout:SfTextInputLayout Hint="Email" HelperText="Enter your email" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding EmailError}" HasError="{Binding EmailHasError}">
+                <Entry Text="{Binding Email}" BindingContext="{Binding DataObject}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Password Entry-->
+            <inputLayout:SfTextInputLayout Hint="Password" HelperText="Enter your password" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding PasswordError}" HasError="{Binding PasswordHasError}"
+                                           CharMaxLength="254" EnablePasswordVisibilityToggle="True"
+                                           ShowCharCount="True">
+                <Entry Text="{Binding Password}" BindingContext="{Binding DataObject}" IsPassword="True"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Confirm Password Entry-->
+            <inputLayout:SfTextInputLayout Hint="Confirm Password" HelperText="Confirm your password" 
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           ErrorText="{Binding ConfirmPasswordError}" HasError="{Binding ConfirmPasswordHasError}"
+                                           CharMaxLength="254" EnablePasswordVisibilityToggle="True"
+                                           ShowCharCount="True">
+                <Entry Text="{Binding ConfirmPassword}" BindingContext="{Binding DataObject}" IsPassword="True"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Submit Button-->
             <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
-                             Command="{Binding SubmitCmd}"/>    
+                             Command="{Binding SubmitCmd}"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
