@@ -6,8 +6,6 @@ using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -18,9 +16,60 @@ namespace MyHealthChart3.ViewModels
     {
         private INotificationService NotificationService;
         private IServerComms NetworkModule;
+        private bool emailhaserror;
+        private bool passwordhaserror;
+        private string emailerror;
+        private string passworderror;
         private LoginFormModel dataobject;
-        private bool haserror;
-        private string error;
+
+        public bool EmailHasError
+        {
+            get
+            {
+                return emailhaserror;
+            }
+            set
+            {
+                SetValue(ref emailhaserror, value);
+            }
+        }
+        public bool PasswordHasError
+        {
+            get
+            {
+                return passwordhaserror;
+            }
+            set
+            {
+                SetValue(ref passwordhaserror, value);
+            }
+        }
+        public string EmailError
+        {
+            get
+            {
+                return emailerror;
+            }
+            set
+            {
+                SetValue(ref emailerror, value);
+                if (!EmailError.Equals(""))
+                    EmailHasError = true;
+            }
+        }
+        public string PasswordError
+        {
+            get
+            {
+                return passworderror;
+            }
+            set
+            {
+                SetValue(ref passworderror, value);
+                if (!PasswordError.Equals(""))
+                    PasswordHasError = true;
+            }
+        }
         public LoginFormModel DataObject
         {
             get
@@ -30,28 +79,6 @@ namespace MyHealthChart3.ViewModels
             set
             {
                 SetValue(ref dataobject, value);
-            }
-        }
-        public bool HasError
-        {
-            get
-            {
-                return haserror;
-            }
-            set
-            {
-                SetValue(ref haserror, value);
-            }
-        }
-        public string Error
-        {
-            get
-            {
-                return error;
-            }
-            set
-            {
-                SetValue(ref error, value);
             }
         }
         public ICommand SubmitCmd
@@ -86,58 +113,69 @@ namespace MyHealthChart3.ViewModels
         */
         private async Task Submit()
         {
-            if(DataObject.Password.Length < 6)
-            {
-                Error = "Your password must be at least 6 characters";
-                HasError = true;
-            }
-            else if (!DataObject.Email.Contains("@") || !DataObject.Email.Contains(".com"))
-            {
-                Error = "Your email is incorrectly formatted";
-                HasError = true;
-            }
-            else
+            EmailError = "";
+            PasswordError = "";
+            //Catches email errors
+            if (DataObject.Email.Equals(""))
+                EmailError = "Required*";
+            else if (!DataObject.Email.Contains("@") || !DataObject.Email.Contains("."))
+                EmailError = "Invalid email";
+            //Catches password errors
+            if(DataObject.Password.Equals(""))
+                PasswordError = "Required*";
+            //Catches email password combo errors
+            if (!EmailHasError && !PasswordHasError)
             {
                 List<UserViewModel> Users = await NetworkModule.Login(DataObject);
-                List<PrescriptionListModel> Prescriptions = new List<PrescriptionListModel>();
-                List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
-                List<PrescriptionListModel> TempRx;
-                List<AppointmentReminderModel> TempAppt;
+                if (Users.Count != 0)
+                {
+                    List<PrescriptionListModel> Prescriptions = new List<PrescriptionListModel>();
+                    List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
+                    List<PrescriptionListModel> TempRx;
+                    List<AppointmentReminderModel> TempAppt;
 
-                //Gets a list of all prescriptions and appointments for the user
-                foreach (UserViewModel User in Users)
-                {
-                    MessagingCenter.Send(this, Events.UserAdded, User);
-                    //Get a list of all prescriptions for the user and add it to the list "Prescription"
-                    TempRx = new List<PrescriptionListModel>(await NetworkModule.GetPrescriptions(User));
-                    if(TempRx.Count != 0)
+                    //Gets a list of all prescriptions and appointments for the user
+                    //This section is used to create prescription and appointment reminders.
+                    foreach (UserViewModel User in Users)
                     {
-                        foreach (PrescriptionListModel p in TempRx)
-                            Prescriptions.Add(p);
+                        MessagingCenter.Send(this, Events.UserAdded, User);
+                        //Get a list of all prescriptions for the user and add it to the list "Prescription"
+                        TempRx = new List<PrescriptionListModel>(await NetworkModule.GetPrescriptions(User));
+                        if (TempRx.Count != 0)
+                        {
+                            foreach (PrescriptionListModel p in TempRx)
+                                Prescriptions.Add(p);
+                        }
+                        //Get a list of all future appointments for the user and add it to the list "Appointment"
+                        TempAppt = new List<AppointmentReminderModel>(await NetworkModule.GetFutureAppointments(User));
+                        if (TempAppt.Count != 0)
+                        {
+                            foreach (AppointmentReminderModel a in TempAppt)
+                                Appointments.Add(a);
+                        }
                     }
-                    //Get a list of all future appointments for the user and add it to the list "Appointment"
-                    TempAppt = new List<AppointmentReminderModel>(await NetworkModule.GetFutureAppointments(User));
-                    if(TempAppt.Count != 0)
+                    //Sets up daily notifications for each prescription
+                    if (Prescriptions.Count != 0)
                     {
-                        foreach (AppointmentReminderModel a in TempAppt)
-                            Appointments.Add(a);
+                        foreach (PrescriptionListModel p in Prescriptions)
+                        {
+                            await NotificationService.PrescriptionHandler(p);
+                        }
                     }
-                }
-                //Sets up daily notifications for each prescription
-                if(Prescriptions.Count != 0)
-                {
-                    foreach (PrescriptionListModel p in Prescriptions)
+                    //Sets up daily notifications for each appointment
+                    if (Appointments.Count != 0)
                     {
-                        await NotificationService.PrescriptionHandler(p);
+                        foreach (AppointmentReminderModel a in Appointments)
+                            await NotificationService.AppointmentHandler(a);
                     }
-                }
-                //Sets up daily notifications for each appointment
-                if(Appointments.Count != 0)
-                {
-                    foreach (AppointmentReminderModel a in Appointments)
-                        await NotificationService.AppointmentHandler(a);
-                }
                 (Application.Current.MainPage as MasterDetailPage).Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(WelcomePage)));
+                }
+                //If the email and password don't work, set the password error.
+                else
+                {
+                    PasswordHasError = true;
+                    PasswordError = "Invalid email or password";
+                }
             }
         }
     }

@@ -6,10 +6,8 @@ using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace MyHealthChart3.Services
 {
@@ -34,6 +32,7 @@ namespace MyHealthChart3.Services
         public async Task<List<UserViewModel>> Login(LoginFormModel data)
         {
             IDataParse dp = new DataParse();
+            List<UserViewModel> Users = new List<UserViewModel>();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("Email", data.Email),
@@ -43,12 +42,16 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             String SerializedString = await Response.Content.ReadAsStringAsync();
-            List<UserViewModel> Users = await dp.DownloadUsers(SerializedString);
-            foreach(UserViewModel u in Users)
+            if(!SerializedString.Equals(""))
             {
-                u.Password = data.Password;
+                Users = await dp.DownloadUsers(SerializedString);
+                foreach (UserViewModel u in Users)
+                {
+                    u.Password = data.Password;
+                }
+                Password = Users[0].Password;
+                return Users;
             }
-            Password = Users[0].Password;
             return Users;
         }
         /*
@@ -698,6 +701,14 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             return await Response.Content.ReadAsStringAsync();
         }
+        /*
+        Name: EditNote
+        Purpose: Edits a note in the database
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteEditViewModel
+        Date: July 20, 2020
+        */
         public async Task EditNote(NoteFormModel Note)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()

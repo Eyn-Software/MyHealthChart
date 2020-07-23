@@ -1,11 +1,5 @@
 ﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,7 +19,6 @@ namespace MyHealthChart3.Views
         public LoginForm(IServerComms NetworkModule)
         {
             InitializeComponent();
-            IPageService PS = new PageService();
             ViewModel = new LoginFormViewModel(NetworkModule);
         }
         //Creates the ViewModel object of type LoginFormViewModel

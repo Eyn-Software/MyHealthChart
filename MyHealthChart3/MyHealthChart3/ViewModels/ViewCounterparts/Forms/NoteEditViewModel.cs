@@ -38,6 +38,14 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
             Note = n;
             NetworkModule = networkmodule;
         }
+        /*
+        Name: Submit
+        Purpose: Calls the edit note network module or displays an error message
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: NoteEdit
+        Date: July 20, 2020
+        */
         public async System.Threading.Tasks.Task Submit()
         {
             Error = "";
