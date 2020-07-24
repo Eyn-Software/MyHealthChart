@@ -1,5 +1,6 @@
 ﻿using ModernHttpClient;
 using MyHealthChart3.Models;
+using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services.Parsing;
 using MyHealthChart3.ViewModels.ModelCounterparts;
@@ -225,7 +226,7 @@ namespace MyHealthChart3.Services
         Used by: VaccineListViewModel
         Date: July 13, 2020
         */
-        public async Task<ObservableCollection<VaccineListModel>> GetVaccines(UserViewModel User)
+        public async Task<ObservableCollection<Vaccine>> GetVaccines(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()

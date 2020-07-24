@@ -1,17 +1,10 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
+﻿namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
 {
     public class VaccineDetailViewModel : BaseViewModel
     {
-        private IServerComms NetworkModule;
-        private VaccineListModel vaccine;
+        private Models.DBObjects.Vaccine vaccine;
 
-        public VaccineListModel Vaccine
+        public Models.DBObjects.Vaccine Vaccine
         {
             get
             {
@@ -22,10 +15,9 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
                 SetValue(ref vaccine, value);
             }
         }
-        public VaccineDetailViewModel(VaccineListModel vax, IServerComms networkModule)
+        public VaccineDetailViewModel(Models.DBObjects.Vaccine vax)
         {
             Vaccine = vax;
-            NetworkModule = networkModule;
         }
     }
 }

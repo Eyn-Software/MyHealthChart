@@ -1,21 +1,13 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
-using System.Net.Http;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private IPageService PS;
         private IServerComms NetworkModule;
         private bool authenticated;
         private bool unauthenticated;

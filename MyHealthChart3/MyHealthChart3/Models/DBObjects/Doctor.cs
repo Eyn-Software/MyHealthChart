@@ -23,7 +23,6 @@ namespace MyHealthChart3.Models
             Users = doctor.Users;
             Appointments = doctor.Appointments;
             Prescriptions = doctor.Prescriptions;
-            Vaccines = doctor.Vaccines;
 
         }
         public int Id
@@ -73,11 +72,6 @@ namespace MyHealthChart3.Models
             set;
         }
         public List<Prescription> Prescriptions
-        {
-            get;
-            set;
-        }
-        public List<Vaccine> Vaccines
         {
             get;
             set;

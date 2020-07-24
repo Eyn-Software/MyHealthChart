@@ -1,12 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using MyHealthChart3.Models.DBObjects;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,24 +10,52 @@ namespace MyHealthChart3.Views.Lists
     public partial class VaccineList : ContentPage
     {
         private UserViewModel User;
-        private Services.IServerComms NetworkModule;
         public VaccineList(UserViewModel user, Services.IServerComms networkModule)
         {
             InitializeComponent();
             User = user;
-            NetworkModule = networkModule;
-            ViewModel = new VaccineListViewModel(User, NetworkModule);
+            ViewModel = new VaccineListViewModel(User, networkModule);
         }
+        /*
+        Name: OnAppearing
+        Purpose: Gets vaccines from the server whenever this page appears
+        Author: Samuel McManus
+        Uses: SetVaccines
+        Used by: N/A
+        Date: July 13, 2020
+        */
         protected override void OnAppearing()
         {
             ViewModel.SetVaccinesCmd.Execute(null);
             base.OnAppearing();
         }
+        /*
+        Name: VaccineSelected
+        Purpose: Takes the selected vaccine and pushes it to the detail page
+        Author: Samuel McManus
+        Uses: VaccineDetail
+        Used by: N/A
+        Date: July 13, 2020
+        */
         private async void VaccineSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            VaccineListModel Vaccine = e.ItemData as VaccineListModel;
-            Vaccine.User = User;
-            await Navigation.PushAsync(new Details.VaccineDetail(Vaccine, NetworkModule));
+            Vaccine Vaccine = e.ItemData as Vaccine;
+            Vaccine.UId = User.Id;
+            Vaccine.Password = User.Password;
+            await Navigation.PushAsync(new Details.VaccineDetail(Vaccine));
+        }
+        /*
+        Name: OnFilterTextChanged
+        Purpose: Takes search bar text and sends to filter method
+        Author: Samuel McManus
+        Uses: FilterVaccines
+        Used by: N/A
+        Date: July 24, 2020
+        */
+        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchbar = sender as SearchBar;
+            ViewModel.FilterVaccines(searchbar.Text);
         }
         public VaccineListViewModel ViewModel
         {

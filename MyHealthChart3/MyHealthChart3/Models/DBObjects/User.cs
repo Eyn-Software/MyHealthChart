@@ -17,7 +17,6 @@ namespace MyHealthChart3.Models
             Doctors = user.Doctors;
             Appointments = user.Appointments;
             Prescriptions = user.Prescriptions;
-            Vaccines = user.Vaccines;
             Allergies = user.Allergies;
             Conditions = user.Conditions;
             Notes = user.Notes;
@@ -67,11 +66,6 @@ namespace MyHealthChart3.Models
             set;
         }
         public List<Prescription> Prescriptions
-        {
-            get;
-            set;
-        }
-        public List<Vaccine> Vaccines
         {
             get;
             set;

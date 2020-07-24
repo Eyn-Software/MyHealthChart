@@ -6,18 +6,6 @@
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.WelcomePage"
              BackgroundImageSource="LoginBackground.png">
-    <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >
-            <Image Source="ToolbarIcon.png"/>
-            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
-        </StackLayout>
-
-    </NavigationPage.TitleView>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New User"
-                     Clicked="newUserClicked"
-                     Order="Secondary"/>
-    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout>

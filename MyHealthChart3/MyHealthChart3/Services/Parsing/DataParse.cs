@@ -1,4 +1,5 @@
 ﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using Syncfusion.SfCalendar.XForms;
@@ -286,23 +287,24 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetVaccines
         Date: July 13, 2020
         */
-        public async Task<ObservableCollection<VaccineListModel>> DownloadVaccines(string ReceivedData)
+        public async Task<ObservableCollection<Vaccine>> DownloadVaccines(string ReceivedData)
         {
-            ObservableCollection<VaccineListModel> Vaccines = new ObservableCollection<VaccineListModel>();
-            VaccineListModel Vaccine;
+            ObservableCollection<Vaccine> Vaccines = new ObservableCollection<Vaccine>();
+            Vaccine Vaccine;
             string Name;
             string Date;
             int index;
             while(!ReceivedData.Equals(""))
             {
-                Vaccine = new VaccineListModel();
+                Vaccine = new Vaccine();
 
                 index = ReceivedData.IndexOf("///");
                 Vaccine.Name = ReceivedData.Substring(0, index);
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Vaccine.Date = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                Vaccine.Date = DateTime.Parse(ReceivedData.Substring(0, index));
+                Vaccine.StringDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 Vaccines.Add(Vaccine);

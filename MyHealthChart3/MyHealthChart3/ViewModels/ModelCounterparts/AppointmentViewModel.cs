@@ -21,7 +21,6 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
             Picture = appointment.Picture;
             DId = appointment.DId;
             UId = appointment.UId;
-            Vaccines = appointment.Vaccines;
             Prescriptions = appointment.Prescriptions;
         }
 
@@ -136,18 +135,6 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
             set
             {
                 SetValue(ref uid, value);
-            }
-        }
-        private List<Models.Vaccine> vaccines;
-        public List<Models.Vaccine> Vaccines
-        {
-            get
-            {
-                return vaccines;
-            }
-            set
-            {
-                SetValue(ref vaccines, value);
             }
         }
         private List<Models.Prescription> prescriptions;

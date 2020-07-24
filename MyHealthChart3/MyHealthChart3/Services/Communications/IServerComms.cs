@@ -1,10 +1,9 @@
 ﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.Services
@@ -19,7 +18,7 @@ namespace MyHealthChart3.Services
         Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User);
         Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User);
         Task<ObservableCollection<AllergyViewModel>> GetAllergies(UserViewModel User);
-        Task<ObservableCollection<VaccineListModel>> GetVaccines(UserViewModel User);
+        Task<ObservableCollection<Vaccine>> GetVaccines(UserViewModel User);
         Task<ObservableCollection<PrescriptionListModel>> GetPrescriptions(UserViewModel User);
         Task<ObservableCollection<FolderListModel>> GetFolders(FolderListModel Folder);
         Task<ObservableCollection<NoteListModel>> GetNotes(FolderListModel Folder);

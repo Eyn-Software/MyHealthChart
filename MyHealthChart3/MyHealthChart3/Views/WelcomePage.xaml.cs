@@ -17,10 +17,5 @@ namespace MyHealthChart3.Views
         {
             InitializeComponent();
         }
-        private void newUserClicked(object sender, EventArgs e)
-        {
-            UserViewModel user = new UserViewModel();
-            //Navigation.PushModalAsync(new NavigationPage(new UserForm(user)));
-        }
     }
 }

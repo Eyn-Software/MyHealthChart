@@ -17,18 +17,23 @@
     <ContentPage.Content>
         <Grid BindingContext="{Binding Vaccine}">
             <StackLayout>
+                <Image
+                    Source="logoInt.png"
+                    VerticalOptions="Center"
+                    HeightRequest="125"
+                    Margin="0,30,0,30"/>
                 <!--Vaccine Name-->
                 <Label
                     Text="Vaccine Name:"
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="22"
                     Margin="20,20,0,0"/>
 
                 <Label
                     Text="{Binding Name}"
-                    FontSize="16"
+                    FontSize="20"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
                 
@@ -38,11 +43,11 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="22"
                     Margin="20,20,0,0"/>
                 <Label
-                    Text="{Binding Date}"
-                    FontSize="16"
+                    Text="{Binding StringDate}"
+                    FontSize="20"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
             </StackLayout>

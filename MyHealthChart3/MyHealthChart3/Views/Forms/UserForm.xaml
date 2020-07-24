@@ -7,9 +7,10 @@
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Forms.UserForm">
+             x:Class="MyHealthChart3.Views.Forms.UserForm"
+             BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
-        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,100',
                                                                   PhoneLandscape='150,32',
                                                                   TabletPortrait='200,50',
                                                                   TabletLandscape='300,50'}">    

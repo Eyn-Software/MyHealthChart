@@ -26,7 +26,6 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
             Doctors = user.Doctors;
             Appointments = user.Appointments;
             Prescriptions = user.Prescriptions;
-            Vaccines = user.Vaccines;
             Allergies = user.Allergies;
             Conditions = user.Conditions;
             Notes = user.Notes;
@@ -118,19 +117,6 @@ namespace MyHealthChart3.ViewModels.ModelCounterparts
             set
             {
                 SetValue(ref prescriptions, value);
-            }
-        }
-
-        private List<Models.Vaccine> vaccines;
-        public List<Models.Vaccine> Vaccines
-        {
-            get
-            {
-                return vaccines;
-            }
-            set
-            {
-                SetValue(ref vaccines, value);
             }
         }
 

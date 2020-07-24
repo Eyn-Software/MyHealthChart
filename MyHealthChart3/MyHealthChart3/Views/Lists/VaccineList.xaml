@@ -19,14 +19,17 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <listview:SfListView ItemsSource="{Binding Vaccines}" ItemTapped="VaccineSelected"
+                <SearchBar HeightRequest="40"
+                           Placeholder="Search"
+                           TextChanged="OnFilterTextChanged" Grid.Row="0"/>
+                <listview:SfListView ItemsSource="{Binding FilteredVaccines}" ItemTapped="VaccineSelected"
                                      ItemSize="55">
                     <listview:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <StackLayout>
-                                    <Label Text="{Binding Name}" FontSize="Medium"/>
-                                    <Label Text="{Binding Date}" FontSize="Medium"/>
+                                    <Label Text="{Binding Name}" FontSize="Medium" TextColor="Blue"/>
+                                    <Label Text="{Binding StringDate}" FontSize="Small"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

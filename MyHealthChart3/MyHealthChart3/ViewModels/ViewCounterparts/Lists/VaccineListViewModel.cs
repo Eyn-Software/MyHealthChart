@@ -1,10 +1,7 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
 {
@@ -12,9 +9,10 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
     {
         private IServerComms NetworkModule;
         private UserViewModel User;
-        private ObservableCollection<VaccineListModel> vaccines;
+        private ObservableCollection<Vaccine> vaccines;
+        private ObservableCollection<Vaccine> filteredvaccines;
 
-        public ObservableCollection<VaccineListModel> Vaccines
+        public ObservableCollection<Vaccine> Vaccines
         {
             get
             {
@@ -23,6 +21,17 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
             set
             {
                 SetValue(ref vaccines, value);
+            }
+        }
+        public ObservableCollection<Vaccine> FilteredVaccines
+        {
+            get
+            {
+                return filteredvaccines;
+            }
+            set
+            {
+                SetValue(ref filteredvaccines, value);
             }
         }
         public System.Windows.Input.ICommand SetVaccinesCmd
@@ -48,6 +57,25 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
         public async System.Threading.Tasks.Task SetVaccines()
         {
             Vaccines = await NetworkModule.GetVaccines(User);
+            FilteredVaccines = Vaccines;
+        }
+        /*
+        Name: FilterVaccines
+        Purpose: Takes text from the search bar and filters 
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: VaccineList
+        Date: July 24, 2020
+        */
+        public void FilterVaccines(string Filter)
+        {
+            FilteredVaccines = new ObservableCollection<Vaccine>();
+            foreach(Vaccine v in Vaccines)
+            {
+                if (v.Name.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 || 
+                    v.StringDate.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    FilteredVaccines.Add(v);
+            }
         }
     }
 }
