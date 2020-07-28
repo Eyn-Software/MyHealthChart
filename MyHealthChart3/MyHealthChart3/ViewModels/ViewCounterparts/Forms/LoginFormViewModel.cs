@@ -133,9 +133,9 @@ namespace MyHealthChart3.ViewModels
                 List<UserViewModel> Users = await NetworkModule.Login(DataObject);
                 if (Users.Count != 0)
                 {
-                    List<PrescriptionListModel> Prescriptions = new List<PrescriptionListModel>();
+                    List<Prescription> Prescriptions = new List<Prescription>();
                     List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
-                    List<PrescriptionListModel> TempRx;
+                    List<Prescription> TempRx;
                     List<AppointmentReminderModel> TempAppt;
 
                     //Gets a list of all prescriptions and appointments for the user
@@ -144,10 +144,10 @@ namespace MyHealthChart3.ViewModels
                     {
                         MessagingCenter.Send(this, Events.UserAdded, User);
                         //Get a list of all prescriptions for the user and add it to the list "Prescription"
-                        TempRx = new List<PrescriptionListModel>(await NetworkModule.GetPrescriptions(User));
+                        TempRx = new List<Prescription>(await NetworkModule.GetPrescriptions(User));
                         if (TempRx.Count != 0)
                         {
-                            foreach (PrescriptionListModel p in TempRx)
+                            foreach (Prescription p in TempRx)
                                 Prescriptions.Add(p);
                         }
                         //Get a list of all future appointments for the user and add it to the list "Appointment"
@@ -161,7 +161,7 @@ namespace MyHealthChart3.ViewModels
                     //Sets up daily notifications for each prescription
                     if (Prescriptions.Count != 0)
                     {
-                        foreach (PrescriptionListModel p in Prescriptions)
+                        foreach (Prescription p in Prescriptions)
                         {
                             await NotificationService.PrescriptionHandler(p);
                         }

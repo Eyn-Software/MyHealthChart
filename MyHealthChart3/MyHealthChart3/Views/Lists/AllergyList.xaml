@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms" 
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Lists.AllergyList" 
+             x:Class="MyHealthChart3.Views.Lists.AllergyList"
              BackgroundImageSource="LoginBackground.png">
 
     <NavigationPage.TitleView>
@@ -24,13 +24,16 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <listview:SfListView ItemsSource="{Binding Allergies}" ItemTapped="AllergySelected"
+                <SearchBar HeightRequest="40"
+                           Placeholder="Search"
+                           TextChanged="OnFilterTextChanged" Grid.Row="0"/>
+                <listview:SfListView ItemsSource="{Binding FilteredAllergies}" ItemTapped="AllergySelected"
                                      ItemSize="55">
                     <listview:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <StackLayout>
-                                    <Label Text="{Binding Type}" FontSize="Medium"/>
+                                    <Label Text="{Binding Type}" FontSize="Medium" TextColor="Blue"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

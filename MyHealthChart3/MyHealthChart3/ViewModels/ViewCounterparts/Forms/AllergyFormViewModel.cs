@@ -1,8 +1,5 @@
 ﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
@@ -12,7 +9,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private UserViewModel User;
         private IServerComms NetworkModule;
         private string error;
-        private Models.ViewDataObjects.AllergyFormModel allergy;
+        private Models.Allergy allergy;
 
         public string Error
         {
@@ -25,7 +22,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref error, value);
             }
         }
-        public Models.ViewDataObjects.AllergyFormModel Allergy
+        public Models.Allergy Allergy
         {
             get
             {
@@ -40,7 +37,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             User = user;
             NetworkModule = networkModule;
-            Allergy = new Models.ViewDataObjects.AllergyFormModel(User);
+            Allergy = new Models.Allergy(User);
             Error = "";
         }
         /*

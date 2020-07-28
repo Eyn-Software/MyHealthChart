@@ -1,10 +1,12 @@
-﻿namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
+﻿using MyHealthChart3.Models.DBObjects;
+
+namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
 {
     public class VaccineDetailViewModel : BaseViewModel
     {
-        private Models.DBObjects.Vaccine vaccine;
+        private Vaccine vaccine;
 
-        public Models.DBObjects.Vaccine Vaccine
+        public Vaccine Vaccine
         {
             get
             {
@@ -15,7 +17,7 @@
                 SetValue(ref vaccine, value);
             }
         }
-        public VaccineDetailViewModel(Models.DBObjects.Vaccine vax)
+        public VaccineDetailViewModel(Vaccine vax)
         {
             Vaccine = vax;
         }
