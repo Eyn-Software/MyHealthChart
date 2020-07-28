@@ -1,7 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace MyHealthChart3.Models
 {
@@ -11,63 +8,19 @@ namespace MyHealthChart3.Models
         {
 
         }
-        public Prescription(PrescriptionViewModel prescription)
-        {
-            Id = prescription.Id;
-            Name = prescription.Name;
-            StartDate = prescription.StartDate;
-            EndDate = prescription.EndDate;
-            ReminderTime = prescription.ReminderTime;
-            PrescriptionNotificationIDs = prescription.PrescriptionNotificationIDs;
-            DId = prescription.DId;
-            UId = prescription.UId;
-            AId = prescription.AId;
-        }
-        public int Id
-        {
-            get;
-            set;
-        }
-        public string Name
-        {
-            get;
-            set;
-        }
-        public DateTime StartDate
-        {
-            get;
-            set;
-        }
-        public DateTime EndDate
-        {
-            get;
-            set;
-        }
-        public DateTime ReminderTime
-        {
-            get;
-            set;
-        }
-        public List<PrescriptionNotificationID> PrescriptionNotificationIDs
-        {
-            get;
-            set;
-        }
-        public int DId
-        {
-            get;
-            set;
-        }
-        public int UId
-        {
-            get;
-            set;
-        }
-
-        public int AId
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public string StartDateString { get; set; }
+        public DateTime EndDate { get; set; }
+        public string EndDateString { get; set; }
+        public bool NeedsReminder { get; set; }
+        public DateTime ReminderTime { get; set; }
+        public string ReminderTimeString { get; set; }
+        public string DoctorName { get; set; }
+        public int DId { get; set; }
+        public int UId { get; set; }
+        public int AId { get; set; }
+        public string Password { get; set; }
     }
 }

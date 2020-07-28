@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="MyHealthChart3.Views.Forms.AllergyForm"
+             BackgroundImageSource="LoginBackground.png">
+    
+    <ContentPage.Content>
+        <StackLayout
+            Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,80',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+            <!--Title Label-->
+            <Label
+                FontSize="36" Text="Add An Allergy"
+                HorizontalTextAlignment="Center"
+                Margin="0, 0, 0, 40"/>
+            <!--Type of Allergy-->
+            <inputLayout:SfTextInputLayout Hint="Type of Allergy" BindingContext="{Binding Allergy}"
+                                           ContainerType ="Outlined" ErrorText="{Binding Error}"
+                                           HasError="{Binding HasError}"
+                                           OutlineCornerRadius="7">
+                <Entry Text = "{Binding Type}" />
+            </inputLayout:SfTextInputLayout>
+
+            <!--Submit Button-->
+            <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Clicked="Submit"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
