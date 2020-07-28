@@ -1,19 +1,14 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class AllergyDetailViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private AllergyFormModel allergy;
+        private Allergy allergy;
 
-        public AllergyFormModel Allergy
+        public Allergy Allergy
         {
             get
             {
@@ -24,7 +19,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref allergy, value);
             }
         }
-        public AllergyDetailViewModel(AllergyFormModel Al, IServerComms networkmodule)
+        public AllergyDetailViewModel(Allergy Al, IServerComms networkmodule)
         {
             Allergy = Al;
             NetworkModule = networkmodule;
@@ -37,7 +32,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: AllergyDetail
         Date: July 8, 2020
         */
-        public async Task DeleteAllergy()
+        public async System.Threading.Tasks.Task DeleteAllergy()
         {
             await NetworkModule.DeleteAllergy(Allergy);
         }

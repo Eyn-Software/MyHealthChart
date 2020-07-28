@@ -19,22 +19,27 @@
                      Clicked="EditPrescription"
                      Order="Secondary"/>
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <Grid BindingContext="{Binding Prescription}">
-            <StackLayout>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding Prescription}">
+                <Image
+                    Source="logoInt.png"
+                    VerticalOptions="Center"
+                    HeightRequest="125"
+                    Margin="0,30,0,30"/>
                 <!--Prescription Name-->
                 <Label
                     Text="Prescription:"
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="20"
                     Margin="20,20,0,0"/>
 
                 <Label
                     Text="{Binding Name}"
-                    FontSize="16"
+                    FontSize="18"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
                 
@@ -44,12 +49,12 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="20"
                     Margin="20,20,0,0"/>
 
                 <Label
                     Text="{Binding DoctorName}"
-                    FontSize="16"
+                    FontSize="18"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
                 
@@ -59,12 +64,12 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="20"
                     Margin="20,20,0,0"/>
 
                 <Label
-                    Text="{Binding StartDate}"
-                    FontSize="16"
+                    Text="{Binding StartDateString}"
+                    FontSize="18"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
 
@@ -74,12 +79,12 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="20"
                     Margin="20,20,0,0"/>
 
                 <Label
-                    Text="{Binding EndDate}"
-                    FontSize="16"
+                    Text="{Binding EndDateString}"
+                    FontSize="18"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
 
@@ -89,15 +94,15 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="18"
+                    FontSize="20"
                     Margin="20,20,0,0"/>
 
                 <Label
-                    Text="{Binding ReminderTime}"
-                    FontSize="16"
+                    Text="{Binding ReminderTimeString}"
+                    FontSize="18"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
             </StackLayout>
-        </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

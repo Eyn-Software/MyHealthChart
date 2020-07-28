@@ -1,11 +1,5 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.ViewModels.ViewCounterparts;
+﻿using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +8,7 @@ namespace MyHealthChart3.Views.Details
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AllergyDetail : ContentPage
     {
-        public AllergyDetail(AllergyFormModel Allergy, Services.IServerComms NetworkModule)
+        public AllergyDetail(Models.Allergy Allergy, Services.IServerComms NetworkModule)
         {
             InitializeComponent();
             ViewModel = new AllergyDetailViewModel(Allergy, NetworkModule);

@@ -6,8 +6,6 @@ using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.Services.Parsing
@@ -229,12 +227,12 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetAllergies
         Date: July 8, 2020
         */
-        public async Task<ObservableCollection<AllergyViewModel>> DownloadAllergies(string ReceivedData)
+        public async Task<ObservableCollection<Allergy>> DownloadAllergies(string ReceivedData)
         {
-            ObservableCollection<AllergyViewModel> Allergies = new ObservableCollection<AllergyViewModel>();
+            ObservableCollection<Allergy> Allergies = new ObservableCollection<Allergy>();
             while(!ReceivedData.Equals(""))
             {
-                AllergyViewModel Allergy = new AllergyViewModel();
+                Allergy Allergy = new Allergy();
                 int index = ReceivedData.IndexOf("///");
                 Allergy.Type = ReceivedData.Substring(0, index);
                 Allergies.Add(Allergy);
@@ -291,8 +289,6 @@ namespace MyHealthChart3.Services.Parsing
         {
             ObservableCollection<Vaccine> Vaccines = new ObservableCollection<Vaccine>();
             Vaccine Vaccine;
-            string Name;
-            string Date;
             int index;
             while(!ReceivedData.Equals(""))
             {
@@ -319,15 +315,15 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetPrescriptions
         Date: July 14, 2020
         */
-        public async Task<ObservableCollection<PrescriptionListModel>> DownloadPrescriptions(string ReceivedData)
+        public async Task<ObservableCollection<Prescription>> DownloadPrescriptions(string ReceivedData)
         {
-            ObservableCollection<PrescriptionListModel> Prescriptions = new ObservableCollection<PrescriptionListModel>();
-            PrescriptionListModel Prescription;
+            ObservableCollection<Prescription> Prescriptions = new ObservableCollection<Prescription>();
+            Prescription Prescription;
             int index;
 
             while (!ReceivedData.Equals(""))
             {
-                Prescription = new PrescriptionListModel();
+                Prescription = new Prescription();
 
                 index = ReceivedData.IndexOf("///");
                 Prescription.Id = int.Parse(ReceivedData.Substring(0, index));
@@ -338,15 +334,18 @@ namespace MyHealthChart3.Services.Parsing
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Prescription.StartDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                Prescription.StartDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                Prescription.StartDateString = Prescription.StartDate.ToShortDateString();
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Prescription.EndDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
+                Prescription.EndDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                Prescription.EndDateString = Prescription.EndDate.ToShortDateString();
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Prescription.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortTimeString();
+                Prescription.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index));
+                Prescription.ReminderTimeString = Prescription.ReminderTime.ToShortTimeString();
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
@@ -572,37 +571,6 @@ namespace MyHealthChart3.Services.Parsing
             Appointment.Address = ReceivedData.Substring(0, index);
             ReceivedData = ReceivedData.Substring(index + 3);
             return Appointment;
-        }
-        public async Task<PrescriptionListModel> DownloadPrescription(string ReceivedData)
-        {
-            int index;
-            PrescriptionListModel Prescription = new PrescriptionListModel();
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.Id = int.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.Name = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.StartDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.EndDate = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortDateString();
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index)).ToShortTimeString();
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Prescription.DoctorName = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            return Prescription;
         }
         public async Task<NoteFormModel> DownloadNote(string ReceivedData, NoteListModel N)
         {
