@@ -204,7 +204,7 @@ namespace MyHealthChart3.Services
         Used by: AllergyListViewModel
         Date: July 8, 2020
         */
-        public async Task<ObservableCollection<Allergy>> GetAllergies(UserViewModel User)
+        public async Task<ObservableCollection<AllergyViewModel>> GetAllergies(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -248,7 +248,7 @@ namespace MyHealthChart3.Services
         Used by: PrescriptionListViewModel
         Date: July 14, 2020
         */
-        public async Task<ObservableCollection<Prescription>> GetPrescriptions(UserViewModel User)
+        public async Task<ObservableCollection<PrescriptionListModel>> GetPrescriptions(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -384,6 +384,29 @@ namespace MyHealthChart3.Services
             return null;
         }
         /*
+        Name: GetPrescription
+        Purpose: Gets the specified prescription
+        Author: Samuel McManus
+        Uses: DownloadPrescription
+        Used by: PrescriptionDetail
+        Date: July 11, 2020
+        */
+        public async Task<PrescriptionListModel> GetPrescription(PrescriptionListModel Prescription)
+        {
+            IDataParse dp = new DataParse();
+            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("PId", Prescription.Id.ToString()),
+                new KeyValuePair<string, string>("UId", Prescription.User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", Prescription.User.Password),
+                new KeyValuePair<string, string>("Function", "GetPrescription")
+            };
+            HttpContent Content = new FormUrlEncodedContent(PostFields);
+            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
+            string Details = await Response.Content.ReadAsStringAsync();
+            return await dp.DownloadPrescription(Details);
+        }
+        /*
         Name: GetNote
         Purpose: Gets a note from the database
         Author: Samuel McManus
@@ -500,7 +523,7 @@ namespace MyHealthChart3.Services
         Used by: AppointmentFormViewModel
         Date: July 3, 2020
         */
-        public async Task<string> AddPrescription(Prescription Prescription)
+        public async Task<string> AddPrescription(PrescriptionFormEntryModel Prescription)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -527,7 +550,7 @@ namespace MyHealthChart3.Services
         Used by: AppointmentForm
         Date: July 3, 2020
         */
-        public async Task<string> AddVaccine(Vaccine Vaccine)
+        public async Task<string> AddVaccine(VaccineFormEntryModel Vaccine)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -574,7 +597,7 @@ namespace MyHealthChart3.Services
         Used by: AllergyFormViewModel
         Date: July 8, 2020
         */
-        public async Task<string> AddAllergy(Allergy Allergy)
+        public async Task<string> AddAllergy(AllergyFormModel Allergy)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -685,17 +708,19 @@ namespace MyHealthChart3.Services
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             return await Response.Content.ReadAsStringAsync();
         }
-        public async Task<string> EditPrescription(Prescription Prescription)
+        public async Task<string> EditPrescription(PrescriptionListModel Prescription)
         {
+            DateTime d = DateTime.Parse(Prescription.ReminderTime);
+            string b = d.ToString("yyyy-MM-dd hh:mm:ss");
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("UId", Prescription.UId.ToString()),
-                new KeyValuePair<string, string>("Password", Prescription.Password),
+                new KeyValuePair<string, string>("UId", Prescription.User.Id.ToString()),
+                new KeyValuePair<string, string>("Password", Prescription.User.Password),
                 new KeyValuePair<string, string>("PId", Prescription.Id.ToString()),
                 new KeyValuePair<string, string>("Name", Prescription.Name.ToString()),
-                new KeyValuePair<string, string>("StartDate", Prescription.StartDate.ToString("yyyy-MM-dd hh:mm:ss")),
-                new KeyValuePair<string, string>("EndDate", Prescription.EndDate.ToString("yyyy-MM-dd hh:mm:ss")),
-                new KeyValuePair<string, string>("ReminderTime", Prescription.ReminderTime.ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("StartDate", DateTime.Parse(Prescription.StartDate).ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("EndDate", DateTime.Parse(Prescription.EndDate).ToString("yyyy-MM-dd hh:mm:ss")),
+                new KeyValuePair<string, string>("ReminderTime", DateTime.Parse(Prescription.ReminderTime).ToString("yyyy-MM-dd hh:mm:ss")),
                 new KeyValuePair<string, string>("Function", "UpdatePrescription")
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
@@ -753,7 +778,7 @@ namespace MyHealthChart3.Services
         Used by: AllergyistViewModel
         Date: July 8, 2020
         */
-        public async Task DeleteAllergy(Allergy Allergy)
+        public async Task DeleteAllergy(AllergyFormModel Allergy)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {

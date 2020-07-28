@@ -1,4 +1,7 @@
 ﻿using MyHealthChart3.ViewModels.ModelCounterparts;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MyHealthChart3.Models
 {
@@ -6,26 +9,20 @@ namespace MyHealthChart3.Models
     {
         public Allergy()
         {
-            Type = "";
-            Password = "";
+
         }
-        public Allergy(UserViewModel User)
+        public Allergy(AllergyViewModel allergy)
         {
-            Type = "";
-            UId = User.Id;
-            Password = User.Password;
+            Type = allergy.Type;
+            Users = allergy.Users;
         }
         public string Type
         {
             get;
             set;
         }
-        public int UId
-        {
-            get;
-            set;
-        }
-        public string Password
+
+        public List<User> Users
         {
             get;
             set;

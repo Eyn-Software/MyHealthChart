@@ -1,7 +1,12 @@
-﻿using MyHealthChart3.Models;
+﻿using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -42,8 +47,8 @@ namespace MyHealthChart3.Views.Lists
         */
         private async void AllergySelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            Allergy Allergy = e.ItemData as Allergy;
-            Allergy al = new Allergy(User);
+            AllergyViewModel Allergy = e.ItemData as AllergyViewModel;
+            AllergyFormModel al = new AllergyFormModel(User);
             al.Type = Allergy.Type;
             await Navigation.PushAsync(new Details.AllergyDetail(al, NetworkModule));
         }
@@ -58,19 +63,6 @@ namespace MyHealthChart3.Views.Lists
         private async void NewAllergy(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Forms.AllergyForm(User, NetworkModule));
-        }
-        /*
-        Name: OnFilterTextChanged
-        Purpose: Takes search bar text and searches for allergies with that text
-        Author: Samuel McManus
-        Uses: AllergyListViewModel
-        Used by: N/A
-        Date: July 28, 2020
-        */
-        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SearchBar searchbar = sender as SearchBar;
-            ViewModel.FilterAllergies(searchbar.Text);
         }
         public AllergyListViewModel ViewModel
         {

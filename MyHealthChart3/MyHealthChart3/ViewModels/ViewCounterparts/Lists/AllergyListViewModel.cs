@@ -1,6 +1,8 @@
-﻿using MyHealthChart3.Models;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.ViewModels.ModelCounterparts;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -11,10 +13,9 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     {
         private Services.IServerComms NetworkModule;
         private UserViewModel User;
-        private ObservableCollection<Allergy> allergies;
-        private ObservableCollection<Allergy> filteredallergies;
+        private ObservableCollection<AllergyViewModel> allergies;
         
-        public ObservableCollection<Allergy> Allergies
+        public ObservableCollection<AllergyViewModel> Allergies
         {
             get
             {
@@ -23,17 +24,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             set
             {
                 SetValue(ref allergies, value);
-            }
-        }
-        public ObservableCollection<Allergy> FilteredAllergies
-        {
-            get
-            {
-                return filteredallergies;
-            }
-            set
-            {
-                SetValue(ref filteredallergies, value);
             }
         }
         public ICommand SetAllergiesCmd
@@ -45,7 +35,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             User = Usr;
             NetworkModule = networkModule;
-            Allergies = new ObservableCollection<Allergy>();
+            Allergies = new ObservableCollection<AllergyViewModel>();
 
             SetAllergiesCmd = new Command(async () => await SetAllergies());
         }
@@ -60,16 +50,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private async Task SetAllergies()
         {
             Allergies = await NetworkModule.GetAllergies(User);
-            FilterAllergies("");
-        }
-        public void FilterAllergies(string Filter)
-        {
-            FilteredAllergies = new ObservableCollection<Allergy>();
-            foreach (Allergy a in Allergies)
-            {
-                if (a.Type.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0)
-                    FilteredAllergies.Add(a);
-            }
         }
 
     }

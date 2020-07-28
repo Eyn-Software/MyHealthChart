@@ -21,26 +21,23 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding Allergy}">
-            <Image
-                Source="logoInt.png"
-                VerticalOptions="Center"
-                HeightRequest="125"
-                Margin="0,30,0,30"/>
-            <!--Allergy Type-->
-            <Label
-                Text="Type of Allergy:"
-                TextColor="#005486"
-                HorizontalOptions="Start"
-                VerticalOptions="Start"
-                FontSize="20"
-                Margin="20,20,0,0"/>
+        <Grid BindingContext="{Binding Allergy}">
+            <StackLayout>
+                <!--Allergy Type-->
+                <Label
+                    Text="Type of Allergy:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
 
-            <Label
-                Text="{Binding Type}"
-                FontSize="18"
-                TextColor="Black"
-                Margin="20,0,0,10"/>
-        </StackLayout>
+                <Label
+                    Text="{Binding Type}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -5,91 +5,68 @@ xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Button
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Forms.PrescriptionEditForm"
              BackgroundImageSource="LoginBackground.png">
-    
-    <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="70" >
-            <Image Source="ToolbarIcon.png"/>
-            <Label Text="" FontSize="16" VerticalTextAlignment="Center" />
-        </StackLayout>
-    </NavigationPage.TitleView>
-    
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,100',
-                                                         PhoneLandscape='150,32',
-                                                         TabletPortrait='200,50',
-                                                         TabletLandscape='300,50'}">
-                <!--Title Label-->
+        <StackLayout>
+            <StackLayout BindingContext="{Binding Prescription}">
+                <!--Prescription Name-->
                 <Label
-                    FontSize="40" Text="Edit Prescription"
-                    HorizontalTextAlignment="Center"
-                    Margin="0, 0, 0, 20"/>
-                <StackLayout BindingContext="{Binding Prescription}">
-                    <!--Prescription Name-->
-                    <Label
-                        Text="Prescription:"
-                        TextColor="#005486"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Start"
-                        FontSize="18"
-                        Margin="20,20,0,0"/>
+                    Text="Prescription:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
 
-                    <Label
-                        Text="{Binding Name}"
-                        FontSize="16"
-                        TextColor="Black"
-                        Margin="20,0,0,10"/>
+                <Label
+                    Text="{Binding Name}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
 
-                    <!--Prescribed by-->
-                    <Label
-                        Text="Prescribing Doctor:"
-                        TextColor="#005486"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Start"
-                        FontSize="18"
-                        Margin="20,20,0,0"/>
+                <!--Prescribed by-->
+                <Label
+                    Text="Prescribing Doctor:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
 
-                    <Label
-                        Text="{Binding DoctorName}"
-                        FontSize="16"
-                        TextColor="Black"
-                        Margin="20,0,0,10"/>
+                <Label
+                    Text="{Binding DoctorName}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
 
-                    <!--Prescription Start Date-->
-                    <Label
-                        Text="Start Date:"
-                        TextColor="#005486"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Start"
-                        FontSize="18"
-                        Margin="20,20,0,0"/>
+                <!--Prescription Start Date-->
+                <Label
+                    Text="Start Date:"
+                    TextColor="#005486"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    FontSize="18"
+                    Margin="20,20,0,0"/>
 
-                    <Label
-                        Text="{Binding StartDateString}"
-                        FontSize="16"
-                        TextColor="Black"
-                        Margin="20,0,0,10"/>
-                </StackLayout>
-                <!--End Date-->
-                <inputLayout:SfTextInputLayout Hint="Prescription End Date" ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <DatePicker Date="{Binding EndDate}"/>
-                </inputLayout:SfTextInputLayout>
-                <!--Reminder Time-->
-                <inputLayout:SfTextInputLayout Hint="Take At:" ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <TimePicker Time="{Binding ReminderTime}"/>
-                </inputLayout:SfTextInputLayout>
-                <!--Submit Button-->
-                <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
-                             Clicked="SubmitClicked"  HeightRequest="50"
-                             FontSize="18" Margin="110, 40, 110, 10"
-                             CornerRadius="10"/>
+                <Label
+                    Text="{Binding StartDate}"
+                    FontSize="16"
+                    TextColor="Black"
+                    Margin="20,0,0,10"/>
             </StackLayout>
-        </ScrollView>
+            <!--End Date-->
+            <inputLayout:SfTextInputLayout Hint="Prescription End Date" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                <DatePicker Date="{Binding EndDate}"/>
+            </inputLayout:SfTextInputLayout>
+            <!--Reminder Time-->
+            <inputLayout:SfTextInputLayout Hint="Take At:" ContainerType ="Outlined"
+                                               OutlineCornerRadius="7">
+                <TimePicker Time="{Binding ReminderTime}"/>
+            </inputLayout:SfTextInputLayout>
+            <button:SfButton Text="Submit" Clicked="SubmitClicked"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

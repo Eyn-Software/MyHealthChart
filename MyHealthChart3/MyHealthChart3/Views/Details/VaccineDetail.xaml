@@ -15,8 +15,8 @@
     </NavigationPage.TitleView>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout BindingContext="{Binding Vaccine}">
+        <Grid BindingContext="{Binding Vaccine}">
+            <StackLayout>
                 <Image
                     Source="logoInt.png"
                     VerticalOptions="Center"
@@ -28,29 +28,29 @@
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="20"
+                    FontSize="22"
                     Margin="20,20,0,0"/>
 
                 <Label
                     Text="{Binding Name}"
-                    FontSize="18"
+                    FontSize="20"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
-
+                
                 <!--Vaccine Date-->
                 <Label
                     Text="Date of Vaccination"
                     TextColor="#005486"
                     HorizontalOptions="Start"
                     VerticalOptions="Start"
-                    FontSize="20"
+                    FontSize="22"
                     Margin="20,20,0,0"/>
                 <Label
                     Text="{Binding StringDate}"
-                    FontSize="18"
+                    FontSize="20"
                     TextColor="Black"
                     Margin="20,0,0,10"/>
             </StackLayout>
-        </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

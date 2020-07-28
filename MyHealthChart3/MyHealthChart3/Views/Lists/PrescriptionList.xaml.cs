@@ -1,5 +1,11 @@
 ﻿using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,23 +38,9 @@ namespace MyHealthChart3.Views.Lists
         */
         private async void PrescriptionSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            Models.Prescription Prescription = e.ItemData as Models.Prescription;
-            Prescription.UId = User.Id;
-            Prescription.Password = User.Password;
+            Models.ViewDataObjects.PrescriptionListModel Prescription = e.ItemData as Models.ViewDataObjects.PrescriptionListModel;
+            Prescription.User = User;
             await Navigation.PushAsync(new Details.PrescriptionDetail(Prescription, NetworkModule));
-        }
-        /*
-        Name: OnFilterTextChanged
-        Purpose: Calls filter prescriptions when the search text is changed
-        Author: Samuel McManus
-        Uses: FilterPrescriptions
-        Used by: N/A
-        Date: July 27, 2020
-        */
-        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SearchBar searchbar = sender as SearchBar;
-            ViewModel.FilterPrescriptions(searchbar.Text);
         }
         public PrescriptionListViewModel ViewModel
         {

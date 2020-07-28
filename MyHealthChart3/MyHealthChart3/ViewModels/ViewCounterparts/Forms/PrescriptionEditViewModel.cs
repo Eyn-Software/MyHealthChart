@@ -1,6 +1,9 @@
-﻿using MyHealthChart3.Models;
+﻿using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
 {
@@ -9,7 +12,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
         private IServerComms NetworkModule;
         private DateTime enddate;
         private TimeSpan remindertime;
-        private Prescription prescription;
+        private PrescriptionListModel prescription;
 
         public string result;
         public DateTime EndDate
@@ -34,7 +37,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref remindertime, value);
             }
         }
-        public Prescription Prescription
+        public PrescriptionListModel Prescription
         {
             get
             {
@@ -45,18 +48,18 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref prescription, value);
             }
         }
-        public PrescriptionEditViewModel(Prescription p, IServerComms networkmodule)
+        public PrescriptionEditViewModel(PrescriptionListModel p, IServerComms networkmodule)
         {
             Prescription = p;
             NetworkModule = networkmodule;
-            EndDate = Prescription.EndDate;
-            ReminderTime = Prescription.ReminderTime.TimeOfDay;
+            EndDate = DateTime.Parse(Prescription.EndDate);
+            ReminderTime = DateTime.ParseExact(Prescription.ReminderTime, "h:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
 
         }
         public async System.Threading.Tasks.Task Submit()
         {
-            Prescription.EndDate = EndDate;
-            Prescription.ReminderTime = DateTime.Now.Date + ReminderTime; 
+            Prescription.EndDate = EndDate.ToString();
+            Prescription.ReminderTime = (DateTime.Now.Date + ReminderTime).ToString();
             result = await NetworkModule.EditPrescription(Prescription);
         }
     }
