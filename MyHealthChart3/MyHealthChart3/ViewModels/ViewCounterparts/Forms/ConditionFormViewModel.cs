@@ -1,12 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.Services;
+﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
@@ -16,7 +10,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private bool haserror;
         private string error;
         private UserViewModel user;
-        private ConditionFormModel condition;
+        private Models.Condition condition;
 
         public bool HasError
         {
@@ -44,7 +38,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 }
             }
         }
-        public ConditionFormModel Condition
+        public Models.Condition Condition
         {
             get
             {
@@ -59,7 +53,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             user = Usr;
             NetworkModule = networkModule;
-            Condition = new ConditionFormModel(Usr);
+            Condition = new Models.Condition(Usr);
             Error = "";
 
         }

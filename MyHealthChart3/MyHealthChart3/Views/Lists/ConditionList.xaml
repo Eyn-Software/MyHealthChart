@@ -24,15 +24,16 @@ xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfL
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <listview:SfListView ItemsSource="{Binding Conditions}" ItemTapped="ConditionSelected"
+                <SearchBar HeightRequest="40"
+                           Placeholder="Search"
+                           TextChanged="OnFilterTextChanged" Grid.Row="0"/>
+                <listview:SfListView ItemsSource="{Binding FilteredConditions}" ItemTapped="ConditionSelected"
                                      ItemSize="55">
                     <listview:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <StackLayout>
-                                    <Label Text="{Binding Type}" FontSize="Medium"/>
-                                </StackLayout>
-                            </Grid>
+                            <StackLayout>
+                                <Label Text="{Binding Type}" FontSize="Medium" TextColor="Blue"/>
+                            </StackLayout>
                         </DataTemplate>
                     </listview:SfListView.ItemTemplate>
                 </listview:SfListView>

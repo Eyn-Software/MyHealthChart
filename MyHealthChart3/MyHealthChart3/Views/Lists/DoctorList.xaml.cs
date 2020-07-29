@@ -1,12 +1,8 @@
-﻿using MyHealthChart3.Services;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -58,8 +54,20 @@ namespace MyHealthChart3.Views
         */
         private void DoctorSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            DoctorViewModel Doctor = e.ItemData as DoctorViewModel;
+            Doctor Doctor = e.ItemData as Doctor;
             Navigation.PushAsync(new Details.DoctorDetail(Doctor, User, NetworkModule));
+        }
+        /*
+        Name: NewDoctor
+        Purpose: Takes the user to the doctor form
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: DoctorListViewModel
+        Date: May 30 2020
+        */
+        private async void NewDoctor(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DoctorForm(User, NetworkModule));
         }
         /*
         Name: OnEdit

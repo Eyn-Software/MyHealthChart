@@ -1,8 +1,4 @@
 ﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace MyHealthChart3.Models
 {
     public class Condition
@@ -11,22 +7,15 @@ namespace MyHealthChart3.Models
         {
 
         }
-        public Condition(ConditionViewModel condition)
+        public Condition(UserViewModel User)
         {
-            Type = condition.Type;
-            Users = condition.Users;
+            Type = "";
+            UId = User.Id;
+            Password = User.Password;
         }
-        public string Type
-        {
-            get;
-            set;
-        }
-
-        public List<User> Users
-        {
-            get;
-            set;
-        }
+        public string Type { get; set; }
+        public int UId { get; set; }
+        public string Password { get; set; }
     }
 }
 

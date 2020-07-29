@@ -17,7 +17,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New Doctor"
-                     Command="{Binding NewDoctorCmd}"
+                     Clicked="NewDoctor"
                      Order="Secondary"/>
     </ContentPage.ToolbarItems>
 
@@ -26,12 +26,10 @@
                                      ItemSize="55">
             <listview:SfListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <StackLayout>
-                            <Label Text="{Binding Name}" FontSize="Medium"/>
-                            <Label Text="{Binding Practice}" FontSize="Medium"/>
-                        </StackLayout>
-                    </Grid>
+                    <StackLayout>
+                        <Label Text="{Binding Name}" FontSize="Medium" TextColor="Blue"/>
+                        <Label Text="{Binding Practice}" FontSize="Small"/>
+                    </StackLayout>
                 </DataTemplate>
             </listview:SfListView.ItemTemplate>
         </listview:SfListView>

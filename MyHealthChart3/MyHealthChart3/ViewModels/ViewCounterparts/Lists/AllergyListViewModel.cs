@@ -62,6 +62,14 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             Allergies = await NetworkModule.GetAllergies(User);
             FilterAllergies("");
         }
+        /*
+        Name: FilterAllergies
+        Purpose: Filters the user's allergy list based on search string
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AllergyList
+        Date: July 28, 2020
+        */
         public void FilterAllergies(string Filter)
         {
             FilteredAllergies = new ObservableCollection<Allergy>();

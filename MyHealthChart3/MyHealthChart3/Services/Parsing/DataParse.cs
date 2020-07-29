@@ -65,10 +65,10 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetDoctors
         Date: June 30, 2020
         */
-        public async Task<List<DoctorViewModel>> DownloadDoctors(string ReceivedData)
+        public async Task<List<Doctor>> DownloadDoctors(string ReceivedData)
         {
-            List<DoctorViewModel> Doctors = new List<DoctorViewModel>();
-            DoctorViewModel Doctor;
+            List<Doctor> Doctors = new List<Doctor>();
+            Doctor Doctor;
             int Id;
             string Name;
             string Practice;
@@ -108,7 +108,7 @@ namespace MyHealthChart3.Services.Parsing
                 Phone = ReceivedData.Substring(0, index);
                 ReceivedData = ReceivedData.Substring(index + 3);
 
-                Doctor = new DoctorViewModel();
+                Doctor = new Doctor();
                 Doctor.Id = Id;
                 Doctor.Name = Name;
                 Doctor.Practice = Practice;
@@ -206,12 +206,12 @@ namespace MyHealthChart3.Services.Parsing
         Used by: ConditionList
         Date: July 6, 2020
         */
-        public async Task<ObservableCollection<ConditionViewModel>> DownloadConditions(string ReceivedData)
+        public async Task<ObservableCollection<Models.Condition>> DownloadConditions(string ReceivedData)
         {
-            ObservableCollection<ConditionViewModel> Conditions = new ObservableCollection<ConditionViewModel>();
+            ObservableCollection<Models.Condition> Conditions = new ObservableCollection<Models.Condition>();
             while (!ReceivedData.Equals(""))
             {
-                ConditionViewModel Condition = new ConditionViewModel();
+                Models.Condition Condition = new Models.Condition();
                 int index = ReceivedData.IndexOf("///");
                 Condition.Type = ReceivedData.Substring(0, index);
                 Conditions.Add(Condition);
@@ -467,7 +467,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetDoctor
         Date: July 1, 2020
         */
-        public async Task<DoctorViewModel> DownloadDoctor(string ReceivedData)
+        public async Task<Doctor> DownloadDoctor(string ReceivedData)
         {
             int Id;
             string Name;
@@ -504,7 +504,7 @@ namespace MyHealthChart3.Services.Parsing
 
             Phone = ReceivedData;
 
-            DoctorViewModel Doctor = new DoctorViewModel();
+            Doctor Doctor = new Doctor();
             Doctor.Id = (int)Id;
             Doctor.Name = Name;
             Doctor.Practice = Practice;

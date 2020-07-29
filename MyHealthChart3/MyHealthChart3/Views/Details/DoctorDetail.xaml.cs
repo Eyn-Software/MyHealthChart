@@ -3,11 +3,6 @@ using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts.Details;
 using MyHealthChart3.Views.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,7 +13,7 @@ namespace MyHealthChart3.Views.Details
     {
         IServerComms NetworkModule;
         UserViewModel User;
-        public DoctorDetail(DoctorViewModel Doctor, UserViewModel user, IServerComms networkModule)
+        public DoctorDetail(Models.Doctor Doctor, UserViewModel user, IServerComms networkModule)
         {
             InitializeComponent();
             NetworkModule = networkModule;

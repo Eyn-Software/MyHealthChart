@@ -5,21 +5,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Forms.ConditionForm"
              BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,100',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+            <!--Title Label-->
+            <Label
+                    FontSize="40" Text="Add A Condition"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
             <inputLayout:SfTextInputLayout Hint="Type of Condition" BindingContext="{Binding Condition}"
-                                               ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
+                                               ContainerType ="Outlined" ErrorText="{Binding Error}"
+                                           HasError="{Binding HasError}"
+                                           OutlineCornerRadius="7">
                 <Entry Text = "{Binding Type}" />
             </inputLayout:SfTextInputLayout>
-            
-            <Label Text="{Binding Error}" IsVisible="{Binding HasError}" TextColor="Red"/>
-            
+
+            <!--Submit Button-->
             <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
-                             Clicked="Submit"/>
+                             Clicked="Submit"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

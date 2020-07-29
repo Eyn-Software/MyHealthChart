@@ -21,23 +21,26 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid BindingContext="{Binding Condition}">
-            <StackLayout>
-                <!--Condition Type-->
-                <Label
-                    Text="Type of Condition:"
-                    TextColor="#005486"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    FontSize="18"
-                    Margin="20,20,0,0"/>
+        <StackLayout BindingContext="{Binding Condition}">
+            <Image
+                Source="logoInt.png"
+                VerticalOptions="Center"
+                HeightRequest="125"
+                Margin="0,30,0,30"/>
+            <!--Condition Type-->
+            <Label
+                Text="Type of Condition:"
+                TextColor="#005486"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                FontSize="20"
+                Margin="20,20,0,0"/>
 
-                <Label
-                    Text="{Binding Type}"
-                    FontSize="16"
-                    TextColor="Black"
-                    Margin="20,0,0,10"/>
-            </StackLayout>
-        </Grid>
+            <Label
+                Text="{Binding Type}"
+                FontSize="18"
+                TextColor="Black"
+                Margin="20,0,0,10"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

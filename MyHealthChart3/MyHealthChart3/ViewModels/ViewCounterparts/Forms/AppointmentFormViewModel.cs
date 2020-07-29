@@ -27,7 +27,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private AppointmentFormEntryModel appointmentobject, followupappointmentobject;
         private Prescription prescription0, prescription1, prescription2;
         private Vaccine vaccine0, vaccine1, vaccine2;
-        private List<DoctorViewModel> doctors;
+        private List<Doctor> doctors;
         private ObservableCollection<string> doctornames;
 
         public bool IsPast
@@ -371,7 +371,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref vaccine2, value);
             }
         }
-        public List<DoctorViewModel> Doctors
+        public List<Doctor> Doctors
         {
             get
             {
@@ -447,7 +447,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             Doctors = await NetworkModule.GetDoctors(User);
             int result;
-            DoctorViewModel doc;
+            Doctor doc;
             if (Doctors.Count != 0)
             {
                 for (int i = 0; i < Doctors.Count - 1; i++)
@@ -464,7 +464,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                     }
                 }
             }
-            foreach(DoctorViewModel d in Doctors)
+            foreach(Doctor d in Doctors)
             {
                 DoctorNames.Add(d.Name);
             }

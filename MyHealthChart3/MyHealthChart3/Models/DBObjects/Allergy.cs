@@ -15,20 +15,8 @@ namespace MyHealthChart3.Models
             UId = User.Id;
             Password = User.Password;
         }
-        public string Type
-        {
-            get;
-            set;
-        }
-        public int UId
-        {
-            get;
-            set;
-        }
-        public string Password
-        {
-            get;
-            set;
-        }
+        public string Type { get; set; }
+        public int UId { get; set; }
+        public string Password { get; set; }
     }
 }

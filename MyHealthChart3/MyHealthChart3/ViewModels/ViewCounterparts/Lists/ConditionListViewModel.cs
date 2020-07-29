@@ -1,10 +1,6 @@
 ﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using MyHealthChart3.Views.Forms;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,7 +11,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     {
         private IServerComms NetworkModule;
         private UserViewModel user;
-        private ObservableCollection<ConditionViewModel> conditions;
+        private ObservableCollection<Models.Condition> conditions;
+        private ObservableCollection<Models.Condition> filteredconditions;
 
         public UserViewModel User
         {
@@ -28,7 +25,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref user, value);
             }
         }
-        public ObservableCollection<ConditionViewModel> Conditions
+        public ObservableCollection<Models.Condition> Conditions
         {
             get
             {
@@ -37,6 +34,17 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             private set
             {
                 SetValue(ref conditions, value);
+            }
+        }
+        public ObservableCollection<Models.Condition> FilteredConditions
+        {
+            get
+            {
+                return filteredconditions;
+            }
+            set
+            {
+                SetValue(ref filteredconditions, value);
             }
         }
 
@@ -49,7 +57,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             User = Usr; 
             NetworkModule = networkModule;
-            Conditions = new ObservableCollection<ConditionViewModel>();
+            Conditions = new ObservableCollection<Models.Condition>();
 
             SetConditionsCmd = new Command(async () => await SetConditions());
         }
@@ -57,13 +65,31 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Name: SetConditions
         Purpose: Sets the relevant conditions
         Author: Samuel McManus
-        Uses: GetConditions
+        Uses: GetConditions, FilterConditions
         Used by: ConditionList
         Date: July 7, 2020
         */
         public async Task SetConditions()
         {
             Conditions = await NetworkModule.GetConditions(User);
+            FilterConditions("");
+        }
+        /*
+        Name: FilterConditions
+        Purpose: Sets the relevant conditions
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ConditionList
+        Date: July 28, 2020
+        */
+        public void FilterConditions(string Filter)
+        {
+            FilteredConditions = new ObservableCollection<Models.Condition>();
+            foreach (Models.Condition c in Conditions)
+            {
+                if (c.Type.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    FilteredConditions.Add(c);
+            }
         }
     }
 }

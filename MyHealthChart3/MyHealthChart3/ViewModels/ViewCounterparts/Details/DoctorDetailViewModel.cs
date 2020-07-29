@@ -1,17 +1,14 @@
 ﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MyHealthChart3.Models;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
 {
     public class DoctorDetailViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private DoctorViewModel doctor;
+        private Doctor doctor;
 
-        public DoctorViewModel Doctor
+        public Doctor Doctor
         {
             get
             {
@@ -22,7 +19,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
                 SetValue(ref doctor, value);
             }
         }
-        public DoctorDetailViewModel(DoctorViewModel doc, IServerComms networkmodule)
+        public DoctorDetailViewModel(Doctor doc, IServerComms networkmodule)
         {
             Doctor = doc;
             NetworkModule = networkmodule;

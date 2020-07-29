@@ -1,13 +1,6 @@
 ﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
-using Syncfusion.XForms.DataForm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -28,8 +21,20 @@ namespace MyHealthChart3.Views
         public DoctorForm(UserViewModel user, IServerComms networkModule)
         {
             InitializeComponent();
-            IPageService ps = new PageService();
-            ViewModel = new DoctorFormViewModel(user, ps, networkModule);
+            ViewModel = new DoctorFormViewModel(user, networkModule);
+        }
+        /*
+         Name: SubmitClicked
+         Purpose: Calls the submit command and decides whether or not to pop the page
+         Author: Samuel McManus
+         Uses: Submit
+         Used by: N/A
+         Date: July 29, 2020
+         */
+        public async void SubmitClicked(object sender, System.EventArgs e)
+        {
+            if ((await ViewModel.Submit()).Equals("Success"))
+                await Navigation.PopAsync();
         }
         public DoctorFormViewModel ViewModel
         {

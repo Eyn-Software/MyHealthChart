@@ -1,14 +1,8 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.Services;
+﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using MyHealthChart3.Views.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -49,8 +43,8 @@ namespace MyHealthChart3.Views.Lists
         */
         private async void ConditionSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            ConditionViewModel Condition = e.ItemData as ConditionViewModel;
-            ConditionFormModel cond = new ConditionFormModel(user);
+            Models.Condition Condition = e.ItemData as Models.Condition;
+            Models.Condition cond = new Models.Condition(user);
             cond.Type = Condition.Type;
             await Navigation.PushAsync(new ConditionDetail(cond, networkmodule));
         }
@@ -65,6 +59,19 @@ namespace MyHealthChart3.Views.Lists
         private async void NewCondition(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ConditionForm(user, networkmodule));
+        }
+        /*
+        Name: OnFilterTextChanged
+        Purpose: Calls filter conditions when the search text is changed
+        Author: Samuel McManus
+        Uses: FilterConditions
+        Used by: N/A
+        Date: July 28, 2020
+        */
+        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchbar = sender as SearchBar;
+            ViewModel.FilterConditions(searchbar.Text);
         }
         public ConditionListViewModel ViewModel
         {

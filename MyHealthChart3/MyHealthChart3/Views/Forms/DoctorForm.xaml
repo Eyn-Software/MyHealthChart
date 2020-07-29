@@ -7,173 +7,189 @@
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.DoctorForm"
              BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                <inputLayout:SfTextInputLayout Hint="Name" BindingContext="{Binding DataObject}"
-                                               HelperText="Required *" ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Name}" />
-                </inputLayout:SfTextInputLayout>
+            <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+                <!--Title Label-->
+                <Label
+                    FontSize="40" Text="Add A Doctor"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
+                <!--Doctor's Name-->
+                <StackLayout>
+                    <inputLayout:SfTextInputLayout Hint="Name" HelperText="Enter Your Doctor's Name"
+                                                   ContainerType ="Outlined" OutlineCornerRadius="7"
+                                                   ErrorText="{Binding NameError}" HasError="{Binding NameHasError}">
+                        <Entry Text = "{Binding Name}" BindingContext="{Binding Doctor}"/>
+                    </inputLayout:SfTextInputLayout>
+                    <!--Doctor's Practice-->
+                    <inputLayout:SfTextInputLayout Hint="Practice" HelperText="Enter Your Doctor's Practice" 
+                                                   ContainerType ="Outlined" OutlineCornerRadius="7"
+                                                   ErrorText="{Binding PracticeError}" HasError="{Binding PracticeHasError}">
+                        <Entry Text = "{Binding Practice}" BindingContext="{Binding Doctor}"/>
+                    </inputLayout:SfTextInputLayout>
+                    <!--Doctor's Type-->
+                    <inputLayout:SfTextInputLayout Hint="Type of Doctor"  ContainerType ="Outlined"
+                                                   OutlineCornerRadius="7" HelperText="Select Your Doctor's Specialty"
+                                                   ErrorText="{Binding TypeError}" HasError="{Binding TypeHasError}">
+                        <autocomplete:SfAutoComplete  AutoCompleteMode="Suggest" Text="{Binding Type}"
+                                                      SelectedItem="{Binding Type}" BindingContext="{Binding Doctor}">
+                            <autocomplete:SfAutoComplete.AutoCompleteSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>Allergist</x:String>
+                                    <x:String>Audiologist</x:String>
+                                    <x:String>Anesthesiologist</x:String>
+                                    <x:String>Breast Cancer Specialist</x:String>
+                                    <x:String>Cardiologist</x:String>
+                                    <x:String>Chiropractor</x:String>
+                                    <x:String>Dentist</x:String>
+                                    <x:String>Dermatologist</x:String>
+                                    <x:String>Dietitian</x:String>
+                                    <x:String>Endocrinologist</x:String>
+                                    <x:String>ENT Specialist</x:String>
+                                    <x:String>ER Physician</x:String>
+                                    <x:String>Fertility Specialist</x:String>
+                                    <x:String>Gastroenterologist</x:String>
+                                    <x:String>Geriatric</x:String>
+                                    <x:String>Immunologist</x:String>
+                                    <x:String>Infectious Disease Specialist</x:String>
+                                    <x:String>Internal Medicine Specialist</x:String>
+                                    <x:String>Medical Geneticist</x:String>
+                                    <x:String>Nephrologist</x:String>
+                                    <x:String>Nutritionist</x:String>
+                                    <x:String>Neurologist</x:String>
+                                    <x:String>Neurosurgeon</x:String>
+                                    <x:String>OB-GYN</x:String>
+                                    <x:String>Occupational Therapist</x:String>
+                                    <x:String>Oncologist</x:String>
+                                    <x:String>Ophthalmologist</x:String>
+                                    <x:String>Optometrist</x:String>
+                                    <x:String>Oral Surgeon</x:String>
+                                    <x:String>Orthopedic Surgeon</x:String>
+                                    <x:String>Pain Medicine</x:String>
+                                    <x:String>Pediatrician</x:String>
+                                    <x:String>Physical Trainer</x:String>
+                                    <x:String>Primary Care Physician</x:String>
+                                    <x:String>Plastic Surgeon</x:String>
+                                    <x:String>Podiatrist</x:String>
+                                    <x:String>Psychiatrist</x:String>
+                                    <x:String>Psychologist</x:String>
+                                    <x:String>Pulmonologist</x:String>
+                                    <x:String>Radiologist</x:String>
+                                    <x:String>Rheumatologist</x:String>
+                                    <x:String>Surgeon</x:String>
+                                    <x:String>Urologist</x:String>
+                                    <x:String>Vascular Surgeon</x:String>
+                                    <x:String>Veterinarian</x:String>
+                                </ListCollection:List>
+                            </autocomplete:SfAutoComplete.AutoCompleteSource>
+                        </autocomplete:SfAutoComplete>
+                    </inputLayout:SfTextInputLayout>
+                </StackLayout>
                 
-                <inputLayout:SfTextInputLayout Hint="Practice" BindingContext="{Binding DataObject}"
-                                               HelperText="Required *" ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Practice}" />
-                </inputLayout:SfTextInputLayout>
+                <!--Doctor's Address-->
+                <StackLayout>
+                    <!--Street Address-->
+                    <inputLayout:SfTextInputLayout Hint="Street Address" ContainerType ="Outlined" HelperText="Enter Your Doctor's Street Address"
+                                                   OutlineCornerRadius="7">
+                        <Entry Text = "{Binding Street}" BindingContext="{Binding Address}"/>
+                    </inputLayout:SfTextInputLayout>
+                    <!--City-->
+                    <inputLayout:SfTextInputLayout Hint="City" ContainerType ="Outlined" OutlineCornerRadius="7"
+                                                    HelperText="Enter Your Doctor's City">
+                        <Entry Text = "{Binding City}" BindingContext="{Binding Address}"/>
+                    </inputLayout:SfTextInputLayout>
+                    <!--State-->
+                    <inputLayout:SfTextInputLayout Hint="State" ContainerType ="Outlined"  OutlineCornerRadius="7"
+                                                    HelperText="Select Your Doctor's State">
+                        <Picker SelectedItem="{Binding State}" BindingContext="{Binding Address}">
+                            <Picker.Items>
+                                <x:String>AL</x:String>
+                                <x:String>AK</x:String>
+                                <x:String>AZ</x:String>
+                                <x:String>AR</x:String>
+                                <x:String>CA</x:String>
+                                <x:String>CO</x:String>
+                                <x:String>CT</x:String>
+                                <x:String>DE</x:String>
+                                <x:String>FL</x:String>
+                                <x:String>GA</x:String>
+                                <x:String>HI</x:String>
+                                <x:String>ID</x:String>
+                                <x:String>IL</x:String>
+                                <x:String>IN</x:String>
+                                <x:String>IA</x:String>
+                                <x:String>KS</x:String>
+                                <x:String>KY</x:String>
+                                <x:String>LA</x:String>
+                                <x:String>ME</x:String>
+                                <x:String>MD</x:String>
+                                <x:String>MA</x:String>
+                                <x:String>MI</x:String>
+                                <x:String>MN</x:String>
+                                <x:String>MS</x:String>
+                                <x:String>MO</x:String>
+                                <x:String>MT</x:String>
+                                <x:String>NE</x:String>
+                                <x:String>NV</x:String>
+                                <x:String>NH</x:String>
+                                <x:String>NJ</x:String>
+                                <x:String>NM</x:String>
+                                <x:String>NY</x:String>
+                                <x:String>NC</x:String>
+                                <x:String>ND</x:String>
+                                <x:String>OH</x:String>
+                                <x:String>OK</x:String>
+                                <x:String>OR</x:String>
+                                <x:String>PA</x:String>
+                                <x:String>RI</x:String>
+                                <x:String>SC</x:String>
+                                <x:String>SD</x:String>
+                                <x:String>TN</x:String>
+                                <x:String>TX</x:String>
+                                <x:String>UT</x:String>
+                                <x:String>VT</x:String>
+                                <x:String>VA</x:String>
+                                <x:String>WA</x:String>
+                                <x:String>WV</x:String>
+                                <x:String>WI</x:String>
+                                <x:String>WY</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </inputLayout:SfTextInputLayout>
+                    <!--Zip Code-->
+                    <inputLayout:SfTextInputLayout Hint="Zip Code" ContainerType ="Outlined"
+                                                   OutlineCornerRadius="7" HelperText="Enter Your Doctor's Zip Code">
+                        <Entry Text = "{Binding ZipCode}" BindingContext="{Binding Address}"/>
+                    </inputLayout:SfTextInputLayout>
+                </StackLayout>
 
-                <inputLayout:SfTextInputLayout Hint="Type of Doctor"  ContainerType ="Outlined"
-                                               OutlineCornerRadius="7" BindingContext = "{Binding DataObject}"
-                                               HelperText="Select Your Doctor's Specialty">
-                <autocomplete:SfAutoComplete  AutoCompleteMode="Suggest" Text="{Binding Type}"
-                                                  SelectedItem="{Binding Type}">
-                    <autocomplete:SfAutoComplete.AutoCompleteSource>
-                        <ListCollection:List x:TypeArguments="x:String">
-                            <x:String>Allergist</x:String>
-                            <x:String>Audiologist</x:String>
-                            <x:String>Anesthesiologist</x:String>
-                            <x:String>Breast Cancer Specialist</x:String>
-                            <x:String>Cardiologist</x:String>
-                            <x:String>Chiropractor</x:String>
-                            <x:String>Dentist</x:String>
-                            <x:String>Dermatologist</x:String>
-                            <x:String>Dietitian</x:String>
-                            <x:String>Endocrinologist</x:String>
-                            <x:String>ENT Specialist</x:String>
-                            <x:String>ER Physician</x:String>
-                            <x:String>Fertility Specialist</x:String>
-                            <x:String>Gastroenterologist</x:String>
-                            <x:String>Geriatric</x:String>
-                            <x:String>Immunologist</x:String>
-                            <x:String>Infectious Disease Specialist</x:String>
-                            <x:String>Internal Medicine Specialist</x:String>
-                            <x:String>Medical Geneticist</x:String>
-                            <x:String>Nephrologist</x:String>
-                            <x:String>Nutritionist</x:String>
-                            <x:String>Neurologist</x:String>
-                            <x:String>Neurosurgeon</x:String>
-                            <x:String>OB-GYN</x:String>
-                            <x:String>Occupational Therapist</x:String>
-                            <x:String>Oncologist</x:String>
-                            <x:String>Ophthalmologist</x:String>
-                            <x:String>Optometrist</x:String>
-                            <x:String>Oral Surgeon</x:String>
-                            <x:String>Orthopedic Surgeon</x:String>
-                            <x:String>Pain Medicine</x:String>
-                            <x:String>Pediatrician</x:String>
-                            <x:String>Physical Trainer</x:String>
-                            <x:String>Primary Care Physician</x:String>
-                            <x:String>Plastic Surgeon</x:String>
-                            <x:String>Podiatrist</x:String>
-                            <x:String>Psychiatrist</x:String>
-                            <x:String>Psychologist</x:String>
-                            <x:String>Pulmonologist</x:String>
-                            <x:String>Radiologist</x:String>
-                            <x:String>Rheumatologist</x:String>
-                            <x:String>Surgeon</x:String>
-                            <x:String>Urologist</x:String>
-                            <x:String>Vascular Surgeon</x:String>
-                            <x:String>Veterinarian</x:String>
-                        </ListCollection:List>
-                    </autocomplete:SfAutoComplete.AutoCompleteSource>
-                </autocomplete:SfAutoComplete>
-                </inputLayout:SfTextInputLayout>
-
-                <inputLayout:SfTextInputLayout Hint="Street Address" BindingContext="{Binding DataObject}"
-                                               ContainerType ="Outlined" HelperText="Street address"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Street}" />
-                </inputLayout:SfTextInputLayout>
-                    
-                <inputLayout:SfTextInputLayout Hint="City" BindingContext="{Binding DataObject}"
-                                            ContainerType ="Outlined"
-                                            OutlineCornerRadius="7">
-                    <Entry Text = "{Binding City}" />
-                </inputLayout:SfTextInputLayout>
-
-                <inputLayout:SfTextInputLayout Hint="State" BindingContext="{Binding DataObject}"
-                                               ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Picker SelectedItem="{Binding Type}">
-                        <Picker.Items>
-                            <x:String>AL</x:String>
-                            <x:String>AK</x:String>
-                            <x:String>AZ</x:String>
-                            <x:String>AR</x:String>
-                            <x:String>CA</x:String>
-                            <x:String>CO</x:String>
-                            <x:String>CT</x:String>
-                            <x:String>DE</x:String>
-                            <x:String>FL</x:String>
-                            <x:String>GA</x:String>
-                            <x:String>HI</x:String>
-                            <x:String>ID</x:String>
-                            <x:String>IL</x:String>
-                            <x:String>IN</x:String>
-                            <x:String>IA</x:String>
-                            <x:String>KS</x:String>
-                            <x:String>KY</x:String>
-                            <x:String>LA</x:String>
-                            <x:String>ME</x:String>
-                            <x:String>MD</x:String>
-                            <x:String>MA</x:String>
-                            <x:String>MI</x:String>
-                            <x:String>MN</x:String>
-                            <x:String>MS</x:String>
-                            <x:String>MO</x:String>
-                            <x:String>MT</x:String>
-                            <x:String>NE</x:String>
-                            <x:String>NV</x:String>
-                            <x:String>NH</x:String>
-                            <x:String>NJ</x:String>
-                            <x:String>NM</x:String>
-                            <x:String>NY</x:String>
-                            <x:String>NC</x:String>
-                            <x:String>ND</x:String>
-                            <x:String>OH</x:String>
-                            <x:String>OK</x:String>
-                            <x:String>OR</x:String>
-                            <x:String>PA</x:String>
-                            <x:String>RI</x:String>
-                            <x:String>SC</x:String>
-                            <x:String>SD</x:String>
-                            <x:String>TN</x:String>
-                            <x:String>TX</x:String>
-                            <x:String>UT</x:String>
-                            <x:String>VT</x:String>
-                            <x:String>VA</x:String>
-                            <x:String>WA</x:String>
-                            <x:String>WV</x:String>
-                            <x:String>WI</x:String>
-                            <x:String>WY</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </inputLayout:SfTextInputLayout>
-                
-                <inputLayout:SfTextInputLayout Hint="Zip Code" BindingContext="{Binding DataObject}"
-                                               ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding ZipCode}" />
-                </inputLayout:SfTextInputLayout>
-                
-                <inputLayout:SfTextInputLayout Hint="Email" BindingContext="{Binding DataObject}"
-                                               ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Email}" />
-                </inputLayout:SfTextInputLayout>
-                
-                <inputLayout:SfTextInputLayout Hint="Phone Number" BindingContext="{Binding DataObject}"
-                                               ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Phone}" />
-                </inputLayout:SfTextInputLayout>
-                
-                <Label Text="{Binding Error}" IsVisible="{Binding HasError}"/>
+                <StackLayout>
+                    <!-- Doctor's Email-->
+                    <inputLayout:SfTextInputLayout Hint="Email" ContainerType ="Outlined" ErrorText="{Binding EmailError}"
+                                                   OutlineCornerRadius="7"  HasError="{Binding EmailHasError}"
+                                                   HelperText="Enter Your Doctor's Email">
+                        <Entry Text = "{Binding Email}" BindingContext="{Binding Doctor}"/>
+                    </inputLayout:SfTextInputLayout>
+                    <!--Doctor's Phone Number-->
+                    <inputLayout:SfTextInputLayout Hint="Phone Number" ContainerType ="Outlined" OutlineCornerRadius="7"
+                                                   ErrorText="{Binding PhoneError}" HasError="{Binding PhoneHasError}"
+                                                   HelperText="Enter Your Doctor's Phone Number">
+                        <Entry Text = "{Binding Phone}" BindingContext="{Binding Doctor}"/>
+                    </inputLayout:SfTextInputLayout>
+                </StackLayout>
+                <!--Submit Button-->
                 <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
-                             Command="{Binding SubmitCmd}"/>
+                             Clicked="SubmitClicked"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

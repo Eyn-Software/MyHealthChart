@@ -4,11 +4,21 @@ xmlns:calendar="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.S
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Lists.Calendar">
+             x:Class="MyHealthChart3.Views.Lists.Calendar"
+             BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
-        <StackLayout>
-            <calendar:SfCalendar ShowInlineEvents="True" DataSource="{Binding Events}" />
+        <StackLayout  Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,40',
+                                                         PhoneLandscape='150,16',
+                                                         TabletPortrait='200,25',
+                                                         TabletLandscape='300,25'}">
+            <!--Title Label-->
+            <Label
+                FontSize="36" Text="My Family Calendar"
+                HorizontalTextAlignment="Center"
+                Margin="0, 0, 0, 30"/>
+            <calendar:SfCalendar ShowInlineEvents="True" DataSource="{Binding Events}"  />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -93,7 +93,7 @@ namespace MyHealthChart3.Services
         Used by: DoctorListViewModel
         Date: June 30, 2020
         */
-        public async Task<List<DoctorViewModel>> GetDoctors(UserViewModel user)
+        public async Task<List<Doctor>> GetDoctors(UserViewModel user)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -105,7 +105,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string SerializedString = await Response.Content.ReadAsStringAsync();
-            List<DoctorViewModel> Doctors = await dp.DownloadDoctors(SerializedString);
+            List<Doctor> Doctors = await dp.DownloadDoctors(SerializedString);
             return Doctors;
         }
         /*
@@ -182,7 +182,7 @@ namespace MyHealthChart3.Services
         Used by: ConditionList
         Date: July 7, 2020
         */
-        public async Task<ObservableCollection<ConditionViewModel>> GetConditions(UserViewModel User)
+        public async Task<ObservableCollection<Models.Condition>> GetConditions(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -316,7 +316,7 @@ namespace MyHealthChart3.Services
         Used by: DoctorEditFormViewModel
         Date: June 31, 2020
         */
-        public async Task<DoctorViewModel> GetDoctor(UserViewModel User, int Id)
+        public async Task<Doctor> GetDoctor(UserViewModel User, int Id)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -439,9 +439,8 @@ namespace MyHealthChart3.Services
        Used by: DoctorFormViewModel
        Date: June 30, 2020
        */
-        public async Task<string> SubmitDoctor(DoctorFormModel dataObject, UserViewModel user)
+        public async Task<string> SubmitDoctor(Doctor dataObject, UserViewModel user)
         {
-            string address = dataObject.State + " " + dataObject.City + ", " + dataObject.State + " " + dataObject.ZipCode.ToString();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("Id", user.Id.ToString()),
@@ -450,7 +449,7 @@ namespace MyHealthChart3.Services
                 new KeyValuePair<string, string>("Name", dataObject.Name),
                 new KeyValuePair<string, string>("Practice", dataObject.Practice),
                 new KeyValuePair<string, string>("Type", dataObject.Type),
-                new KeyValuePair<string, string>("Address", address),
+                new KeyValuePair<string, string>("Address", dataObject.Address),
                 new KeyValuePair<string, string>("Phone", dataObject.Phone.ToString()),
                 new KeyValuePair<string, string>("Email", dataObject.Email)
             };
@@ -552,7 +551,7 @@ namespace MyHealthChart3.Services
         Used by: ConditionFormViewModel
         Date: July 7, 2020
         */
-        public async Task<string> AddCondition(ConditionFormModel Condition)
+        public async Task<string> AddCondition(Models.Condition Condition)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -641,7 +640,7 @@ namespace MyHealthChart3.Services
         Used by: EditDoctorFormViewModel
         Date: July 3, 2020
         */
-        public async Task<string> EditDoctor(DoctorEditModel Doctor, UserViewModel User)
+        public async Task<string> EditDoctor(Doctor Doctor, UserViewModel User)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -732,7 +731,7 @@ namespace MyHealthChart3.Services
         Used by: ConditionListViewModel
         Date: July 7, 2020
         */
-        public async Task<string> DeleteCondition(ConditionFormModel Condition)
+        public async Task<string> DeleteCondition(Models.Condition Condition)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {

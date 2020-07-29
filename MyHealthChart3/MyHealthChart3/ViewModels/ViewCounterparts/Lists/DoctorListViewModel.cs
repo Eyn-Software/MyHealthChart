@@ -1,15 +1,9 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views;
 using MyHealthChart3.Views.Forms;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
@@ -18,20 +12,15 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private IPageService ps;
         private IServerComms NetworkModule;
         private UserViewModel user;
-        private DoctorViewModel doctor;
-        private ObservableCollection<DoctorViewModel> doctors;
+        private Doctor doctor;
+        private ObservableCollection<Doctor> doctors;
 
-        public ICommand SetDoctorsCmd
+        public System.Windows.Input.ICommand SetDoctorsCmd
         {
             get;
             private set;
         }
-        public ICommand NewDoctorCmd
-        {
-            get;
-            private set;
-        }
-        public ICommand EditDoctorCmd
+        public System.Windows.Input.ICommand EditDoctorCmd
         {
             get;
             private set;
@@ -48,7 +37,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             }
         }
         public int id;
-        public ObservableCollection<DoctorViewModel> Doctors
+        public ObservableCollection<Doctor> Doctors
         {
             get
             {
@@ -74,9 +63,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             NetworkModule = networkModule;
             User = u;
 
-            SetDoctorsCmd = new Command(async () => await SetDoctors());
-            NewDoctorCmd = new Command(async () => await NewDoctor());
-            EditDoctorCmd = new Command(async () => await EditDoctor());
+            SetDoctorsCmd = new Xamarin.Forms.Command(async () => await SetDoctors());
+            EditDoctorCmd = new Xamarin.Forms.Command(async () => await EditDoctor());
         }
         /*
         Name: SetDoctors
@@ -86,18 +74,18 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: DoctorListViewModel
         Date: June 28 2020
         */
-        private async Task SetDoctors()
+        private async System.Threading.Tasks.Task SetDoctors()
         {
-            Doctors = new ObservableCollection<DoctorViewModel>(await NetworkModule.GetDoctors(User));
+            Doctors = new ObservableCollection<Doctor>(await NetworkModule.GetDoctors(User));
             int result;
-            DoctorViewModel doc;
+            Doctor doc;
             if(Doctors.Count != 0)
             {
                 for (int i = 0; i < Doctors.Count - 1; i++)
                 {
                     for (int j = 0; j < Doctors.Count - i - 1; j++)
                     {
-                        result = String.Compare(Doctors[j].Name, Doctors[j + 1].Name);
+                        result = System.String.Compare(Doctors[j].Name, Doctors[j + 1].Name);
                         if (result > 0)
                         {
                             doc = Doctors[j];
@@ -112,18 +100,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 await ps.PushAsync(new DoctorForm(User, NetworkModule));
             }
         }
-        /*
-        Name: NewDoctor
-        Purpose: Takes the user to the doctor form
-        Author: Samuel McManus
-        Uses: N/A
-        Used by: DoctorListViewModel
-        Date: May 30 2020
-        */
-        private async Task NewDoctor()
-        {
-            await ps.PushAsync(new DoctorForm(User, NetworkModule));
-        }
+        
         /*
         Name: EditDoctor
         Purpose: Takes the user to the edit doctor form
@@ -132,7 +109,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: OnEdit
         Date: May 30 2020
         */
-        private async Task EditDoctor()
+        private async System.Threading.Tasks.Task EditDoctor()
         {
             doctor = await NetworkModule.GetDoctor(User, id);
             await ps.PushAsync(new EditDoctorForm(doctor, User, NetworkModule));

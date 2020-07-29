@@ -1,20 +1,13 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿using MyHealthChart3.Services;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class ConditionDetailViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private ConditionFormModel condition;
+        private Models.Condition condition;
 
-        public ConditionFormModel Condition
+        public Models.Condition Condition
         {
             get
             {
@@ -25,7 +18,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref condition, value);
             }
         }
-        public ConditionDetailViewModel(ConditionFormModel Cond, IServerComms networkModule)
+        public ConditionDetailViewModel(Models.Condition Cond, IServerComms networkModule)
         {
             Condition = Cond;
             NetworkModule = networkModule;
@@ -38,7 +31,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: ConditionDetail
         Date: July 7, 2020
         */
-        public async Task DeleteCondition()
+        public async System.Threading.Tasks.Task DeleteCondition()
         {
             await NetworkModule.DeleteCondition(Condition);
         }
