@@ -206,7 +206,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             if (!NameHasError && !PracticeHasError && !TypeHasError && !EmailHasError && !PhoneHasError)
             {
                 Doctor.Address = Address.Street + ", " + Address.City + ", " + Address.State + ", " + Address.ZipCode;
-                string result = await NetworkModule.SubmitDoctor(Doctor, User);
+                string result = await NetworkModule.AddDoctor(Doctor);
                 return result;
             }
             else

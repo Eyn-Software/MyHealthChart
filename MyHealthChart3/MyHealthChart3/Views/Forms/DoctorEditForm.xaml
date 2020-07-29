@@ -7,6 +7,7 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Forms.EditDoctorForm"
              BackgroundImageSource="LoginBackground.png"
@@ -14,27 +15,34 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
     
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                
+            <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+                <!--Title Label-->
+                <Label
+                    FontSize="40" Text="Edit Doctor"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
                 <!--Name Entry-->
-                <inputLayout:SfTextInputLayout Hint="Name" BindingContext="{Binding DataObject}"
-                                               HelperText="Required *" ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Name}" />
+                <inputLayout:SfTextInputLayout Hint="Name" HelperText="Required *" 
+                                               ContainerType ="Outlined" OutlineCornerRadius="7"
+                                               ErrorText="{Binding NameError}" HasError="{Binding NameHasError}">
+                    <Entry Text = "{Binding Name}" BindingContext="{Binding Doctor}" />
                 </inputLayout:SfTextInputLayout>
                 
                 <!--Practice Entry-->
-                <inputLayout:SfTextInputLayout Hint="Practice" BindingContext="{Binding DataObject}"
+                <inputLayout:SfTextInputLayout Hint="Practice" OutlineCornerRadius="7"
                                                HelperText="Required *"  ContainerType ="Outlined"
-                                               OutlineCornerRadius="7">
-                    <Entry Text = "{Binding Practice}" />
+                                               ErrorText="{Binding PracticeError}" HasError="{Binding PracticeHasError}">
+                    <Entry Text = "{Binding Practice}" BindingContext="{Binding Doctor}"/>
                 </inputLayout:SfTextInputLayout>
 
                 <!--Doctor Type-->
                 <inputLayout:SfTextInputLayout Hint="Type of Doctor"  ContainerType ="Outlined"
-                                               OutlineCornerRadius="7" BindingContext = "{Binding DataObject}">
+                                               OutlineCornerRadius="7" HelperText="Doctor's Specialty">
                     <autocomplete:SfAutoComplete  AutoCompleteMode="Suggest" Text="{Binding Type}"
-                                                  SelectedItem="{Binding Type}">
+                                                  SelectedItem="{Binding Type}" BindingContext = "{Binding Doctor}">
                         <autocomplete:SfAutoComplete.AutoCompleteSource>
                             <ListCollection:List x:TypeArguments="x:String">
                                 <x:String>Allergist</x:String>

@@ -439,19 +439,19 @@ namespace MyHealthChart3.Services
        Used by: DoctorFormViewModel
        Date: June 30, 2020
        */
-        public async Task<string> SubmitDoctor(Doctor dataObject, UserViewModel user)
+        public async Task<string> AddDoctor(Doctor Doctor)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("Id", user.Id.ToString()),
-                new KeyValuePair<string, string>("Password", user.Password),
+                new KeyValuePair<string, string>("Id", Doctor.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Doctor.Password),
                 new KeyValuePair<string, string>("Function", "DoctorForm"),
-                new KeyValuePair<string, string>("Name", dataObject.Name),
-                new KeyValuePair<string, string>("Practice", dataObject.Practice),
-                new KeyValuePair<string, string>("Type", dataObject.Type),
-                new KeyValuePair<string, string>("Address", dataObject.Address),
-                new KeyValuePair<string, string>("Phone", dataObject.Phone.ToString()),
-                new KeyValuePair<string, string>("Email", dataObject.Email)
+                new KeyValuePair<string, string>("Name", Doctor.Name),
+                new KeyValuePair<string, string>("Practice", Doctor.Practice),
+                new KeyValuePair<string, string>("Type", Doctor.Type),
+                new KeyValuePair<string, string>("Address", Doctor.Address),
+                new KeyValuePair<string, string>("Phone", Doctor.Phone.ToString()),
+                new KeyValuePair<string, string>("Email", Doctor.Email)
             };
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
@@ -640,12 +640,12 @@ namespace MyHealthChart3.Services
         Used by: EditDoctorFormViewModel
         Date: July 3, 2020
         */
-        public async Task<string> EditDoctor(Doctor Doctor, UserViewModel User)
+        public async Task<string> EditDoctor(Doctor Doctor)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("UId", User.Id.ToString()),
-                new KeyValuePair<string, string>("Password", User.Password),
+                new KeyValuePair<string, string>("UId", Doctor.UId.ToString()),
+                new KeyValuePair<string, string>("Password", Doctor.Password),
                 new KeyValuePair<string, string>("Id", Doctor.Id.ToString()),
                 new KeyValuePair<string, string>("Name", Doctor.Name),
                 new KeyValuePair<string, string>("Practice", Doctor.Practice),

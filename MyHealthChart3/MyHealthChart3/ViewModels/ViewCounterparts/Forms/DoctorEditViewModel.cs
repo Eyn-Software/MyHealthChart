@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -12,7 +11,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private bool haserror;
         private string error;
         private Doctor dataobject;
-        private UserViewModel user;
         private IPageService PS;
         private IServerComms NetworkModule;
 
@@ -49,25 +47,13 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref dataobject, value);
             }
         }
-        public UserViewModel User
-        {
-            get
-            {
-                return user;
-            }
-            set
-            {
-                SetValue(ref user, value);
-            }
-        }
         public ICommand SubmitCmd
         {
             get;
             private set;
         }
-        public DoctorEditViewModel(Models.Doctor D, UserViewModel U, IPageService ps, IServerComms networkModule)
+        public DoctorEditViewModel(Models.Doctor D, IPageService ps, IServerComms networkModule)
         {
-            User = U;
             DataObject = D;
             PS = ps;
             NetworkModule = networkModule;
@@ -77,7 +63,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private async Task Submit()
         {
             HasError = false;
-            Error = await NetworkModule.EditDoctor(DataObject, User);
+            Error = await NetworkModule.EditDoctor(DataObject);
             if(Error.Equals("Success"))
             {
                 await PS.PopAsync();

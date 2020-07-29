@@ -12,12 +12,10 @@ namespace MyHealthChart3.Views.Details
     public partial class DoctorDetail : ContentPage
     {
         IServerComms NetworkModule;
-        UserViewModel User;
-        public DoctorDetail(Models.Doctor Doctor, UserViewModel user, IServerComms networkModule)
+        public DoctorDetail(Models.Doctor Doctor, IServerComms networkModule)
         {
             InitializeComponent();
             NetworkModule = networkModule;
-            User = user;
             ViewModel = new DoctorDetailViewModel(Doctor, NetworkModule);
         }
         /*
@@ -30,9 +28,7 @@ namespace MyHealthChart3.Views.Details
         */
         private void EditDoctor(object sender, EventArgs e)
         {
-            var mi = ((MenuItem)sender);
-            ViewModel.Doctor.Id = (int)mi.CommandParameter;
-            Navigation.PushAsync(new EditDoctorForm(ViewModel.Doctor, User, NetworkModule));
+            Navigation.PushAsync(new EditDoctorForm(ViewModel.Doctor, NetworkModule));
         }
         public DoctorDetailViewModel ViewModel
         {

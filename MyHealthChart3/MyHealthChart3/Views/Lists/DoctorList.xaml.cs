@@ -55,7 +55,9 @@ namespace MyHealthChart3.Views
         private void DoctorSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
             Doctor Doctor = e.ItemData as Doctor;
-            Navigation.PushAsync(new Details.DoctorDetail(Doctor, User, NetworkModule));
+            Doctor.UId = User.Id;
+            Doctor.Password = User.Password;
+            Navigation.PushAsync(new Details.DoctorDetail(Doctor, NetworkModule));
         }
         /*
         Name: NewDoctor

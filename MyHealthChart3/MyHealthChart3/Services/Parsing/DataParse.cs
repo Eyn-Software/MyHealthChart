@@ -69,53 +69,40 @@ namespace MyHealthChart3.Services.Parsing
         {
             List<Doctor> Doctors = new List<Doctor>();
             Doctor Doctor;
-            int Id;
-            string Name;
-            string Practice;
-            string Type;
-            string Address;
-            string Email;
-            string Phone;
             int index;
 
             while (!ReceivedData.Equals(""))
             {
-                index = ReceivedData.IndexOf("///");
-                Id = int.Parse(ReceivedData.Substring(0, index));
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Name = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Practice = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Type = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Address = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Email = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
-                index = ReceivedData.IndexOf("///");
-                Phone = ReceivedData.Substring(0, index);
-                ReceivedData = ReceivedData.Substring(index + 3);
-
                 Doctor = new Doctor();
-                Doctor.Id = Id;
-                Doctor.Name = Name;
-                Doctor.Practice = Practice;
-                Doctor.Type = Type;
-                Doctor.Address = Address;
-                Doctor.Email = Email;
-                Doctor.Phone = Phone;
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Id = int.Parse(ReceivedData.Substring(0, index));
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Name = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Practice = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Type = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Address = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Email = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Doctor.Phone = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
                 Doctors.Add(Doctor);
             }
             return Doctors;

@@ -112,7 +112,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private async System.Threading.Tasks.Task EditDoctor()
         {
             doctor = await NetworkModule.GetDoctor(User, id);
-            await ps.PushAsync(new EditDoctorForm(doctor, User, NetworkModule));
+            await ps.PushAsync(new EditDoctorForm(doctor, NetworkModule));
         }
     }
 }

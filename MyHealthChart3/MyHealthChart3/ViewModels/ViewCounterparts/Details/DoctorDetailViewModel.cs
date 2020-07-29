@@ -24,9 +24,5 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
             Doctor = doc;
             NetworkModule = networkmodule;
         }
-        private async System.Threading.Tasks.Task EditDoctor()
-        {
-            
-        }
     }
 }

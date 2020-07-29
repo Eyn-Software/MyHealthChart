@@ -27,7 +27,7 @@ namespace MyHealthChart3.Services
         Task<FolderListModel> GetRootFolder(FolderListModel Folder);
         Task<NoteFormModel> GetNote(NoteListModel Note);
         Task<UserViewModel> AddUser(UserViewModel User);
-        Task<string> SubmitDoctor(Doctor dataObject, UserViewModel user);
+        Task<string> AddDoctor(Doctor dataObject);
         Task<int> AddAppointment(AppointmentFormEntryModel Appointment);
         Task<string> AddPrescription(Prescription Prescription);
         Task<string> AddVaccine(Vaccine Vaccine);
@@ -35,7 +35,7 @@ namespace MyHealthChart3.Services
         Task<string> AddAllergy(Allergy Allergy);
         Task AddFolder(FolderFormModel Folder);
         Task AddNote(NoteFormModel Note);
-        Task<string> EditDoctor(Doctor Doctor, UserViewModel User);
+        Task<string> EditDoctor(Doctor Doctor);
         Task<string> EditAppointment(AppointmentDetailModel Appointment);
         Task<string> EditPrescription(Prescription Prescription);
         Task EditNote(NoteFormModel Note);

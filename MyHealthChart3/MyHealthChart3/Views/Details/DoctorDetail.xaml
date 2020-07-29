@@ -22,29 +22,34 @@
     
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Doctor}">
+            <Image
+                Source="logoInt.png"
+                VerticalOptions="Center"
+                HeightRequest="125"
+                Margin="0,30,0,30"/>
             <!--Doctor's Name-->
-            <Label  Text="Doctor Name:"/>
-            <Label Text="{Binding Name}"/>
+            <Label Text="Doctor Name:" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
             
             <!--Doctor's Practice-->
-            <Label Text="Practice:"/>
-            <Label Text="{Binding Practice}"/>
+            <Label Text="Practice:" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Practice}" FontSize="18" TextColor="Black"/>
             
             <!--Doctor's Specialty-->
-            <Label Text="Specialty"/>
-            <Label Text="{Binding Type}"/>
+            <Label Text="Specialty" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Type}" FontSize="18" TextColor="Black"/>
 
             <!--Doctor's Address-->
-            <Label Text="Address"/>
-            <Label Text="{Binding Address}"/>
+            <Label Text="Address" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Address}" FontSize="18" TextColor="Black"/>
             
             <!--Doctor's Email-->
-            <Label Text="Email"/>
-            <Label Text="{Binding Email}"/>
+            <Label Text="Email" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Email}" FontSize="18" TextColor="Black"/>
             
             <!--Doctor's Phone-->
-            <Label Text="Phone"/>
-            <Label Text="{Binding Phone}"/>
+            <Label Text="Phone" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Phone}" FontSize="18" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
