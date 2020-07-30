@@ -16,92 +16,94 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit Appointment"
-                     Command="{Binding EditAppointmentCmd}"
+                     Clicked="EditAppointment"
                      Order="Secondary"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Grid BindingContext="{Binding Appointment}">
-                    <StackLayout>
-                        <!--Doctor's Name-->
-                        <Label
-                            Text="Doctor's Name:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,20,0,0"/>
+                <StackLayout BindingContext="{Binding Appointment}">
+                    <Image
+                        Source="logoInt.png"
+                        VerticalOptions="Center"
+                        HeightRequest="125"
+                        Margin="0,30,0,30"/>
+                    <!--Doctor's Name-->
+                    <Label
+                        Text="Doctor's Name:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="20"
+                        Margin="20,20,0,0"/>
 
-                        <Label
-                            Text="{Binding DoctorName}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
+                    <Label
+                        Text="{Binding Doctor}"
+                        FontSize="18"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
 
-                        <!--Address-->
-                        <Label
-                            Text="Address:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,20,0,0"/>
+                    <!--Address-->
+                    <Label
+                        Text="Address:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="20"
+                        Margin="20,20,0,0"/>
 
-                        <Label
-                            Text="{Binding Address}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
+                    <Label
+                        Text="{Binding Address}"
+                        FontSize="18"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
 
-                        <!-- Appointment Date -->
-                        <Label
-                            Text="Appointment Date:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,20,0,0"/>
+                    <!-- Appointment Date -->
+                    <Label
+                        Text="Appointment Date:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="20"
+                        Margin="20,20,0,0"/>
 
-                        <Label
-                            Text="{Binding Date}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
+                    <Label
+                        Text="{Binding Date}"
+                        FontSize="18"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
 
-                        <!-- Reason For Visit -->
-                        <Label
-                            Text="Reason For Doctor's Visit:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,0,0,0"/>
+                    <!-- Reason For Visit -->
+                    <Label
+                        Text="Reason For Doctor's Visit:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="20"
+                        Margin="20,0,0,0"/>
 
-                        <Label
-                            Text="{Binding Reason}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
-                    </StackLayout>
-                </Grid>
+                    <Label
+                        Text="{Binding Reason}"
+                        FontSize="18"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
+                </StackLayout>
 
                 <Grid IsVisible="{Binding IsPast}">
-                    <StackLayout>
+                    <StackLayout BindingContext="{Binding Appointment}">
                         <!-- Diagnosis -->
                         <Label
                             Text="Diagnosis:"
                             TextColor="#005486"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
-                            FontSize="18"
+                            FontSize="20"
                             Margin="20,0,0,0"/>
 
                         <Label
                             Text="{Binding Diagnosis}"
-                            BindingContext="{Binding Appointment}"
-                            FontSize="16"
+                            FontSize="18"
                             TextColor="Black"
                             Margin="20,0,0,10"/>
 
@@ -111,13 +113,12 @@
                             TextColor="#005486"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
-                            FontSize="18"
+                            FontSize="20"
                             Margin="20,0,0,0"/>
 
                         <Label
-                            Text="{Binding FollowUpAdvice}"
-                            BindingContext="{Binding Appointment}"
-                            FontSize="16"
+                            Text="{Binding Aftercare}"
+                            FontSize="18"
                             TextColor="Black"
                             Margin="20,0,0,10"/>
 
@@ -127,13 +128,12 @@
                             TextColor="#005486"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
-                            FontSize="18"
+                            FontSize="20"
                             Margin="20,0,0,0"/>
 
                         <Label
                             Text="{Binding Prescriptions}"
-                            BindingContext="{Binding Appointment}"
-                            FontSize="16"
+                            FontSize="18"
                             TextColor="Black"
                             Margin="20,0,0,10"/>
 
@@ -143,13 +143,12 @@
                             TextColor="#005486"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
-                            FontSize="18"
+                            FontSize="20"
                             Margin="20,0,0,0"/>
 
                         <Label
                             Text="{Binding Vaccines}"
-                            BindingContext="{Binding Appointment}"
-                            FontSize="16"
+                            FontSize="18"
                             TextColor="Black"
                             Margin="20,0,0,10"/>
                     </StackLayout>

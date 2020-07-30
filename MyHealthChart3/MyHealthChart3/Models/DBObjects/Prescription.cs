@@ -6,7 +6,8 @@ namespace MyHealthChart3.Models
     {
         public Prescription()
         {
-
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
         }
         public int Id { get; set; }
         public string Name { get; set; }

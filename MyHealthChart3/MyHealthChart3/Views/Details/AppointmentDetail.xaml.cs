@@ -1,12 +1,5 @@
 ﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,16 +8,22 @@ namespace MyHealthChart3.Views.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AppointmentDetail : ContentPage
     {
-        public AppointmentDetail(UserViewModel User, int AId, IServerComms NetworkModule)
+        public AppointmentDetail(Models.Appointment Appointment, IServerComms NetworkModule)
         {
             InitializeComponent();
-            IPageService PS = new PageService();
-            ViewModel = new AppointmentDetailViewModel(User, AId, PS, NetworkModule);
+            ViewModel = new AppointmentDetailViewModel(Appointment, NetworkModule);
         }
-        protected override void OnAppearing()
+        /*
+        Name: EditAppointment
+        Purpose: Takes the user to the appointment edit page
+        Author: Samuel McManus
+        Uses: EditAppointmentForm
+        Used by: N/A
+        Date: July 30, 2020
+        */
+        private void EditAppointment(object sender, System.EventArgs e)
         {
-            ViewModel.SetDetailsCmd.Execute(null);
-            base.OnAppearing();
+            Navigation.PushAsync(new AppointmentEditForm(ViewModel.Appointment, ViewModel.NetworkModule));
         }
         public AppointmentDetailViewModel ViewModel
         {

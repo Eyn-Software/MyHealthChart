@@ -45,7 +45,7 @@ namespace MyHealthChart3.Services
             String SerializedString = await Response.Content.ReadAsStringAsync();
             if(!SerializedString.Equals(""))
             {
-                Users = await dp.DownloadUsers(SerializedString);
+                Users = dp.DownloadUsers(SerializedString);
                 foreach (UserViewModel u in Users)
                 {
                     u.Password = data.Password;
@@ -77,7 +77,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             String SerializedString = await Response.Content.ReadAsStringAsync();
-            List<UserViewModel> Users = await dp.DownloadUsers(SerializedString);
+            List<UserViewModel> Users = dp.DownloadUsers(SerializedString);
             foreach(UserViewModel u in Users)
             {
                 u.Password = data.Password;
@@ -105,7 +105,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string SerializedString = await Response.Content.ReadAsStringAsync();
-            List<Doctor> Doctors = await dp.DownloadDoctors(SerializedString);
+            List<Doctor> Doctors = dp.DownloadDoctors(SerializedString);
             return Doctors;
         }
         /*
@@ -116,7 +116,7 @@ namespace MyHealthChart3.Services
         Used by: AppointmentList
         Date: July 1, 2020
         */
-        public async Task<List<AppointmentListModel>> GetAppointments(UserViewModel User)
+        public async Task<List<Appointment>> GetAppointments(UserViewModel User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -128,7 +128,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadAppointments(Details);
+            return dp.DownloadAppointments(Details);
         }
         /*
         Name: GetAllAppointments
@@ -150,7 +150,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadCalendar(Details);
+            return dp.DownloadCalendar(Details);
         }
         /*
         Name: GetFutureAppointments
@@ -172,7 +172,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadFutureAppointments(Details);
+            return dp.DownloadFutureAppointments(Details);
         }
         /*
         Name: GetConditions
@@ -194,7 +194,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadConditions(Details);
+            return dp.DownloadConditions(Details);
         }
         /*
         Name: GetAllergies
@@ -216,7 +216,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadAllergies(Details);
+            return dp.DownloadAllergies(Details);
         }
         /*
         Name: GetVaccines
@@ -238,7 +238,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadVaccines(Details);
+            return dp.DownloadVaccines(Details);
         }
         /*
         Name: GetPrescriptions
@@ -260,7 +260,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadPrescriptions(Details);
+            return dp.DownloadPrescriptions(Details);
         }
         /*
         Name: GetFolders
@@ -283,7 +283,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadFolders(Details);
+            return dp.DownloadFolders(Details);
         }
         /*
         Name: GetNotes
@@ -306,30 +306,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadNotes(Details);
-        }
-        /*
-        Name: GetDoctor
-        Purpose: Gets the relevant doctor from the server
-        Author: Samuel McManus
-        Uses: DownloadDoctor
-        Used by: DoctorEditFormViewModel
-        Date: June 31, 2020
-        */
-        public async Task<Doctor> GetDoctor(UserViewModel User, int Id)
-        {
-            IDataParse dp = new DataParse();
-            IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("Id", Id.ToString()),
-                new KeyValuePair<string, string>("UId", User.Id.ToString()),
-                new KeyValuePair<string, string>("Password", User.Password),
-                new KeyValuePair<string, string>("Function", "GetDoctor")
-            };
-            HttpContent Content = new FormUrlEncodedContent(PostFields);
-            HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
-            string ResponseString = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadDoctor(ResponseString);
+            return dp.DownloadNotes(Details);
         }
         /*
         Name: GetAppointment
@@ -339,12 +316,12 @@ namespace MyHealthChart3.Services
         Used by: AppointmentDetail
         Date: July 6, 2020
         */
-        public async Task<AppointmentDetailModel> GetAppointment(AppointmentDetailModel Appointment)
+        public async Task<Appointment> GetAppointment(Appointment Appointment)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("AId", Appointment.AId.ToString()),
+                new KeyValuePair<string, string>("AId", Appointment.Id.ToString()),
                 new KeyValuePair<string, string>("UId", Appointment.UId.ToString()),
                 new KeyValuePair<string, string>("Password", Appointment.Password),
                 new KeyValuePair<string, string>("Function", "GetAppointment")
@@ -352,7 +329,9 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            AppointmentDetailModel Appt = await dp.DownloadAppointment(Details);
+            Appointment Appt = new Appointment();
+            if(!Details.Equals(""))
+                Appt = dp.DownloadAppointment(Details, Appointment);
             return Appt;
         }
         /*
@@ -404,7 +383,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             string Details = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadNote(Details, Note);
+            return dp.DownloadNote(Details, Note);
         }
         /*
         Name: AddUser
@@ -428,7 +407,7 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             String SerializedString = await Response.Content.ReadAsStringAsync();
-            return await dp.DownloadUser(SerializedString);
+            return dp.DownloadUser(SerializedString);
         }
 
         /*
@@ -465,7 +444,7 @@ namespace MyHealthChart3.Services
         Used by: AppointmentFormViewModel
         Date: July 3, 2020
         */
-        public async Task<int> AddAppointment(AppointmentFormEntryModel Appointment)
+        public async Task<int> AddAppointment(Appointment Appointment)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -667,13 +646,13 @@ namespace MyHealthChart3.Services
         Used by: EditAppointmentFormViewModel
         Date: July 6, 2020
         */
-        public async Task<string> EditAppointment(AppointmentDetailModel Appointment)
+        public async Task<string> EditAppointment(Appointment Appointment)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("UId", Appointment.UId.ToString()),
                 new KeyValuePair<string, string>("Password", Appointment.Password),
-                new KeyValuePair<string, string>("AId", Appointment.AId.ToString()),
+                new KeyValuePair<string, string>("AId", Appointment.Id.ToString()),
                 new KeyValuePair<string, string>("Date", Appointment.Date.ToString("yyyy-MM-dd hh:mm:ss")),
                 new KeyValuePair<string, string>("Reason", Appointment.Reason),
                 new KeyValuePair<string, string>("Diagnosis", Appointment.Diagnosis),

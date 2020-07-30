@@ -22,16 +22,21 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <listview:SfListView ItemsSource="{Binding Doctors}" ItemTapped="DoctorSelected"
-                                     ItemSize="55">
-            <listview:SfListView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Name}" FontSize="Medium" TextColor="Blue"/>
-                        <Label Text="{Binding Practice}" FontSize="Small"/>
-                    </StackLayout>
-                </DataTemplate>
-            </listview:SfListView.ItemTemplate>
-        </listview:SfListView>
+        <StackLayout>
+            <SearchBar HeightRequest="40"
+                       Placeholder="Search"
+                       TextChanged="OnFilterTextChanged" Grid.Row="0"/>
+            <listview:SfListView ItemsSource="{Binding FilteredDoctors}" ItemTapped="DoctorSelected"
+                                             ItemSize="55">
+                <listview:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="Blue"/>
+                            <Label Text="{Binding Practice}" FontSize="Small" HorizontalOptions = "LayoutOptions.EndAndExpand" />
+                        </StackLayout>
+                    </DataTemplate>
+                </listview:SfListView.ItemTemplate>
+            </listview:SfListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

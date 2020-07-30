@@ -169,9 +169,6 @@
                                                    OutlineCornerRadius="7" HelperText="Enter Your Doctor's Zip Code">
                         <Entry Text = "{Binding ZipCode}" BindingContext="{Binding Address}"/>
                     </inputLayout:SfTextInputLayout>
-                </StackLayout>
-
-                <StackLayout>
                     <!-- Doctor's Email-->
                     <inputLayout:SfTextInputLayout Hint="Email" ContainerType ="Outlined" ErrorText="{Binding EmailError}"
                                                    OutlineCornerRadius="7"  HasError="{Binding EmailHasError}"

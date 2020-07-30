@@ -85,6 +85,19 @@ namespace MyHealthChart3.Views
             ViewModel.id = (int)mi.CommandParameter;
             ViewModel.EditDoctorCmd.Execute(null);
         }
+        /*
+        Name: OnFilterTextChanged
+        Purpose: Calls filter doctors when the search text is changed
+        Author: Samuel McManus
+        Uses: FilterDoctors
+        Used by: N/A
+        Date: July 30, 2020
+        */
+        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchbar = sender as SearchBar;
+            ViewModel.FilterDoctors(searchbar.Text);
+        }
         public DoctorListViewModel ViewModel
         {
             get

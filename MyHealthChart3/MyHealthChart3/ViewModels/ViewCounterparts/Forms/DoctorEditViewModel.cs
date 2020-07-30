@@ -1,78 +1,55 @@
 ﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Services;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class DoctorEditViewModel : BaseViewModel
     {
-        private bool haserror;
-        private string error;
-        private Doctor dataobject;
-        private IPageService PS;
+        private Doctor doctor;
+        private Address address;
         private IServerComms NetworkModule;
-
-        public bool HasError
+        private IDataParse dp;
+        public Doctor Doctor
         {
             get
             {
-                return haserror;
+                return doctor;
             }
             set
             {
-                SetValue(ref haserror, value);
+                SetValue(ref doctor, value);
             }
         }
-        public string Error
+        public Address Address
         {
             get
             {
-                return error;
+                return address;
             }
             set
             {
-                SetValue(ref error, value);
+                SetValue(ref address, value);
             }
         }
-        public Doctor DataObject
+        public DoctorEditViewModel(Doctor D, IServerComms networkModule)
         {
-            get
-            {
-                return dataobject;
-            }
-            set
-            {
-                SetValue(ref dataobject, value);
-            }
-        }
-        public ICommand SubmitCmd
-        {
-            get;
-            private set;
-        }
-        public DoctorEditViewModel(Models.Doctor D, IPageService ps, IServerComms networkModule)
-        {
-            DataObject = D;
-            PS = ps;
+            Doctor = D;
             NetworkModule = networkModule;
-
-            SubmitCmd = new Command(async () => await Submit());
+            dp = new Services.Parsing.DataParse();
+            Address = dp.DownloadAddress(Doctor.Address);
         }
-        private async Task Submit()
+        /*
+        Name: Submit
+        Purpose: Attempts to submit the doctor to the database
+        Author: Samuel McManus
+        Uses: EditDoctor
+        Used by: N/A
+        Date: July 29, 2020
+        */
+        public async System.Threading.Tasks.Task<string> Submit()
         {
-            HasError = false;
-            Error = await NetworkModule.EditDoctor(DataObject);
-            if(Error.Equals("Success"))
-            {
-                await PS.PopAsync();
-            }
-            else
-            {
-                HasError = true;
-            }
-            
+            return await NetworkModule.EditDoctor(Doctor);
         }
     }
 }

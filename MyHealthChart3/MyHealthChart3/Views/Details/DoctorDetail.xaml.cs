@@ -1,5 +1,4 @@
 ﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts.Details;
 using MyHealthChart3.Views.Forms;
 using System;
@@ -19,10 +18,10 @@ namespace MyHealthChart3.Views.Details
             ViewModel = new DoctorDetailViewModel(Doctor, NetworkModule);
         }
         /*
-        Name: OnEdit
-        Purpose: Calls the edit command
+        Name: EditDoctor
+        Purpose: Calls the Doctor Edit Form
         Author: Samuel McManus
-        Uses: PushAsync
+        Uses: EditDoctorForm
         Used by: N/A
         Date: May 30 2020
         */

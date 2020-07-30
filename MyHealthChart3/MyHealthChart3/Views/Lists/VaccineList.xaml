@@ -29,7 +29,7 @@
                             <Grid>
                                 <StackLayout>
                                     <Label Text="{Binding Name}" FontSize="Medium" TextColor="Blue"/>
-                                    <Label Text="{Binding StringDate}" FontSize="Small"/>
+                                    <Label Text="{Binding StringDate}" HorizontalOptions = "LayoutOptions.EndAndExpand" FontSize="Small"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

@@ -6,7 +6,6 @@ using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace MyHealthChart3.Services.Parsing
 {
@@ -24,7 +23,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: Login, Register
         Date: June 28, 2020
         */
-        public async Task<List<UserViewModel>> DownloadUsers(string ReceivedData)
+        public List<UserViewModel> DownloadUsers(string ReceivedData)
         {
             List<UserViewModel> Users = new List<UserViewModel>();
             UserViewModel User;
@@ -65,7 +64,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetDoctors
         Date: June 30, 2020
         */
-        public async Task<List<Doctor>> DownloadDoctors(string ReceivedData)
+        public List<Doctor> DownloadDoctors(string ReceivedData)
         {
             List<Doctor> Doctors = new List<Doctor>();
             Doctor Doctor;
@@ -115,35 +114,44 @@ namespace MyHealthChart3.Services.Parsing
         Used by: Login, Register
         Date: July 2, 2020
         */
-        public async Task<List<AppointmentListModel>> DownloadAppointments(string ReceivedData)
+        public List<Appointment> DownloadAppointments(string ReceivedData)
         {
-            int Id;
-            string Doctor;
-            string Date;
             int index;
-            List<AppointmentListModel> Appointments = new List<AppointmentListModel>();
-            AppointmentListModel Appointment;
+            List<Appointment> Appointments = new List<Appointment>();
+            Appointment Appointment;
 
             while (!ReceivedData.Equals(""))
             {
+                Appointment = new Appointment(); 
+
                 index = ReceivedData.IndexOf("///");
-                Id = int.Parse(ReceivedData.Substring(0, index));
+                Appointment.Id = int.Parse(ReceivedData.Substring(0, index));
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Doctor = ReceivedData.Substring(0, index);
+                Appointment.Doctor = ReceivedData.Substring(0, index);
                 ReceivedData = ReceivedData.Substring(index + 3);
 
                 index = ReceivedData.IndexOf("///");
-                Date = ReceivedData.Substring(0, index);
+                Appointment.Date = DateTime.Parse(ReceivedData.Substring(0, index));
+                Appointment.DateString = Appointment.Date.ToShortDateString();
                 ReceivedData = ReceivedData.Substring(index + 3);
 
-                Appointment = new AppointmentListModel();
-                Appointment.Id = Id;
-                Appointment.Doctor = Doctor;
-                Appointment.Date = Date;
-                Appointment.DateAsDateTime = DateTime.Parse(Date);
-                Appointment.Date = Appointment.DateAsDateTime.ToShortDateString();
+                index = ReceivedData.IndexOf("///");
+                Appointment.Address = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.Reason = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.Diagnosis = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
+
+                index = ReceivedData.IndexOf("///");
+                Appointment.Aftercare = ReceivedData.Substring(0, index);
+                ReceivedData = ReceivedData.Substring(index + 3);
                 Appointments.Add(Appointment);
             }
             return Appointments;
@@ -156,7 +164,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetFutureAppointments
         Date: July 16, 2020
         */
-        public async Task<List<AppointmentReminderModel>> DownloadFutureAppointments(string ReceivedData)
+        public List<AppointmentReminderModel> DownloadFutureAppointments(string ReceivedData)
         {
             int index;
             List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
@@ -193,7 +201,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: ConditionList
         Date: July 6, 2020
         */
-        public async Task<ObservableCollection<Models.Condition>> DownloadConditions(string ReceivedData)
+        public ObservableCollection<Models.Condition> DownloadConditions(string ReceivedData)
         {
             ObservableCollection<Models.Condition> Conditions = new ObservableCollection<Models.Condition>();
             while (!ReceivedData.Equals(""))
@@ -214,7 +222,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetAllergies
         Date: July 8, 2020
         */
-        public async Task<ObservableCollection<Allergy>> DownloadAllergies(string ReceivedData)
+        public ObservableCollection<Allergy> DownloadAllergies(string ReceivedData)
         {
             ObservableCollection<Allergy> Allergies = new ObservableCollection<Allergy>();
             while(!ReceivedData.Equals(""))
@@ -235,7 +243,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetCalendar
         Date: July 11, 2020
         */
-        public async Task<CalendarEventCollection> DownloadCalendar(string ReceivedData)
+        public CalendarEventCollection DownloadCalendar(string ReceivedData)
         {
             CalendarEventCollection Events = new CalendarEventCollection();
             CalendarInlineEvent Event;
@@ -272,7 +280,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetVaccines
         Date: July 13, 2020
         */
-        public async Task<ObservableCollection<Vaccine>> DownloadVaccines(string ReceivedData)
+        public ObservableCollection<Vaccine> DownloadVaccines(string ReceivedData)
         {
             ObservableCollection<Vaccine> Vaccines = new ObservableCollection<Vaccine>();
             Vaccine Vaccine;
@@ -302,7 +310,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetPrescriptions
         Date: July 14, 2020
         */
-        public async Task<ObservableCollection<Prescription>> DownloadPrescriptions(string ReceivedData)
+        public ObservableCollection<Prescription> DownloadPrescriptions(string ReceivedData)
         {
             ObservableCollection<Prescription> Prescriptions = new ObservableCollection<Prescription>();
             Prescription Prescription;
@@ -351,7 +359,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetChildFolders
         Date: July 19, 2020
         */
-        public async Task<ObservableCollection<FolderListModel>> DownloadFolders(string ReceivedData)
+        public ObservableCollection<FolderListModel> DownloadFolders(string ReceivedData)
         {
             ObservableCollection<FolderListModel> Folders = new ObservableCollection<FolderListModel>();
             FolderListModel Folder;
@@ -392,7 +400,7 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetChildNotes
         Date: July 19, 2020
         */
-        public async Task<ObservableCollection<NoteListModel>> DownloadNotes(string ReceivedData)
+        public ObservableCollection<NoteListModel> DownloadNotes(string ReceivedData)
         {
             ObservableCollection<NoteListModel> Notes = new ObservableCollection<NoteListModel>();
             NoteListModel Note;
@@ -423,7 +431,7 @@ namespace MyHealthChart3.Services.Parsing
             }
             return Notes;
         }
-        public async Task<UserViewModel> DownloadUser(string ReceivedData)
+        public UserViewModel DownloadUser(string ReceivedData)
         {
             UserViewModel User = new UserViewModel();
             int index;
@@ -442,64 +450,8 @@ namespace MyHealthChart3.Services.Parsing
 
             index = ReceivedData.IndexOf("///");
             User.AId = int.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
 
             return User;
-        }
-        /*
-        Name: DownloadDoctor
-        Purpose: Parses the string sent from the server when a doctor is downloaded
-        Author: Samuel McManus
-        Uses: N/A
-        Used by: GetDoctor
-        Date: July 1, 2020
-        */
-        public async Task<Doctor> DownloadDoctor(string ReceivedData)
-        {
-            int Id;
-            string Name;
-            string Practice;
-            string Type;
-            string Address;
-            string Email;
-            string Phone;
-            int index;
-
-            index = ReceivedData.IndexOf("///");
-            Id = int.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Name = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Practice = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Type = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Address = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Email = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            Phone = ReceivedData;
-
-            Doctor Doctor = new Doctor();
-            Doctor.Id = (int)Id;
-            Doctor.Name = Name;
-            Doctor.Practice = Practice;
-            Doctor.Type = Type;
-            Doctor.Address = Address;
-            Doctor.Email = Email;
-            Doctor.Phone = Phone;
-            return Doctor;
         }
         /*
         Name: DownloadAppointment
@@ -509,38 +461,9 @@ namespace MyHealthChart3.Services.Parsing
         Used by: AppointmentDetail
         Date: July 6, 2020
         */
-        public async Task<AppointmentDetailModel> DownloadAppointment(string ReceivedData)
+        public Appointment DownloadAppointment(string ReceivedData, Appointment Appointment)
         {
-            AppointmentDetailModel Appointment = new AppointmentDetailModel();
             int index;
-
-            index = ReceivedData.IndexOf("///");
-            Appointment.AId = int.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Appointment.Date = DateTime.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            if(index > 0)
-                Appointment.ReminderTime = DateTime.Parse(ReceivedData.Substring(0, index));
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            if (index > 0)
-                Appointment.Aftercare = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            if (index > 0)
-                Appointment.Reason = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            if (index > 0)
-                Appointment.Diagnosis = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
 
             index = ReceivedData.IndexOf("///");
             Appointment.Prescriptions = ReceivedData.Substring(0, index - 2);
@@ -548,18 +471,22 @@ namespace MyHealthChart3.Services.Parsing
 
             index = ReceivedData.IndexOf("///");
             Appointment.Vaccines = ReceivedData.Substring(0, index - 2);
-            ReceivedData = ReceivedData.Substring(index + 3);
 
-            index = ReceivedData.IndexOf("///");
-            Appointment.DoctorName = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
-
-            index = ReceivedData.IndexOf("///");
-            Appointment.Address = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
+            if (Appointment.Vaccines.Equals("abcdefa"))
+                Appointment.Vaccines = "";
+            if (Appointment.Prescriptions.Equals("abcdefa"))
+                Appointment.Prescriptions = "";
             return Appointment;
         }
-        public async Task<NoteFormModel> DownloadNote(string ReceivedData, NoteListModel N)
+        /*
+        Name: DownloadNote
+        Purpose: Parses the string sent from the server when a note is downloaded
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: ServerComms
+        Date: July 30, 2020
+        */
+        public NoteFormModel DownloadNote(string ReceivedData, NoteListModel N)
         {
             NoteFormModel Note = new NoteFormModel(N);
             int index;
@@ -570,9 +497,37 @@ namespace MyHealthChart3.Services.Parsing
 
             index = ReceivedData.IndexOf("///");
             Note.Description = ReceivedData.Substring(0, index);
-            ReceivedData = ReceivedData.Substring(index + 3);
 
             return Note;
+        }
+        /*
+        Name: DownloadAddress
+        Purpose: Parses an address for a doctor
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: DoctorDetail
+        Date: July 30, 2020
+        */
+        public Address DownloadAddress(string ReceivedData)
+        {
+            Address Address = new Address();
+            int index;
+
+            index = ReceivedData.IndexOf(",");
+            Address.Street = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 2);
+
+            index = ReceivedData.IndexOf(",");
+            Address.City = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 2);
+
+            index = ReceivedData.IndexOf(",");
+            Address.State = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 2);
+
+            Address.ZipCode = ReceivedData;
+
+            return Address;
         }
     }
 }

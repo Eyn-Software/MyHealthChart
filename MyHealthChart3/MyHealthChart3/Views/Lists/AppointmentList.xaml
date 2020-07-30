@@ -17,7 +17,7 @@ xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfL
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New Appointment"
-                     Command="{Binding NewAppointmentCmd}"
+                     Clicked="NewAppointment"
                      Order="Secondary"/>
     </ContentPage.ToolbarItems>
     
@@ -30,8 +30,8 @@ xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfL
                         <DataTemplate>
                             <Grid>
                                 <StackLayout>
-                                    <Label Text="{Binding Doctor}" FontSize="Medium"/>
-                                    <Label Text="{Binding Date}" FontSize="Medium"  HorizontalOptions = "LayoutOptions.EndAndExpand"/>
+                                    <Label Text="{Binding Doctor}" FontSize="Medium" TextColor="Black"/>
+                                    <Label Text="{Binding Date}" FontSize="Small"  HorizontalOptions = "LayoutOptions.EndAndExpand" TextColor="Black"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

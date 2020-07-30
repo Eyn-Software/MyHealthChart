@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
-using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
 using MyHealthChart3.Services.Notifications;
 using MyHealthChart3.ViewModels.ModelCounterparts;
@@ -16,15 +15,14 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class AppointmentFormViewModel : BaseViewModel
     {
         private INotificationService NotificationService;
-        private IPageService PS;
         private IServerComms NetworkModule;
-        private bool ispast, wantsfollowup, rx0exists, rx1exists, vax0exists, vax1exists;
+        private bool ispast, wantsfollowup, rx0exists, rx1exists, vax0exists, vax1exists, rx0haserror, rx1haserror, rx2haserror;
         private int row, result;
-        private string rx0name, rx1name, rx2name, vax0name, vax1name, vax2name;
+        private string rx0name, rx1name, rx2name, vax0name, vax1name, vax2name, rx0error, rx1error, rx2error;
         private DateTime date, followupdate;
         private TimeSpan time, followuptime, remindertime;
         private UserViewModel user;
-        private AppointmentFormEntryModel appointmentobject, followupappointmentobject;
+        private Appointment appointment, followupappointment;
         private Prescription prescription0, prescription1, prescription2;
         private Vaccine vaccine0, vaccine1, vaccine2;
         private List<Doctor> doctors;
@@ -81,13 +79,40 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             set
             {
                 SetValue(ref rx0name, value);
-                if(!Rx0Name.Equals("") || Rx0Name == null)
+                if (!Rx0Name.Equals("") && Rx0Name != null)
                 {
                     Rx0Exists = true;
                 }
+                else
+                    Rx0Exists = false;
             }
         }
-        
+        public bool Rx0HasError
+        {
+            get
+            {
+                return rx0haserror;
+            }
+            set
+            {
+                SetValue(ref rx0haserror, value);
+            }
+        }
+        public string Rx0Error
+        {
+            get
+            {
+                return rx0error;
+            }
+            set
+            {
+                SetValue(ref rx0error, value);
+                if (Rx0Error.Equals(""))
+                    Rx0HasError = false;
+                else
+                    Rx0HasError = true;
+            }
+        }
         public bool Rx1Exists
         {
             get
@@ -108,10 +133,38 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             set
             {
                 SetValue(ref rx1name, value);
-                if (!Rx1Name.Equals("") || Rx1Name == null)
+                if (!Rx1Name.Equals("") && Rx1Name != null)
                 {
                     Rx1Exists = true;
                 }
+                else
+                    Rx1Exists = false;
+            }
+        }
+        public bool Rx1HasError
+        {
+            get
+            {
+                return rx1haserror;
+            }
+            set
+            {
+                SetValue(ref rx1haserror, value);
+            }
+        }
+        public string Rx1Error
+        {
+            get
+            {
+                return rx1error;
+            }
+            set
+            {
+                SetValue(ref rx1error, value);
+                if (Rx1Error.Equals(""))
+                    Rx1HasError = false;
+                else
+                    Rx1HasError = true;
             }
         }
         public string Rx2Name
@@ -123,6 +176,32 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             set
             {
                 SetValue(ref rx2name, value);
+            }
+        }
+        public bool Rx2HasError
+        {
+            get
+            {
+                return rx2haserror;
+            }
+            set
+            {
+                SetValue(ref rx2haserror, value);
+            }
+        }
+        public string Rx2Error
+        {
+            get
+            {
+                return rx2error;
+            }
+            set
+            {
+                SetValue(ref rx2error, value);
+                if (Rx2Error.Equals(""))
+                    Rx2HasError = false;
+                else
+                    Rx2HasError = true;
             }
         }
         public bool Vax0Exists
@@ -283,26 +362,26 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref user, value);
             }
         }
-        public AppointmentFormEntryModel AppointmentObject
+        public Appointment Appointment
         {
             get
             {
-                return appointmentobject;
+                return appointment;
             }
             set
             {
-                SetValue(ref appointmentobject, value);
+                SetValue(ref appointment, value);
             }
         }
-        public AppointmentFormEntryModel FollowupAppointmentObject
+        public Appointment FollowupAppointment
         {
             get
             {
-                return followupappointmentobject;
+                return followupappointment;
             }
             set
             {
-                SetValue(ref followupappointmentobject, value);
+                SetValue(ref followupappointment, value);
             }
         }
         public Prescription Prescription0
@@ -398,11 +477,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public ICommand SubmitCmd
-        {
-            get;
-            private set;
-        }
         /*
         Name: AppointmentFormViewModel 
         Purpose: Initializes the Appointment Form ViewModel
@@ -411,13 +485,12 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: AppointmentForm
         Date: July 3, 2020
         */
-        public AppointmentFormViewModel(UserViewModel Usr, IPageService Ps, IServerComms networkModule)
+        public AppointmentFormViewModel(UserViewModel Usr, IServerComms networkModule)
         {
-            PS = Ps;
             NetworkModule = networkModule;
             User = Usr;
-            AppointmentObject = new AppointmentFormEntryModel();
-            FollowupAppointmentObject = new AppointmentFormEntryModel();
+            Appointment = new Appointment();
+            FollowupAppointment = new Appointment();
             Prescription0 = new Prescription();
             Prescription1 = new Prescription();
             Prescription2 = new Prescription();
@@ -433,7 +506,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             WantsFollowup = false;
 
             SetDoctorsCmd = new Command(async () => await SetDoctors());
-            SubmitCmd = new Command(async () => await Submit());
         }
         /*
         Name: SetDoctors
@@ -477,32 +549,54 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: MainPage
         Date: July 3, 2020
         */
-        private async Task Submit()
+        public async Task<string> Submit()
         {
-            Prescription P;
-
-            AppointmentObject.Date = Date;
-            AppointmentObject.ChosenDoctor = Doctors[row];
-            AppointmentObject.UId = User.Id;
-            AppointmentObject.Password = User.Password;
-            //AppointmentObject.ReminderTime = Date.Date + ReminderTime;
-            AppointmentObject.ReminderTime = Date.Date + Time;
-            AppointmentObject.AId = await NetworkModule.AddAppointment(AppointmentObject);
+            Rx0HasError = false;
+            Rx1HasError = false;
+            Rx2HasError = false;
+            //Error checking
+            int result;
+            if (Rx0Exists)
+            {
+                result = DateTime.Compare(Prescription0.EndDate, Prescription0.StartDate);
+                if (result < 0)
+                    Rx0Error = "The start date cannot come before the end date";
+            }
+            if(Rx1Exists)
+            {
+                result = DateTime.Compare(Prescription1.EndDate, Prescription1.StartDate);
+                if(result < 0)
+                    Rx1Error = "The start date cannot come before the end date";
+            }
+            if(Rx2Name != null && !Rx2Name.Equals(""))
+            {
+                result = DateTime.Compare(Prescription2.EndDate, Prescription2.StartDate);
+                if(result < 0)
+                    Rx2Error = "The start date cannot come before the end date";
+            }
+            if (Rx0HasError || Rx1HasError || Rx2HasError)
+                return "";
+            Appointment.Date = Date;
+            Appointment.ChosenDoctor = Doctors[row];
+            Appointment.UId = User.Id;
+            Appointment.Password = User.Password;
+            Appointment.ReminderTime = Date.Date + Time;
+            Appointment.Id = await NetworkModule.AddAppointment(Appointment);
             if(WantsFollowup)
             {
-                FollowupAppointmentObject.Date = FollowupDate.Date + FollowupTime;
-                FollowupAppointmentObject.ChosenDoctor = Doctors[row];
-                FollowupAppointmentObject.UId = User.Id;
-                FollowupAppointmentObject.Password = User.Password;
-                await NetworkModule.AddAppointment(FollowupAppointmentObject);
+                FollowupAppointment.Date = FollowupDate.Date + FollowupTime;
+                FollowupAppointment.ChosenDoctor = Doctors[row];
+                FollowupAppointment.UId = User.Id;
+                FollowupAppointment.Password = User.Password;
+                await NetworkModule.AddAppointment(FollowupAppointment);
             }
             if(Rx0Exists)
             {
-                Prescription0.AId = AppointmentObject.AId;
-                Prescription0.UId = AppointmentObject.UId;
+                Prescription0.AId = Appointment.Id;
+                Prescription0.UId = Appointment.UId;
                 Prescription0.Name = Rx0Name;
-                Prescription0.DId = AppointmentObject.ChosenDoctor.Id;
-                Prescription0.Password = AppointmentObject.Password;
+                Prescription0.DId = Appointment.ChosenDoctor.Id;
+                Prescription0.Password = Appointment.Password;
                 Prescription0.ReminderTime = Prescription0.StartDate.Date + Prescription0.ReminderTime.TimeOfDay;
                 //Adds reminders for prescription 0 and stores it on the server
                 Prescription0.Id = int.Parse(await NetworkModule.AddPrescription(Prescription0));
@@ -510,11 +604,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             }
             if(Rx1Exists)
             {
-                Prescription1.AId = AppointmentObject.AId;
-                Prescription1.UId = AppointmentObject.UId;
+                Prescription1.AId = Appointment.Id;
+                Prescription1.UId = Appointment.UId;
                 Prescription1.Name = Rx1Name;
-                Prescription1.DId = AppointmentObject.ChosenDoctor.Id;
-                Prescription1.Password = AppointmentObject.Password;
+                Prescription1.DId = Appointment.ChosenDoctor.Id;
+                Prescription1.Password = Appointment.Password;
                 Prescription1.ReminderTime = Prescription1.StartDate.Date + Prescription1.ReminderTime.TimeOfDay;
                 //Adds reminders for prescription 1 and stores it on the server
                 Prescription1.Id = int.Parse(await NetworkModule.AddPrescription(Prescription1));
@@ -522,11 +616,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             }
             if (Rx2Name != null && !Rx2Name.Equals(""))
             {
-                Prescription2.AId = AppointmentObject.AId;
-                Prescription2.UId = AppointmentObject.UId;
+                Prescription2.AId = Appointment.Id;
+                Prescription2.UId = Appointment.UId;
                 Prescription2.Name = Rx2Name;
-                Prescription2.DId = AppointmentObject.ChosenDoctor.Id;
-                Prescription2.Password = AppointmentObject.Password;
+                Prescription2.DId = Appointment.ChosenDoctor.Id;
+                Prescription2.Password = Appointment.Password;
                 Prescription2.ReminderTime = Prescription2.StartDate.Date + Prescription2.ReminderTime.TimeOfDay;
                 //Adds reminders for prescription 2 and stores it on the server
                 Prescription2.Id = int.Parse(await NetworkModule.AddPrescription(Prescription2));
@@ -535,30 +629,30 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             if(Vax0Exists)
             {
                 Vaccine0.Name = Vax0Name;
-                Vaccine0.AId = AppointmentObject.AId;
-                Vaccine0.UId = AppointmentObject.UId;
-                Vaccine0.DId = AppointmentObject.ChosenDoctor.Id;
-                Vaccine0.Password = AppointmentObject.Password;
+                Vaccine0.AId = Appointment.Id;
+                Vaccine0.UId = Appointment.UId;
+                Vaccine0.DId = Appointment.ChosenDoctor.Id;
+                Vaccine0.Password = Appointment.Password;
                 await NetworkModule.AddVaccine(Vaccine0);
             }
             if (Vax1Exists)
             {
                 Vaccine1.Name = Vax1Name;
-                Vaccine1.AId = AppointmentObject.AId;
-                Vaccine1.UId = AppointmentObject.UId;
-                Vaccine1.DId = AppointmentObject.ChosenDoctor.Id;
-                Vaccine1.Password = AppointmentObject.Password;
+                Vaccine1.AId = Appointment.Id;
+                Vaccine1.UId = Appointment.UId;
+                Vaccine1.DId = Appointment.ChosenDoctor.Id;
+                Vaccine1.Password = Appointment.Password;
                 await NetworkModule.AddVaccine(Vaccine1);
             }
             if (Vaccine2.Name != null && !Vaccine2.Name.Equals(""))
             {
-                Vaccine2.AId = AppointmentObject.AId;
-                Vaccine2.UId = AppointmentObject.UId;
-                Vaccine2.DId = AppointmentObject.ChosenDoctor.Id;
-                Vaccine2.Password = AppointmentObject.Password;
+                Vaccine2.AId = Appointment.Id;
+                Vaccine2.UId = Appointment.UId;
+                Vaccine2.DId = Appointment.ChosenDoctor.Id;
+                Vaccine2.Password = Appointment.Password;
                 await NetworkModule.AddVaccine(Vaccine2);
             }
-            await PS.PopAsync();
+            return "Success";
         }
     }
 }

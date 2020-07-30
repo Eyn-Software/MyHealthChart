@@ -1,7 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace MyHealthChart3.Models
 {
@@ -11,72 +8,22 @@ namespace MyHealthChart3.Models
         {
 
         }
-        public Appointment(AppointmentViewModel appointment)
-        {
-            Id = appointment.Id;
-            Date = appointment.Date;
-            ReminderTime = appointment.ReminderTime;
-            FollowUpAdvice = appointment.FollowUpAdvice;
-            ReasonForVisit = appointment.ReasonForVisit;
-            Diagnosis = appointment.Diagnosis;
-            Picture = appointment.Picture;
-            DId = appointment.DId;
-            UId = appointment.UId;
-            Prescriptions = appointment.Prescriptions;
-        }
-        public int Id
-        {
-            get;
-            set;
-        }
-        public DateTime Date
-        {
-            get;
-            set;
-        }
-
-        //Need to save the time that the user wants to be reminded of their appointment
-        //This will be used to resubmit the notifications after device restart, because they are not saved otherwise.
-        public DateTime ReminderTime
-        {
-            get;
-            set;
-        }
-        public string FollowUpAdvice
-        {
-            get;
-            set;
-        }
-        public string ReasonForVisit
-        {
-            get;
-            set;
-        }
-        public string Diagnosis
-        {
-            get;
-            set;
-        }
-
-        public byte[] Picture
-        {
-            get;
-            set;
-        }
-        public int DId
-        {
-            get;
-            set;
-        }
-        public int UId
-        {
-            get;
-            set;
-        }
-        public List<Prescription> Prescriptions
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
+        public Doctor ChosenDoctor { get; set; }
+        public string Doctor { get; set; }
+        public DateTime Date { get; set; }
+        public string DateString { get; set; }
+        public TimeSpan Time { get; set; }
+        public DateTime ReminderTime { get; set; }
+        public string Aftercare { get; set; }
+        public string Reason { get; set; }
+        public string Diagnosis { get; set; }
+        public byte[] PicBytes { get; set; }
+        public int DId { get; set; }
+        public int UId { get; set; }
+        public string Password { get; set; }
+        public string Prescriptions { get; set; }
+        public string Vaccines { get; set; }
+        public string Address { get; set; }
     }
 }

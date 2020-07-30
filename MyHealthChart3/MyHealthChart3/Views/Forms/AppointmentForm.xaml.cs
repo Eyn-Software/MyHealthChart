@@ -2,13 +2,6 @@
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using Plugin.Media;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,8 +14,7 @@ namespace MyHealthChart3.Views.Forms
         public AppointmentForm(UserViewModel User, IServerComms networkModule)
         {
             InitializeComponent();
-            IPageService ps = new PageService();
-            ViewModel = new AppointmentFormViewModel(User, ps, networkModule);
+            ViewModel = new AppointmentFormViewModel(User, networkModule);
         }
         protected override void OnAppearing()
         {
@@ -37,7 +29,7 @@ namespace MyHealthChart3.Views.Forms
         Used by: N/A
         Date: July 3 2020
         */
-        private async void PictureClicked(object sender, EventArgs e)
+        private async void PictureClicked(object sender, System.EventArgs e)
         {
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
@@ -53,16 +45,29 @@ namespace MyHealthChart3.Views.Forms
             if (file == null)
                 return;
 
-            var memoryStream = new MemoryStream();
+            var memoryStream = new System.IO.MemoryStream();
 
             image.Source = ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
                 file.GetStream().CopyTo(memoryStream);
-                ViewModel.AppointmentObject.PicBytes = memoryStream.ToArray();
+                ViewModel.Appointment.PicBytes = memoryStream.ToArray();
                 file.Dispose();
                 return stream;
             });
+        }
+        /*
+         Name: SubmitClicked
+         Purpose: Calls the submit command and decides whether or not to pop the page
+         Author: Samuel McManus
+         Uses: Submit
+         Used by: N/A
+         Date: July 29, 2020
+         */
+        public async void SubmitClicked(object sender, System.EventArgs e)
+        {
+            if((await ViewModel.Submit()).Equals("Success"))
+                await Navigation.PopAsync();
         }
         public AppointmentFormViewModel ViewModel
         {

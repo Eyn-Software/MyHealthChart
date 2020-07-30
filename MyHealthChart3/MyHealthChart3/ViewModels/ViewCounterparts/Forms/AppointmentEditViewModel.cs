@@ -1,10 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,7 +9,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class AppointmentEditViewModel : BaseViewModel
     {
         private UserViewModel user;
-        private AppointmentDetailModel appointment;
+        private Appointment appointment;
         private IPageService ps;
         private IServerComms networkmodule;
 
@@ -28,7 +24,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref user, value);
             }
         }
-        public AppointmentDetailModel Appointment
+        public Appointment Appointment
         {
             get
             {
@@ -44,9 +40,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public AppointmentEditViewModel(UserViewModel Usr, AppointmentDetailModel Appt, IPageService Ps, IServerComms networkModule)
+        public AppointmentEditViewModel(Appointment Appt, IPageService Ps, IServerComms networkModule)
         {
-            User = Usr;
             Appointment = Appt;
             Appointment.Time = Appointment.Date.TimeOfDay;
             Appointment.UId = User.Id;
@@ -56,7 +51,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
 
             SubmitCmd = new Command(async () => await Submit());
         }
-        private async Task Submit()
+        private async System.Threading.Tasks.Task Submit()
         {
             string x = await networkmodule.EditAppointment(Appointment);
             if(x.Equals("Success"))

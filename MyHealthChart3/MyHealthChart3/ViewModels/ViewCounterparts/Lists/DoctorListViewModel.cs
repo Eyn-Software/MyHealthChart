@@ -13,7 +13,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private IServerComms NetworkModule;
         private UserViewModel user;
         private Doctor doctor;
-        private ObservableCollection<Doctor> doctors;
+        private ObservableCollection<Doctor> doctors, filtereddoctors;
 
         public System.Windows.Input.ICommand SetDoctorsCmd
         {
@@ -46,6 +46,17 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             private set
             {
                 SetValue(ref doctors, value);
+            }
+        }
+        public ObservableCollection<Doctor> FilteredDoctors
+        {
+            get
+            {
+                return filtereddoctors;
+            }
+            set
+            {
+                SetValue(ref filtereddoctors, value);
             }
         }
         /*
@@ -99,8 +110,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             {
                 await ps.PushAsync(new DoctorForm(User, NetworkModule));
             }
+            FilterDoctors("");
         }
-        
         /*
         Name: EditDoctor
         Purpose: Takes the user to the edit doctor form
@@ -111,8 +122,26 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         */
         private async System.Threading.Tasks.Task EditDoctor()
         {
-            doctor = await NetworkModule.GetDoctor(User, id);
             await ps.PushAsync(new EditDoctorForm(doctor, NetworkModule));
+        }
+        /*
+        Name: FilterPrescriptions
+        Purpose: Filters prescriptions based on content
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: PrescriptionList
+        Date: July 27, 2020
+        */
+        public void FilterDoctors(string Filter)
+        {
+            FilteredDoctors = new ObservableCollection<Doctor>();
+            foreach (Doctor d in Doctors)
+            {
+                if (d.Name.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    d.Practice.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    d.Type.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    FilteredDoctors.Add(d);
+            }
         }
     }
 }
