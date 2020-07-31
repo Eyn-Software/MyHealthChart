@@ -30,8 +30,21 @@ namespace MyHealthChart3.Views.Lists
         */
         protected override void OnAppearing()
         {
-            ViewModel.SetAppointmentsCmd.Execute(null);
+            SetAppointments();
             base.OnAppearing();
+        }
+        /*
+        Name: SetAppointments
+        Purpose: Sets the appointments and decides whether topush the doctor form
+        Author: Samuel McManus
+        Uses: SetAppointments, AppointmentForm
+        Used by: OnAppearing
+        Date: July 31, 2020
+        */
+        public async void SetAppointments()
+        {
+            if (!await ViewModel.SetAppointments())
+                await Navigation.PushAsync(new AppointmentForm(User, NetworkModule));
         }
         /*
         Name: AppointmentSelected
@@ -59,6 +72,19 @@ namespace MyHealthChart3.Views.Lists
         private void NewAppointment(object sender, System.EventArgs e)
         {
             Navigation.PushAsync(new AppointmentForm(User, NetworkModule));
+        }
+        /*
+        Name: OnFilterTextChanged
+        Purpose: Calls filter appointments when the search text is changed
+        Author: Samuel McManus
+        Uses: FilterAppointments
+        Used by: N/A
+        Date: July 31, 2020
+        */
+        private void OnFilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchbar = sender as SearchBar;
+            ViewModel.FilterAppointments(searchbar.Text);
         }
         public AppointmentListViewModel ViewModel
         {

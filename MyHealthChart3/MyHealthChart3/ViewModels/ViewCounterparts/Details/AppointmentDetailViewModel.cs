@@ -45,12 +45,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref appointment, value);
             }
         }
-        public AppointmentDetailViewModel(Appointment appt, IServerComms networkModule)
+        public AppointmentDetailViewModel(IServerComms networkModule)
         {
             NetworkModule = networkModule;
-            SetAppt(appt);
         }
-        private async void SetAppt(Appointment appt)
+        public async void SetAppt(Appointment appt)
         {
             Appointment = await NetworkModule.GetAppointment(appt);
             if (Appointment.Prescriptions.Equals("abcdefa"))

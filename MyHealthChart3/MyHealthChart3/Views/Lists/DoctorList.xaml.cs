@@ -25,10 +25,9 @@ namespace MyHealthChart3.Views
         public DoctorList(UserViewModel u, IServerComms networkModule)
         {
             InitializeComponent();
-            var ps = new PageService();
             NetworkModule = networkModule;
             User = u;
-            ViewModel = new DoctorListViewModel(ps, networkModule, u);
+            ViewModel = new DoctorListViewModel(networkModule, u);
         }
         /*
         Name: OnAppearing
@@ -41,8 +40,21 @@ namespace MyHealthChart3.Views
         */
         protected override void OnAppearing()
         {
-            ViewModel.SetDoctorsCmd.Execute(null);
+            SetDoctors();
             base.OnAppearing();
+        }
+        /*
+        Name: SetDoctors
+        Purpose: Sets the doctors and decides whether topush the doctor form
+        Author: Samuel McManus
+        Uses: DoctorForm
+        Used by: OnAppearing
+        Date: July 31, 2020
+        */
+        public async void SetDoctors()
+        {
+            if (!await ViewModel.SetDoctors())
+                await Navigation.PushAsync(new DoctorForm(User, NetworkModule));
         }
         /*
         Name: DoctorSelected
@@ -70,20 +82,6 @@ namespace MyHealthChart3.Views
         private async void NewDoctor(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new DoctorForm(User, NetworkModule));
-        }
-        /*
-        Name: OnEdit
-        Purpose: Calls the edit command
-        Author: Samuel McManus
-        Uses: PushAsync
-        Used by: N/A
-        Date: May 30 2020
-        */
-        private void OnEdit(object sender, EventArgs e)
-        {
-            var mi = ((MenuItem)sender);
-            ViewModel.id = (int)mi.CommandParameter;
-            ViewModel.EditDoctorCmd.Execute(null);
         }
         /*
         Name: OnFilterTextChanged

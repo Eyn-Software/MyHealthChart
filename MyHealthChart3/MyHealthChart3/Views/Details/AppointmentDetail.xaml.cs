@@ -8,10 +8,19 @@ namespace MyHealthChart3.Views.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AppointmentDetail : ContentPage
     {
+        private Models.Appointment appt;
+        private IServerComms networkmodule;
         public AppointmentDetail(Models.Appointment Appointment, IServerComms NetworkModule)
         {
             InitializeComponent();
-            ViewModel = new AppointmentDetailViewModel(Appointment, NetworkModule);
+            appt = Appointment;
+            networkmodule = NetworkModule;
+            ViewModel = new AppointmentDetailViewModel(NetworkModule);
+        }
+        protected override void OnAppearing()
+        {
+            ViewModel.SetAppt(appt);
+            base.OnAppearing();
         }
         /*
         Name: EditAppointment

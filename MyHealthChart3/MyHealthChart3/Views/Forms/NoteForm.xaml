@@ -5,10 +5,10 @@ xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Button
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Forms.NoteForm"
-             BackgroundImageSource="LoginBackground.png"
-             Title="New Note">
+             BackgroundImageSource="LoginBackground.png">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="70" >
@@ -19,12 +19,16 @@ xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Button
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout BindingContext="{Binding Note}">
-                <Image
-                    Source="logoInt.png"
-                    VerticalOptions="Center"
-                    HeightRequest="125"
-                    Margin="0,30,0,30"/>
+            <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,100',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}"
+                         BindingContext="{Binding Note}">
+                <!--Title Label-->
+                <Label
+                    FontSize="40" Text="Add A Note"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
 
                 <!-- Note Title -->
                 <inputLayout:SfTextInputLayout Hint="Title" HelperText="{Binding Error}"
@@ -36,7 +40,11 @@ xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Button
                                                ContainerType="Outlined" OutlineCornerRadius="7">
                     <Entry Text="{Binding Description}"/>
                 </inputLayout:SfTextInputLayout>
-                <button:SfButton Text="Submit" Clicked="Submit"/>
+                <!--Submit Button-->
+                <button:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Clicked="Submit"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

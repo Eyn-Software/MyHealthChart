@@ -152,6 +152,7 @@ namespace MyHealthChart3.Services.Parsing
                 index = ReceivedData.IndexOf("///");
                 Appointment.Aftercare = ReceivedData.Substring(0, index);
                 ReceivedData = ReceivedData.Substring(index + 3);
+
                 Appointments.Add(Appointment);
             }
             return Appointments;
@@ -359,14 +360,14 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetChildFolders
         Date: July 19, 2020
         */
-        public ObservableCollection<FolderListModel> DownloadFolders(string ReceivedData)
+        public ObservableCollection<Folder> DownloadFolders(string ReceivedData)
         {
-            ObservableCollection<FolderListModel> Folders = new ObservableCollection<FolderListModel>();
-            FolderListModel Folder;
+            ObservableCollection<Folder> Folders = new ObservableCollection<Folder>();
+            Folder Folder;
             int index;
             while(!ReceivedData.Equals(""))
             {
-                Folder = new FolderListModel();
+                Folder = new Folder();
 
                 index = ReceivedData.IndexOf("///");
                 Folder.Id = int.Parse(ReceivedData.Substring(0, index));
@@ -380,7 +381,7 @@ namespace MyHealthChart3.Services.Parsing
                 //Remove after adding creation date to every non-root item
                 try
                 {
-                    Folder.CreationDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                    Folder.CreationDate = ReceivedData.Substring(0, index);
                 }
                 catch(Exception e)
                 {
@@ -400,14 +401,14 @@ namespace MyHealthChart3.Services.Parsing
         Used by: GetChildNotes
         Date: July 19, 2020
         */
-        public ObservableCollection<NoteListModel> DownloadNotes(string ReceivedData)
+        public ObservableCollection<Note> DownloadNotes(string ReceivedData)
         {
-            ObservableCollection<NoteListModel> Notes = new ObservableCollection<NoteListModel>();
-            NoteListModel Note;
+            ObservableCollection<Note> Notes = new ObservableCollection<Note>();
+            Note Note;
             int index;
             while(!ReceivedData.Equals(""))
             {
-                Note = new NoteListModel();
+                Note = new Note();
 
                 index = ReceivedData.IndexOf("///");
                 Note.Id = int.Parse(ReceivedData.Substring(0, index));
@@ -420,7 +421,7 @@ namespace MyHealthChart3.Services.Parsing
                 index = ReceivedData.IndexOf("///");
                 try
                 {
-                    Note.CreationDate = DateTime.Parse(ReceivedData.Substring(0, index));
+                    Note.CreationDate = ReceivedData.Substring(0, index);
                 }
                 catch(Exception e)
                 {
@@ -466,6 +467,35 @@ namespace MyHealthChart3.Services.Parsing
             int index;
 
             index = ReceivedData.IndexOf("///");
+            Appointment.Id = int.Parse(ReceivedData.Substring(0, index));
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Doctor = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Date = DateTime.Parse(ReceivedData.Substring(0, index));
+            Appointment.DateString = Appointment.Date.ToShortDateString();
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Address = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Reason = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Diagnosis = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
+            Appointment.Aftercare = ReceivedData.Substring(0, index);
+            ReceivedData = ReceivedData.Substring(index + 3);
+
+            index = ReceivedData.IndexOf("///");
             Appointment.Prescriptions = ReceivedData.Substring(0, index - 2);
             ReceivedData = ReceivedData.Substring(index + 3);
 
@@ -486,9 +516,9 @@ namespace MyHealthChart3.Services.Parsing
         Used by: ServerComms
         Date: July 30, 2020
         */
-        public NoteFormModel DownloadNote(string ReceivedData, NoteListModel N)
+        public Note DownloadNote(string ReceivedData, Note N)
         {
-            NoteFormModel Note = new NoteFormModel(N);
+            Note Note = N;
             int index;
 
             index = ReceivedData.IndexOf("///");

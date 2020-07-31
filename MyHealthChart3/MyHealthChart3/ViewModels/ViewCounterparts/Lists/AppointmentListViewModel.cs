@@ -3,7 +3,6 @@ using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.ObjectModel;
-using Xamarin.Forms;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
@@ -11,7 +10,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     {
         private IServerComms NetworkModule;
         private UserViewModel user;
-        private ObservableCollection<Appointment> appointments;
+        private ObservableCollection<Appointment> appointments, filteredappointments;
 
         public UserViewModel User
         {
@@ -35,18 +34,21 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref appointments, value);
             }
         }
-        public System.Windows.Input.ICommand SetAppointmentsCmd
+        public ObservableCollection<Appointment> FilteredAppointments
         {
-            get;
-            private set;
+            get
+            {
+                return filteredappointments;
+            }
+            set
+            {
+                SetValue(ref filteredappointments, value);
+            }
         }
-
         public AppointmentListViewModel(UserViewModel Usr, IServerComms networkModule)
         {
             User = Usr;
             NetworkModule = networkModule;
-
-            SetAppointmentsCmd = new Command(async () => await SetAppointments());
         }
         /*
         Name: SetAppointments
@@ -56,7 +58,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: AppointmentList
         Date: July 1, 2020
         */
-        private async System.Threading.Tasks.Task SetAppointments()
+        public async System.Threading.Tasks.Task<bool> SetAppointments()
         {
             int result = 0;
             Appointment apt = new Appointment();
@@ -77,6 +79,30 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                         }
                     }
                 }
+                FilterAppointments("");
+                return true;
+            }
+            return false;
+        }
+        /*
+        Name: FilterAppointments
+        Purpose: Filters prescriptions based on content
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: AppointmentList, SetAppointments
+        Date: July 31, 2020
+        */
+        public void FilterAppointments(string Filter)
+        {
+            FilteredAppointments = new ObservableCollection<Appointment>();
+            foreach (Appointment a in Appointments)
+            {
+                if (a.Doctor.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    a.DateString.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    a.Reason.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    a.Diagnosis.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    a.Aftercare.IndexOf(Filter, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    FilteredAppointments.Add(a);
             }
         }
     }

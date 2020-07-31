@@ -1,7 +1,5 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
 {
@@ -9,7 +7,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
     {
         private Services.IServerComms NetworkModule;
         private string error;
-        private NoteFormModel note;
+        private Note note;
 
         public string Error
         {
@@ -22,7 +20,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref error, value);
             }
         }
-        public NoteFormModel Note
+        public Note Note
         {
             get
             {
@@ -33,7 +31,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref note, value);
             }
         }
-        public NoteEditViewModel(NoteFormModel n, Services.IServerComms networkmodule)
+        public NoteEditViewModel(Note n, Services.IServerComms networkmodule)
         {
             Note = n;
             NetworkModule = networkmodule;

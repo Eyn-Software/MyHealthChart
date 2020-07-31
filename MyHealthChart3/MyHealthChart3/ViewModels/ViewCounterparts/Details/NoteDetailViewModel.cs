@@ -1,17 +1,14 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MyHealthChart3.Models;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
 {
     public class NoteDetailViewModel : BaseViewModel
     {
         private Services.IServerComms NetworkModule;
-        private NoteFormModel note;
-        private NoteListModel N;
+        private Note note;
+        private Note N;
 
-        public NoteFormModel Note
+        public Note Note
         {
             get
             {
@@ -32,7 +29,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Details
             get;
             private set;
         }
-        public NoteDetailViewModel(NoteListModel n, Services.IServerComms networkmodule)
+        public NoteDetailViewModel(Note n, Services.IServerComms networkmodule)
         {
             NetworkModule = networkmodule;
             N = n;

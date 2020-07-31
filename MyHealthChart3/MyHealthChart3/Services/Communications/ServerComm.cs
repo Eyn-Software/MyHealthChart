@@ -270,7 +270,7 @@ namespace MyHealthChart3.Services
         Used by: NoteListViewModel
         Date: July 19, 2020
         */
-        public async Task<ObservableCollection<FolderListModel>> GetFolders(FolderListModel Folder)
+        public async Task<ObservableCollection<Folder>> GetFolders(Folder Folder)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -293,7 +293,7 @@ namespace MyHealthChart3.Services
         Used by: NoteListViewModel
         Date: July 19, 2020
         */
-        public async Task<ObservableCollection<NoteListModel>> GetNotes(FolderListModel Folder)
+        public async Task<ObservableCollection<Note>> GetNotes(Folder Folder)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -342,7 +342,7 @@ namespace MyHealthChart3.Services
         Used by: OptionList
         Date: July 19, 2020
         */
-        public async Task<FolderListModel> GetRootFolder(FolderListModel Folder)
+        public async Task<Folder> GetRootFolder(Folder Folder)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -370,7 +370,7 @@ namespace MyHealthChart3.Services
         Used by: NoteDetailViewModel
         Date: July 20, 2020
         */
-        public async Task<NoteFormModel> GetNote(NoteListModel Note)
+        public async Task<Note> GetNote(Note Note)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -574,7 +574,7 @@ namespace MyHealthChart3.Services
         Used by: FolderFormViewModel
         Date: July 19, 2020
         */
-        public async Task AddFolder(FolderFormModel Folder)
+        public async Task AddFolder(Folder Folder)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -596,7 +596,7 @@ namespace MyHealthChart3.Services
         Used by: NoteFormViewModel
         Date: July 20, 2020
         */
-        public async Task AddNote(NoteFormModel Note)
+        public async Task AddNote(Note Note)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -688,7 +688,7 @@ namespace MyHealthChart3.Services
         Used by: NoteEditViewModel
         Date: July 20, 2020
         */
-        public async Task EditNote(NoteFormModel Note)
+        public async Task EditNote(Note Note)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
@@ -751,7 +751,7 @@ namespace MyHealthChart3.Services
         Used by: NoteDetailViewModel
         Date: July 20, 2020
         */
-        public async Task DeleteNote(NoteFormModel Note)
+        public async Task DeleteNote(Note Note)
         {
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {

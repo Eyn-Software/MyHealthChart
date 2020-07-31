@@ -1,9 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyHealthChart3.Models
+﻿namespace MyHealthChart3.Models
 {
     public class Note : NoteFolder
     {
@@ -11,25 +6,13 @@ namespace MyHealthChart3.Models
         {
 
         }
-        public Note(NoteViewModel note)
+        public Note(Folder f)
         {
-            Id = note.Id;
-            Name = note.Name;
-            CreationDate = note.CreationDate;
-            ParentFolderId = note.ParentFolderId;
-            uId = note.UId;
-            Description = note.Description;
-            Picture = note.Picture;
+            ParentFolderId = f.Id;
+            UId = f.UId;
+            Password = f.Password;
         }
-        public string Description
-        {
-            get;
-            set;
-        }
-        public byte[] Picture
-        {
-            get;
-            set;
-        }
+        public string Description { get; set; }
+        public byte[] Picture { get; set; }
     }
 }

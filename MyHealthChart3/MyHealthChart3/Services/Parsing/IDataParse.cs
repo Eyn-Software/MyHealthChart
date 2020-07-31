@@ -27,11 +27,11 @@ namespace MyHealthChart3.Services
         ObservableCollection<Allergy> DownloadAllergies(string ReceivedData);
         ObservableCollection<Vaccine> DownloadVaccines(string ReceivedData);
         ObservableCollection<Prescription> DownloadPrescriptions(string ReceivedData);
-        ObservableCollection<FolderListModel> DownloadFolders(string ReceivedData);
-        ObservableCollection<NoteListModel> DownloadNotes(string ReceivedData);
+        ObservableCollection<Folder> DownloadFolders(string ReceivedData);
+        ObservableCollection<Note> DownloadNotes(string ReceivedData);
         UserViewModel DownloadUser(string ReceivedData);
         Appointment DownloadAppointment(string ReceivedData, Appointment Appointment);
-        NoteFormModel DownloadNote(string ReceivedData, NoteListModel Note);
+        Note DownloadNote(string ReceivedData, Note Note);
         Address DownloadAddress(string ReceivedData);
     }
 }

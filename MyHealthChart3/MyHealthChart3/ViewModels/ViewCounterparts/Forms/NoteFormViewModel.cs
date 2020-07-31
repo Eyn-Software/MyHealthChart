@@ -1,8 +1,5 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
 {
@@ -10,8 +7,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
     {
         private IServerComms NetworkModule;
         private string error;
-        private FolderListModel Folder;
-        private NoteFormModel note;
+        private Folder Folder;
+        private Note note;
 
         public string Error
         {
@@ -24,7 +21,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref error, value);
             }
         }
-        public NoteFormModel Note
+        public Note Note
         {
             get
             {
@@ -36,11 +33,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
             }
         }
 
-        public NoteFormViewModel(FolderListModel folder, IServerComms networkmodule)
+        public NoteFormViewModel(Folder folder, IServerComms networkmodule)
         {
             NetworkModule = networkmodule;
             Folder = folder;
-            Note = new NoteFormModel(Folder);
+            Note = new Note(Folder);
         }
         /*
         Name: Submit
@@ -55,6 +52,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
             Error = "";
             if (Note.Name != null && !Note.Name.Equals(""))
             {
+                Note.CreationDate = System.DateTime.Now.ToString("yyyy-MM-dd");
                 await NetworkModule.AddNote(Note);
             }
             else

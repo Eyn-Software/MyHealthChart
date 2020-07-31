@@ -5,88 +5,94 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:sfSwitch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Forms.AppointmentEditForm"
              BackgroundImageSource="LoginBackground.png">
     
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                <Grid BindingContext="{Binding Appointment}">
-                    <StackLayout>
-                        <!--Doctor's Name-->
-                        <Label
-                            Text="Doctor's Name:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,20,0,0"/>
+            <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,30',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+                <!--Title Label-->
+                <Label
+                    FontSize="40" Text="Edit Appointment"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
+                <StackLayout BindingContext="{Binding Appointment}">
+                    <!--Doctor's Name-->
+                    <Label
+                        Text="Doctor's Name:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="18"
+                        Margin="20,20,0,0"/>
 
-                        <Label
-                            Text="{Binding DoctorName}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
+                    <Label
+                        Text="{Binding Doctor}"
+                        FontSize="16"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
 
-                        <!--Address-->
-                        <Label
-                            Text="Address:"
-                            TextColor="#005486"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            FontSize="18"
-                            Margin="20,20,0,0"/>
+                    <!--Address-->
+                    <Label
+                        Text="Address:"
+                        TextColor="#005486"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        FontSize="18"
+                        Margin="20,20,0,0"/>
 
-                        <Label
-                            Text="{Binding Address}"
-                            FontSize="16"
-                            TextColor="Black"
-                            Margin="20,0,0,10"/>
+                    <Label
+                        Text="{Binding Address}"
+                        FontSize="16"
+                        TextColor="Black"
+                        Margin="20,0,0,10"/>
 
-                        <!--Appointment Date-->
-                        <inputLayout:SfTextInputLayout Hint="Date of Appointment"  HelperText="Required *" 
+                    <!--Appointment Date-->
+                    <inputLayout:SfTextInputLayout Hint="Date of Appointment"  HelperText="Required *" 
                                                ContainerType ="Outlined" OutlineCornerRadius="7">
-                            <DatePicker Date="{Binding Date, Mode=TwoWay}"/>
-                        </inputLayout:SfTextInputLayout>
+                        <DatePicker Date="{Binding Date}"/>
+                    </inputLayout:SfTextInputLayout>
 
-                        <!--Appointment Time-->
-                        <inputLayout:SfTextInputLayout Hint="Time of Appointment" HelperText="Required *" 
+                    <!--Appointment Time-->
+                    <inputLayout:SfTextInputLayout Hint="Time of Appointment" HelperText="Required *" 
                                                ContainerType ="Outlined" OutlineCornerRadius="7">
-                            <TimePicker Time="{Binding Time, Mode=TwoWay}"/>
-                        </inputLayout:SfTextInputLayout>
-                    </StackLayout>
-                </Grid>
+                        <TimePicker Time="{Binding Time}"/>
+                    </inputLayout:SfTextInputLayout>
+                </StackLayout>
 
-                <Grid IsVisible="{Binding IsPast}">
-                    <StackLayout>
+                <StackLayout IsVisible="{Binding IsPast}">
 
-                        <!--Reason for visit-->
-                        <inputLayout:SfTextInputLayout Hint="Reason For Visit" 
+                    <!--Reason for visit-->
+                    <inputLayout:SfTextInputLayout Hint="Reason For Visit" 
                                                    ContainerType ="Outlined" 
-                                                   OutlineCornerRadius="7" BindingContext="{Binding Appointment}">
-                            <Entry Text="{Binding Reason}"/>
-                        </inputLayout:SfTextInputLayout>
+                                                   OutlineCornerRadius="7">
+                        <Entry Text="{Binding Reason}" BindingContext="{Binding Appointment}"/>
+                    </inputLayout:SfTextInputLayout>
 
-                        <!--Diagnosis-->
-                        <inputLayout:SfTextInputLayout Hint="Diagnosis" ContainerType ="Outlined"
-                                                       BindingContext="{Binding AppointmentObject}"
-                                                       OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
-                            <Entry Text="{Binding Diagnosis}"/>
-                        </inputLayout:SfTextInputLayout>
+                    <!--Diagnosis-->
+                    <inputLayout:SfTextInputLayout Hint="Diagnosis" ContainerType ="Outlined"
+                                                       OutlineCornerRadius="7">
+                        <Entry Text="{Binding Diagnosis}" BindingContext="{Binding Appointment}"/>
+                    </inputLayout:SfTextInputLayout>
 
-                        <!--Aftercare-->
-                        <inputLayout:SfTextInputLayout Hint="Aftercare instructions" BindingContext="{Binding AppointmentObject}"
+                    <!--Aftercare-->
+                    <inputLayout:SfTextInputLayout Hint="Aftercare instructions"
                                                    ContainerType ="Outlined"
-                                                   OutlineCornerRadius="7" IsVisible="{Binding IsPast}">
-                            <Entry Text="{Binding Aftercare}"/>
-                        </inputLayout:SfTextInputLayout>
+                                                   OutlineCornerRadius="7">
+                        <Entry Text="{Binding Aftercare}" BindingContext="{Binding Appointment}"/>
+                    </inputLayout:SfTextInputLayout>
 
-                        <!--Submit-->
-                        <sfSwitch:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
-                                 Command="{Binding SubmitCmd}"/>
-                    </StackLayout>
-                </Grid>
+                    <!--Submit Button-->
+                    <sfSwitch:SfButton Text="Submit" BackgroundColor="Aqua" TextColor="Black"
+                             Clicked="SubmitClicked"  HeightRequest="50"
+                             FontSize="18" Margin="110, 40, 110, 10"
+                             CornerRadius="10"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

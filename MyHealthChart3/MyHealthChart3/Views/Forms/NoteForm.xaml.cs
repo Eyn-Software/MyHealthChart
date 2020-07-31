@@ -1,10 +1,5 @@
 ﻿using MyHealthChart3.ViewModels.ViewCounterparts.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +8,7 @@ namespace MyHealthChart3.Views.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteForm : ContentPage
     {
-        public NoteForm(Models.ViewDataObjects.FolderListModel folder, Services.IServerComms networkmodule)
+        public NoteForm(Models.Folder folder, Services.IServerComms networkmodule)
         {
             InitializeComponent();
             ViewModel = new NoteFormViewModel(folder, networkmodule);

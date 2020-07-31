@@ -1,11 +1,6 @@
 ﻿using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,8 +10,8 @@ namespace MyHealthChart3.Views.Lists
     public partial class NoteList : ContentPage
     {
         IServerComms NetworkModule;
-        Models.ViewDataObjects.FolderListModel F;
-        public NoteList(Models.ViewDataObjects.FolderListModel folder, IServerComms networkmodule)
+        Models.Folder F;
+        public NoteList(Models.Folder folder, IServerComms networkmodule)
         {
             InitializeComponent();
             NetworkModule = networkmodule;
@@ -33,31 +28,35 @@ namespace MyHealthChart3.Views.Lists
         */
         protected override void OnAppearing()
         {
+            ViewModel.NotesAndFolders.Clear();
             ViewModel.SetFoldersCmd.Execute(null);
             ViewModel.SetNotesCmd.Execute(null);
             base.OnAppearing();
         }
         /*
-        Name: FolderSelected
-        Purpose: Shows the user the contents of the selected folder
+        Name: ItemSelected
+        Purpose: Shows the user the contents of the selected folder or note
         Author: Samuel McManus
         Uses: NoteList
         Used by: N/A
         Date: July 19, 2020
         */
-        private void FolderSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        private void ItemSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            Models.ViewDataObjects.FolderListModel Folder = e.ItemData as Models.ViewDataObjects.FolderListModel;
-            Folder.UId = F.UId;
-            Folder.Password = F.Password;
-            Navigation.PushAsync(new NoteList(Folder, NetworkModule));
-        }
-        private void NoteSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
-        {
-            Models.ViewDataObjects.NoteListModel Note = e.ItemData as Models.ViewDataObjects.NoteListModel;
-            Note.UId = F.UId;
-            Note.Password = F.Password;
-            Navigation.PushAsync(new Details.NoteDetail(Note, NetworkModule));
+            Models.Folder Folder = e.ItemData as Models.Folder;
+            if(Folder != null)
+            {
+                Folder.UId = F.UId;
+                Folder.Password = F.Password;
+                Navigation.PushAsync(new NoteList(Folder, NetworkModule));
+            }
+            else
+            {
+                Models.Note Note = e.ItemData as Models.Note;
+                Note.UId = F.UId;
+                Note.Password = F.Password;
+                Navigation.PushAsync(new Details.NoteDetail(Note, NetworkModule));
+            }
         }
         /*
         Name: NewFolder

@@ -5,13 +5,24 @@ xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Button
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.Forms.FolderForm">
+             x:Class="MyHealthChart3.Views.Forms.FolderForm"
+             BackgroundImageSource="LoginBackground.png">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="{core:OnPlatformOrientationThickness PhonePortrait='20,100',
+                                                         PhoneLandscape='150,32',
+                                                         TabletPortrait='200,50',
+                                                         TabletLandscape='300,50'}">
+            <!--Title Label-->
+            <Label
+                    FontSize="40" Text="Add A Folder"
+                    HorizontalTextAlignment="Center"
+                    Margin="0, 0, 0, 20"/>
             <!--Folder Title-->
-            <inputLayout:SfTextInputLayout Hint="Title" HelperText="{Binding Error}" 
-                                               ContainerType ="Outlined" OutlineCornerRadius="7">
+            <inputLayout:SfTextInputLayout Hint="Title" HelperText ="Enter the name of the folder"
+                                           ContainerType ="Outlined" OutlineCornerRadius="7"
+                                           HasError="{Binding HasError}" ErrorText="{Binding Error}">
                 <Entry Text="{Binding Name}" BindingContext="{Binding Folder}"/>
             </inputLayout:SfTextInputLayout>
             

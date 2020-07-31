@@ -27,25 +27,13 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <listview:SfListView ItemsSource="{Binding Folders}" ItemTapped="FolderSelected"
+                <listview:SfListView ItemsSource="{Binding NotesAndFolders}" ItemTapped="ItemSelected"
                                      ItemSize="55">
                     <listview:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <StackLayout>
-                                    <Label Text="{Binding Name}" FontSize="Medium"/>
-                                </StackLayout>
-                            </Grid>
-                        </DataTemplate>
-                    </listview:SfListView.ItemTemplate>
-                </listview:SfListView>
-                <listview:SfListView ItemsSource="{Binding Notes}" ItemTapped="NoteSelected"
-                                     ItemSize="55">
-                    <listview:SfListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <StackLayout>
-                                    <Label Text="{Binding Name}" FontSize="Medium"/>
+                                    <Label Text="{Binding Name}" FontSize="Medium" TextColor="Black"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>

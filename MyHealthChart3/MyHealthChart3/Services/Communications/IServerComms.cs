@@ -20,11 +20,11 @@ namespace MyHealthChart3.Services
         Task<ObservableCollection<Allergy>> GetAllergies(UserViewModel User);
         Task<ObservableCollection<Vaccine>> GetVaccines(UserViewModel User);
         Task<ObservableCollection<Prescription>> GetPrescriptions(UserViewModel User);
-        Task<ObservableCollection<FolderListModel>> GetFolders(FolderListModel Folder);
-        Task<ObservableCollection<NoteListModel>> GetNotes(FolderListModel Folder);
+        Task<ObservableCollection<Folder>> GetFolders(Folder Folder);
+        Task<ObservableCollection<Note>> GetNotes(Folder Folder);
         Task<Appointment> GetAppointment(Appointment Appointment);
-        Task<FolderListModel> GetRootFolder(FolderListModel Folder);
-        Task<NoteFormModel> GetNote(NoteListModel Note);
+        Task<Folder> GetRootFolder(Folder Folder);
+        Task<Note> GetNote(Note Note);
         Task<UserViewModel> AddUser(UserViewModel User);
         Task<string> AddDoctor(Doctor dataObject);
         Task<int> AddAppointment(Appointment Appointment);
@@ -32,14 +32,14 @@ namespace MyHealthChart3.Services
         Task<string> AddVaccine(Vaccine Vaccine);
         Task<string> AddCondition(Models.Condition Condition);
         Task<string> AddAllergy(Allergy Allergy);
-        Task AddFolder(FolderFormModel Folder);
-        Task AddNote(NoteFormModel Note);
+        Task AddFolder(Folder Folder);
+        Task AddNote(Note Note);
         Task<string> EditDoctor(Doctor Doctor);
         Task<string> EditAppointment(Appointment Appointment);
         Task<string> EditPrescription(Prescription Prescription);
-        Task EditNote(NoteFormModel Note);
+        Task EditNote(Note Note);
         Task<string> DeleteCondition(Models.Condition Condition);
         Task DeleteAllergy(Allergy Allergy);
-        Task DeleteNote(NoteFormModel Note);
+        Task DeleteNote(Note Note);
     }
 }

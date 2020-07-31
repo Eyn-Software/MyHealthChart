@@ -1,18 +1,27 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
 {
     public class FolderFormViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
+        private bool haserror;
         private string error;
-        private FolderListModel ParentFolder;
-        private FolderFormModel folder;
+        private Folder ParentFolder;
+        private Folder folder;
 
+        public bool HasError
+        {
+            get
+            {
+                return haserror;
+            }
+            set
+            {
+                SetValue(ref haserror, value);
+            }
+        }
         public string Error
         {
             get
@@ -22,9 +31,13 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
             set
             {
                 SetValue(ref error, value);
+                if (Error.Equals(""))
+                    HasError = false;
+                else
+                    HasError = true;
             }
         }
-        public FolderFormModel Folder
+        public Folder Folder
         {
             get
             {
@@ -35,11 +48,14 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref folder, value);
             }
         }
-        public FolderFormViewModel(FolderListModel parentfolder, IServerComms networkmodule)
+        public FolderFormViewModel(Folder parentfolder, IServerComms networkmodule)
         {
-            ParentFolder = parentfolder;
+            Folder = new Folder();
+            Folder.ParentFolderId = parentfolder.Id;
+            Folder.UId = parentfolder.UId;
+            Folder.Password = parentfolder.Password;
+            Folder.CreationDate = System.DateTime.Now.ToString("yyyy-MM-dd");
             NetworkModule = networkmodule;
-            Folder = new FolderFormModel(ParentFolder);
         }
         /*
         Name: Submit

@@ -1,40 +1,26 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
 {
     public class NoteListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private FolderListModel Parent;
-        private ObservableCollection<FolderListModel> folders;
-        private ObservableCollection<NoteListModel> notes;
+        private Folder Parent;
+        private ObservableCollection<Folder> folders;
+        private ObservableCollection<Note> notes;
+        private ObservableCollection<NoteFolder> notesandfolders;
 
-        public ObservableCollection<FolderListModel> Folders
+        public ObservableCollection<NoteFolder> NotesAndFolders
         {
             get
             {
-                return folders;
+                return notesandfolders;
             }
             set
             {
-                SetValue(ref folders, value);
-            }
-        }
-        public ObservableCollection<NoteListModel> Notes
-        {
-            get
-            {
-                return notes;
-            }
-            set
-            {
-                SetValue(ref notes, value);
+                SetValue(ref notesandfolders, value);
             }
         }
         public System.Windows.Input.ICommand SetFoldersCmd
@@ -47,21 +33,27 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
             get;
             private set;
         }
-        public NoteListViewModel(FolderListModel fo, IServerComms networkmodule)
+        public NoteListViewModel(Folder fo, IServerComms networkmodule)
         {
             Parent = fo;
             NetworkModule = networkmodule;
+            NotesAndFolders = new ObservableCollection<NoteFolder>();
 
             SetFoldersCmd = new Xamarin.Forms.Command(async() => await SetFolders());
             SetNotesCmd = new Xamarin.Forms.Command(async () => await SetNotes());
+
         }
         private async System.Threading.Tasks.Task SetFolders()
         {
-            Folders = await NetworkModule.GetFolders(Parent);
+            folders = await NetworkModule.GetFolders(Parent);
+            foreach (Folder f in folders)
+                NotesAndFolders.Add(f);
         }
         private async System.Threading.Tasks.Task SetNotes()
         {
-            Notes = await NetworkModule.GetNotes(Parent);
+            notes = await NetworkModule.GetNotes(Parent);
+            foreach (Note n in notes)
+                NotesAndFolders.Add(n);
         }
     }
 }

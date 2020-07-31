@@ -1,11 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.ViewModels.ViewCounterparts.Details;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +10,7 @@ namespace MyHealthChart3.Views.Details
     public partial class NoteDetail : ContentPage
     {
         Services.IServerComms networkmodule;
-        public NoteDetail(NoteListModel note, Services.IServerComms NetworkModule)
+        public NoteDetail(Note note, Services.IServerComms NetworkModule)
         {
             InitializeComponent();
             networkmodule = NetworkModule;
