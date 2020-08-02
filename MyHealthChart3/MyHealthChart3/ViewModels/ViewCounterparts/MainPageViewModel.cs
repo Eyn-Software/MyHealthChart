@@ -74,13 +74,10 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             MessagingCenter.Subscribe<Forms.UserFormViewModel, UserViewModel>
                 (this, Events.UserAdded, OnUserAdded);
             NetworkModule = networkModule;
-            LoginService = loginService;
+            LoginService = loginService; 
             NotificationService = notificationService;
             Authenticated = false;
             LoginCreds = new LoginFormModel();
-
-            ////Testing only
-            Application.Current.Properties.Clear();
 
             if (Application.Current.Properties.ContainsKey("Email") && Application.Current.Properties.ContainsKey("Password"))
             {
