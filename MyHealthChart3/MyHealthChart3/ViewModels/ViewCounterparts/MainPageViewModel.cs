@@ -83,7 +83,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             {
                 LoginCreds.Email = Application.Current.Properties["Email"] as string;
                 LoginCreds.Password = Application.Current.Properties["Password"] as string;
-                SetUsers();
+                SetUsers(); 
             }
             UnauthenticatedList = new ObservableCollection<UnauthenticatedMenuItem>
             {
