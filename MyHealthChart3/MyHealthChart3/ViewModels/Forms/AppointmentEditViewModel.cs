@@ -1,16 +1,15 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class AppointmentEditViewModel : BaseViewModel
     {
-        private UserViewModel user;
+        private User user;
         private Appointment appointment;
         private IServerComms networkmodule;
 
-        public UserViewModel User
+        public User User
         {
             get
             {

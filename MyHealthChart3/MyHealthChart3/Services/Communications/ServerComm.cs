@@ -3,7 +3,6 @@ using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services.Parsing;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,10 +29,10 @@ namespace MyHealthChart3.Services
         Used by: LoginFormViewModel
         Date: June 27, 2020
         */
-        public async Task<List<UserViewModel>> Login(LoginFormModel data)
+        public async Task<List<User>> Login(LoginFormModel data)
         {
             IDataParse dp = new DataParse();
-            List<UserViewModel> Users = new List<UserViewModel>();
+            List<User> Users = new List<User>();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("Email", data.Email),
@@ -46,7 +45,7 @@ namespace MyHealthChart3.Services
             if(!SerializedString.Equals(""))
             {
                 Users = dp.DownloadUsers(SerializedString);
-                foreach (UserViewModel u in Users)
+                foreach (User u in Users)
                 {
                     u.Password = data.Password;
                 }
@@ -63,7 +62,7 @@ namespace MyHealthChart3.Services
         Used by: RegistrationFormViewModel
         Date: June 28, 2020
         */
-        public async Task<List<UserViewModel>> Register(RegistrationFormModel data)
+        public async Task<List<User>> Register(RegistrationFormModel data)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -77,8 +76,8 @@ namespace MyHealthChart3.Services
             HttpContent Content = new FormUrlEncodedContent(PostFields);
             HttpResponseMessage Response = await Client.PostAsync(Uri, Content);
             String SerializedString = await Response.Content.ReadAsStringAsync();
-            List<UserViewModel> Users = dp.DownloadUsers(SerializedString);
-            foreach(UserViewModel u in Users)
+            List<User> Users = dp.DownloadUsers(SerializedString);
+            foreach(User u in Users)
             {
                 u.Password = data.Password;
             }
@@ -93,7 +92,7 @@ namespace MyHealthChart3.Services
         Used by: DoctorListViewModel
         Date: June 30, 2020
         */
-        public async Task<List<Doctor>> GetDoctors(UserViewModel user)
+        public async Task<List<Doctor>> GetDoctors(User user)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -116,7 +115,7 @@ namespace MyHealthChart3.Services
         Used by: AppointmentList
         Date: July 1, 2020
         */
-        public async Task<List<Appointment>> GetAppointments(UserViewModel User)
+        public async Task<List<Appointment>> GetAppointments(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -138,7 +137,7 @@ namespace MyHealthChart3.Services
         Used by: VaccineList
         Date: July 11, 2020
         */
-        public async Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User)
+        public async Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -160,7 +159,7 @@ namespace MyHealthChart3.Services
         Used by: LoginFormViewModel
         Date: July 16, 2020
         */
-        public async Task<List<AppointmentReminderModel>> GetFutureAppointments(UserViewModel User)
+        public async Task<List<AppointmentReminderModel>> GetFutureAppointments(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -182,7 +181,7 @@ namespace MyHealthChart3.Services
         Used by: ConditionList
         Date: July 7, 2020
         */
-        public async Task<ObservableCollection<Models.Condition>> GetConditions(UserViewModel User)
+        public async Task<ObservableCollection<Models.Condition>> GetConditions(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -204,7 +203,7 @@ namespace MyHealthChart3.Services
         Used by: AllergyListViewModel
         Date: July 8, 2020
         */
-        public async Task<ObservableCollection<Allergy>> GetAllergies(UserViewModel User)
+        public async Task<ObservableCollection<Allergy>> GetAllergies(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -226,7 +225,7 @@ namespace MyHealthChart3.Services
         Used by: VaccineListViewModel
         Date: July 13, 2020
         */
-        public async Task<ObservableCollection<Vaccine>> GetVaccines(UserViewModel User)
+        public async Task<ObservableCollection<Vaccine>> GetVaccines(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -248,7 +247,7 @@ namespace MyHealthChart3.Services
         Used by: PrescriptionListViewModel
         Date: July 14, 2020
         */
-        public async Task<ObservableCollection<Prescription>> GetPrescriptions(UserViewModel User)
+        public async Task<ObservableCollection<Prescription>> GetPrescriptions(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()
@@ -393,7 +392,7 @@ namespace MyHealthChart3.Services
         Used by: UserFormViewModel
         Date: July 23, 2020
         */
-        public async Task<UserViewModel> AddUser(UserViewModel User)
+        public async Task<User> AddUser(User User)
         {
             IDataParse dp = new DataParse();
             IEnumerable<KeyValuePair<string, string>> PostFields = new List<KeyValuePair<string, string>>()

@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.ObjectModel;
 
@@ -9,10 +8,10 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class AppointmentListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private UserViewModel user;
+        private User user;
         private ObservableCollection<Appointment> appointments, filteredappointments;
 
-        public UserViewModel User
+        public User User
         {
             get
             {
@@ -45,7 +44,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref filteredappointments, value);
             }
         }
-        public AppointmentListViewModel(UserViewModel Usr, IServerComms networkModule)
+        public AppointmentListViewModel(User Usr, IServerComms networkModule)
         {
             User = Usr;
             NetworkModule = networkModule;

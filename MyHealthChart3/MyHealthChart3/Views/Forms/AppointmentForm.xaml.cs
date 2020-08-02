@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using Plugin.Media;
 using Xamarin.Forms;
@@ -11,7 +11,7 @@ namespace MyHealthChart3.Views.Forms
     public partial class AppointmentForm : ContentPage
     {
 
-        public AppointmentForm(UserViewModel User, IServerComms networkModule)
+        public AppointmentForm(User User, IServerComms networkModule)
         {
             InitializeComponent();
             ViewModel = new AppointmentFormViewModel(User, networkModule);

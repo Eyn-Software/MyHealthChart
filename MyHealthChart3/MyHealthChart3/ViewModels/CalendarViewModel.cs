@@ -1,6 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class CalendarViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private UserViewModel User;
+        public User User;
         private CalendarEventCollection events;
 
         public CalendarEventCollection Events
@@ -34,7 +34,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public CalendarViewModel(UserViewModel Usr, IServerComms networkModule)
+        public CalendarViewModel(User Usr, IServerComms networkModule)
         {
             User = Usr;
             NetworkModule = networkModule;

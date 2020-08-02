@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
@@ -9,7 +9,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private IServerComms NetworkModule;
         private bool haserror;
         private string error;
-        private UserViewModel user;
+        private User user;
         private Models.Condition condition;
 
         public bool HasError
@@ -49,7 +49,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref condition, value);
             }
         }
-        public ConditionFormViewModel(UserViewModel Usr, IServerComms networkModule)
+        public ConditionFormViewModel(User Usr, IServerComms networkModule)
         {
             user = Usr;
             NetworkModule = networkModule;

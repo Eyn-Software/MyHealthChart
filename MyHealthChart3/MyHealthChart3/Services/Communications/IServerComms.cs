@@ -1,7 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -10,22 +9,22 @@ namespace MyHealthChart3.Services
 {
     public interface IServerComms
     {
-        Task<List<UserViewModel>> Login(LoginFormModel data);
-        Task<List<UserViewModel>> Register(RegistrationFormModel data);
-        Task<List<Doctor>> GetDoctors(UserViewModel user);
-        Task<List<Appointment>> GetAppointments(UserViewModel User);
-        Task<List<AppointmentReminderModel>> GetFutureAppointments(UserViewModel User);
-        Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(UserViewModel User);
-        Task<ObservableCollection<Models.Condition>> GetConditions(UserViewModel User);
-        Task<ObservableCollection<Allergy>> GetAllergies(UserViewModel User);
-        Task<ObservableCollection<Vaccine>> GetVaccines(UserViewModel User);
-        Task<ObservableCollection<Prescription>> GetPrescriptions(UserViewModel User);
+        Task<List<User>> Login(LoginFormModel data);
+        Task<List<User>> Register(RegistrationFormModel data);
+        Task<List<Doctor>> GetDoctors(User user);
+        Task<List<Appointment>> GetAppointments(User User);
+        Task<List<AppointmentReminderModel>> GetFutureAppointments(User User);
+        Task<Syncfusion.SfCalendar.XForms.CalendarEventCollection> GetAllAppointments(User User);
+        Task<ObservableCollection<Models.Condition>> GetConditions(User User);
+        Task<ObservableCollection<Allergy>> GetAllergies(User User);
+        Task<ObservableCollection<Vaccine>> GetVaccines(User User);
+        Task<ObservableCollection<Prescription>> GetPrescriptions(User User);
         Task<ObservableCollection<Folder>> GetFolders(Folder Folder);
         Task<ObservableCollection<Note>> GetNotes(Folder Folder);
         Task<Appointment> GetAppointment(Appointment Appointment);
         Task<Folder> GetRootFolder(Folder Folder);
         Task<Note> GetNote(Note Note);
-        Task<UserViewModel> AddUser(UserViewModel User);
+        Task<User> AddUser(User User);
         Task<string> AddDoctor(Doctor dataObject);
         Task<int> AddAppointment(Appointment Appointment);
         Task<string> AddPrescription(Prescription Prescription);

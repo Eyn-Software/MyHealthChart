@@ -1,4 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,9 +8,9 @@ namespace MyHealthChart3.Views.Lists
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PrescriptionList : ContentPage
     {
-        private UserViewModel User;
+        private User User;
         private Services.IServerComms NetworkModule;
-        public PrescriptionList(UserViewModel Usr, Services.IServerComms networkmodule)
+        public PrescriptionList(User Usr, Services.IServerComms networkmodule)
         {
             InitializeComponent();
             User = Usr;

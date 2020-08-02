@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,11 +10,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class ConditionListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private UserViewModel user;
+        private User user;
         private ObservableCollection<Models.Condition> conditions;
         private ObservableCollection<Models.Condition> filteredconditions;
 
-        public UserViewModel User
+        public User User
         {
             get
             {
@@ -53,7 +53,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public ConditionListViewModel(UserViewModel Usr, IServerComms networkModule)
+        public ConditionListViewModel(User Usr, IServerComms networkModule)
         {
             User = Usr; 
             NetworkModule = networkModule;

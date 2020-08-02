@@ -2,7 +2,6 @@
 using Xamarin.Forms;
 using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 
 namespace MyHealthChart3.Views
@@ -40,7 +39,7 @@ namespace MyHealthChart3.Views
         public void UserSelected(object sender, SelectedItemChangedEventArgs e)
         {
             IsPresented = false;
-            UserViewModel SelectedUser = e.SelectedItem as UserViewModel;
+            User SelectedUser = e.SelectedItem as User;
             Detail = new NavigationPage(new OptionList(SelectedUser, NetworkModule));
         }
         public void UnauthenticatedSelected(object sender, SelectedItemChangedEventArgs e)

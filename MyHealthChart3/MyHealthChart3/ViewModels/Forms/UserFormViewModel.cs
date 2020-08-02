@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using System;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
@@ -11,7 +11,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
         private bool birthdayhaserror;
         private string nameerror;
         private string birthdayerror;
-        private UserViewModel user;
+        private User user;
 
         public bool HasErrors;
         public bool NameHasError
@@ -66,7 +66,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                     BirthdayHasError = true;
             }
         }
-        public UserViewModel User
+        public User User
         {
             get
             {
@@ -77,9 +77,9 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Forms
                 SetValue(ref user, value);
             }
         }
-        public UserFormViewModel(UserViewModel otheruser, IServerComms networkmodule)
+        public UserFormViewModel(User otheruser, IServerComms networkmodule)
         {
-            User = new UserViewModel();
+            User = new User();
             User.Birthday = DateTime.Now;
             User.Id = otheruser.Id;
             User.Password = otheruser.Password;

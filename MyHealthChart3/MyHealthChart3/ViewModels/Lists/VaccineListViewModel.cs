@@ -1,6 +1,6 @@
-﻿using MyHealthChart3.Models.DBObjects;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.ObjectModel;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
@@ -8,7 +8,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
     public class VaccineListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private UserViewModel User;
+        private User User;
         private ObservableCollection<Vaccine> vaccines;
         private ObservableCollection<Vaccine> filteredvaccines;
 
@@ -39,7 +39,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
             get;
             private set;
         }
-        public VaccineListViewModel(UserViewModel user, IServerComms networkModule)
+        public VaccineListViewModel(User user, IServerComms networkModule)
         {
             User = user;
             NetworkModule = networkModule;

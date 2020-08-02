@@ -1,7 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -18,7 +17,7 @@ namespace MyHealthChart3.Services
         Used by: ServerComm.Login
         Date: June 26 2020
         */
-        List<UserViewModel> DownloadUsers(string ReceivedData);
+        List<User> DownloadUsers(string ReceivedData);
         List<Doctor> DownloadDoctors(string ReceivedData);
         List<Appointment> DownloadAppointments(string ReceivedData);
         List<AppointmentReminderModel> DownloadFutureAppointments(string ReceivedData);
@@ -29,7 +28,7 @@ namespace MyHealthChart3.Services
         ObservableCollection<Prescription> DownloadPrescriptions(string ReceivedData);
         ObservableCollection<Folder> DownloadFolders(string ReceivedData);
         ObservableCollection<Note> DownloadNotes(string ReceivedData);
-        UserViewModel DownloadUser(string ReceivedData);
+        User DownloadUser(string ReceivedData);
         Appointment DownloadAppointment(string ReceivedData, Appointment Appointment);
         Note DownloadNote(string ReceivedData, Note Note);
         Address DownloadAddress(string ReceivedData);

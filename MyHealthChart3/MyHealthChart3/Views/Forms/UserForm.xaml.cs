@@ -1,5 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using MyHealthChart3.ViewModels.ViewCounterparts.Forms;
+﻿using MyHealthChart3.ViewModels.ViewCounterparts.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,7 +7,7 @@ namespace MyHealthChart3.Views.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserForm : ContentPage
     {
-        public UserForm(UserViewModel User, Services.IServerComms NetworkModule)
+        public UserForm(Models.User User, Services.IServerComms NetworkModule)
         {
             InitializeComponent();
             ViewModel = new UserFormViewModel(User, NetworkModule);

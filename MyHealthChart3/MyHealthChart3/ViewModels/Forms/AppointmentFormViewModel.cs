@@ -1,7 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +19,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private string rx0name, rx1name, rx2name, vax0name, vax1name, vax2name, rx0error, rx1error, rx2error;
         private DateTime date, followupdate;
         private TimeSpan time, followuptime, remindertime;
-        private UserViewModel user;
+        private User user;
         private Appointment appointment, followupappointment;
         private Prescription prescription0, prescription1, prescription2;
         private Vaccine vaccine0, vaccine1, vaccine2;
@@ -350,7 +349,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref followuptime, value);
             }
         }
-        public UserViewModel User
+        public User User
         {
             get
             {
@@ -484,7 +483,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: AppointmentForm
         Date: July 3, 2020
         */
-        public AppointmentFormViewModel(UserViewModel Usr, IServerComms networkModule)
+        public AppointmentFormViewModel(User Usr, IServerComms networkModule)
         {
             NetworkModule = networkModule;
             User = Usr;

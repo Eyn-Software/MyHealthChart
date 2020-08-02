@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using System.Collections.ObjectModel;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
@@ -7,7 +7,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
     public class PrescriptionListViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
-        private UserViewModel User;
+        private User User;
         private ObservableCollection<Models.Prescription> prescriptions;
         private ObservableCollection<Models.Prescription> filteredprescriptions;
 
@@ -38,7 +38,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts.Lists
             get;
             private set;
         }
-        public PrescriptionListViewModel(UserViewModel user, IServerComms networkmodule)
+        public PrescriptionListViewModel(User user, IServerComms networkmodule)
         {
             User = user;
             NetworkModule = networkmodule;

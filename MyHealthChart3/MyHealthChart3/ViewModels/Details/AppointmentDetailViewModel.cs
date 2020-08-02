@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
@@ -9,7 +8,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     {
         private bool ispast;
         public IServerComms NetworkModule;
-        private UserViewModel user;
+        private User user;
         private Appointment appointment;
 
         public bool IsPast
@@ -23,7 +22,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref ispast, value);
             }
         }
-        public UserViewModel User
+        public User User
         {
             get
             {

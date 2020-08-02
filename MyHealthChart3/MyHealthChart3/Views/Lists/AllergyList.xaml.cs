@@ -1,5 +1,4 @@
 ﻿using MyHealthChart3.Models;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
 using Xamarin.Forms;
@@ -10,9 +9,9 @@ namespace MyHealthChart3.Views.Lists
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AllergyList : ContentPage
     {
-        UserViewModel User;
+        User User;
         Services.IServerComms NetworkModule;
-        public AllergyList(UserViewModel user, Services.IServerComms networkModule)
+        public AllergyList(User user, Services.IServerComms networkModule)
         {
             InitializeComponent();
             User = user;

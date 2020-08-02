@@ -1,5 +1,4 @@
 ﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
 using Xamarin.Forms;
@@ -10,7 +9,7 @@ namespace MyHealthChart3.Views.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConditionForm : ContentPage
     {
-        public ConditionForm(UserViewModel User, IServerComms networkModule)
+        public ConditionForm(Models.User User, IServerComms networkModule)
         {
             InitializeComponent();
             ViewModel = new ConditionFormViewModel(User, networkModule);

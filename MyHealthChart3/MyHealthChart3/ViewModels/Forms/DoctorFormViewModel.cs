@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
@@ -9,7 +8,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private IServerComms NetworkModule;
         private bool namehaserror, practichaserror, typehaserror, emailhaserror, phonehaserror;
         private string nameerror, practiceerror, typeerror, emailerror, phoneerror;
-        private UserViewModel User;
+        private User User;
         private Doctor doctor;
         private Models.DBObjects.Address address;
         public bool NameHasError
@@ -164,7 +163,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref address, value);
             }
         }
-        public DoctorFormViewModel(UserViewModel u, IServerComms networkModule)
+        public DoctorFormViewModel(User u, IServerComms networkModule)
         {
             User = u;
             NetworkModule = networkModule;

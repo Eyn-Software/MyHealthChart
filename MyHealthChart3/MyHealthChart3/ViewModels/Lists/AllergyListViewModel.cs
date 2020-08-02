@@ -1,5 +1,4 @@
 ﻿using MyHealthChart3.Models;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,7 +9,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class AllergyListViewModel : BaseViewModel
     {
         private Services.IServerComms NetworkModule;
-        private UserViewModel User;
+        private User User;
         private ObservableCollection<Allergy> allergies;
         private ObservableCollection<Allergy> filteredallergies;
         
@@ -41,7 +40,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public AllergyListViewModel(UserViewModel Usr, Services.IServerComms networkModule)
+        public AllergyListViewModel(User Usr, Services.IServerComms networkModule)
         {
             User = Usr;
             NetworkModule = networkModule;

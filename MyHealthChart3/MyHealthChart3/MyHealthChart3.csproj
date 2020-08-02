@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\BehaviorModels\**" />
+    <EmbeddedResource Remove="Models\BehaviorModels\**" />
+    <None Remove="Models\BehaviorModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="modernhttpclient" Version="2.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
@@ -120,10 +126,6 @@
     <EmbeddedResource Update="Views\WelcomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\BehaviorModels\" />
   </ItemGroup>
 
   <ItemGroup>

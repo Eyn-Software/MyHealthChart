@@ -1,5 +1,4 @@
 ﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views.Lists;
 using MyHealthChart3.Models;
 using System;
@@ -12,7 +11,7 @@ namespace MyHealthChart3.Views
     public partial class OptionList : ContentPage
     {
         IPageService ps;
-        UserViewModel User;
+        User User;
         IServerComms NetworkModule;
         /*
         Name: OptionList
@@ -22,7 +21,7 @@ namespace MyHealthChart3.Views
         Used by: OptionList
         Date: May 28 2020
         */
-        public OptionList(UserViewModel usr, IServerComms networkModule)
+        public OptionList(User usr, IServerComms networkModule)
         {
             InitializeComponent();
             ps = new PageService();

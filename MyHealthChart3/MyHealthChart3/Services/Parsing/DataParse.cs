@@ -1,7 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.DBObjects;
 using MyHealthChart3.Models.ViewDataObjects;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
@@ -23,10 +22,10 @@ namespace MyHealthChart3.Services.Parsing
         Used by: Login, Register
         Date: June 28, 2020
         */
-        public List<UserViewModel> DownloadUsers(string ReceivedData)
+        public List<User> DownloadUsers(string ReceivedData)
         {
-            List<UserViewModel> Users = new List<UserViewModel>();
-            UserViewModel User;
+            List<User> Users = new List<User>();
+            User User;
             int Id;
             string Name;
             DateTime Birthday;
@@ -47,7 +46,7 @@ namespace MyHealthChart3.Services.Parsing
                 index = ReceivedData.IndexOf("///");
                 AId = int.Parse(ReceivedData.Substring(0, index));
                 ReceivedData = ReceivedData.Substring(index + 3);
-                User = new UserViewModel();
+                User = new User();
                 User.Id = Id;
                 User.Name = Name;
                 User.Birthday = Birthday;
@@ -432,9 +431,9 @@ namespace MyHealthChart3.Services.Parsing
             }
             return Notes;
         }
-        public UserViewModel DownloadUser(string ReceivedData)
+        public User DownloadUser(string ReceivedData)
         {
-            UserViewModel User = new UserViewModel();
+            User User = new User();
             int index;
 
             index = ReceivedData.IndexOf("///");

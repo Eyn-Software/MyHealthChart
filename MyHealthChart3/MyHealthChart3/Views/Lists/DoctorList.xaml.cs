@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using System;
 using Xamarin.Forms;
@@ -20,9 +19,9 @@ namespace MyHealthChart3.Views
         Used by: OptionList
         Date: May 29 2020
         */
-        UserViewModel User;
+        User User;
         IServerComms NetworkModule;
-        public DoctorList(UserViewModel u, IServerComms networkModule)
+        public DoctorList(User u, IServerComms networkModule)
         {
             InitializeComponent();
             NetworkModule = networkModule;

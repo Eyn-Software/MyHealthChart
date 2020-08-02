@@ -1,11 +1,5 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
 using MyHealthChart3.ViewModels.ViewCounterparts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +8,7 @@ namespace MyHealthChart3.Views.Lists
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Calendar : ContentPage
     {
-        public Calendar(UserViewModel User, Services.IServerComms NetworkModule)
+        public Calendar(User User, Services.IServerComms NetworkModule)
         {
             InitializeComponent();
             ViewModel = new CalendarViewModel(User, NetworkModule);

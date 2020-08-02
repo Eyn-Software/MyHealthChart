@@ -1,12 +1,12 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class AllergyFormViewModel : BaseViewModel
     {
-        private UserViewModel User;
+        private User User;
         private IServerComms NetworkModule;
         private string error;
         private Models.Allergy allergy;
@@ -33,7 +33,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 SetValue(ref allergy, value);
             }
         }
-        public AllergyFormViewModel(UserViewModel user, IServerComms networkModule)
+        public AllergyFormViewModel(User user, IServerComms networkModule)
         {
             User = user;
             NetworkModule = networkModule;

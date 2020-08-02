@@ -1,16 +1,16 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
+﻿using MyHealthChart3.ViewModels.ViewCounterparts.Lists;
 using MyHealthChart3.Models.DBObjects;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MyHealthChart3.Models;
 
 namespace MyHealthChart3.Views.Lists
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VaccineList : ContentPage
     {
-        private UserViewModel User;
-        public VaccineList(UserViewModel user, Services.IServerComms networkModule)
+        private User User;
+        public VaccineList(User user, Services.IServerComms networkModule)
         {
             InitializeComponent();
             User = user;

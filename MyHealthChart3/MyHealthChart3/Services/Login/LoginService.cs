@@ -1,7 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.ViewModels;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -28,7 +27,7 @@ namespace MyHealthChart3.Services
 
         public async Task<string> SetUsers(LoginFormModel Login, IServerComms NetworkModule, INotificationService NotificationService)
         {
-            List<UserViewModel> Users = await NetworkModule.Login(Login);
+            List<User> Users = await NetworkModule.Login(Login);
             if (Users.Count != 0)
             {
                 await SetCredentials(Login);
@@ -36,7 +35,7 @@ namespace MyHealthChart3.Services
                 List<AppointmentReminderModel> Appointments = new List<AppointmentReminderModel>();
                 List<Prescription> TempRx;
                 List<AppointmentReminderModel> TempAppt;
-                foreach (UserViewModel User in Users)
+                foreach (User User in Users)
                 {
                     MessagingCenter.Send(this, Events.UserAdded, User);
                     //Get a list of all prescriptions for the user and add it to the list "Prescription"

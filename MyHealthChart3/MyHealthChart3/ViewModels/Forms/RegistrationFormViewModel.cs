@@ -1,6 +1,6 @@
-﻿using MyHealthChart3.Models.ViewDataObjects;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Models.ViewDataObjects;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.Views;
 using System;
 using System.Collections.Generic;
@@ -219,8 +219,8 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 Login.Email = DataObject.Email;
                 Login.Password = DataObject.Password;
                 await LoginService.SetCredentials(Login);
-                List<UserViewModel> Users = await NetworkModule.Register(DataObject);
-                foreach (UserViewModel User in Users)
+                List<User> Users = await NetworkModule.Register(DataObject);
+                foreach (User User in Users)
                 {
                     MessagingCenter.Send(this, Events.UserAdded, User);
                 }

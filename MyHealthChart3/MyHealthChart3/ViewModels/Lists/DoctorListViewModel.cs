@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.ObjectModel;
 
 namespace MyHealthChart3.ViewModels.ViewCounterparts
@@ -8,10 +7,10 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class DoctorListViewModel : BaseViewModel
     {
         public IServerComms NetworkModule;
-        private UserViewModel user;
+        private User user;
         private ObservableCollection<Doctor> doctors, filtereddoctors;
 
-        public UserViewModel User
+        public User User
         {
             get
             {
@@ -54,7 +53,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: DoctorList
         Date: May 30 2020
         */
-        public DoctorListViewModel(IServerComms networkModule, UserViewModel u)
+        public DoctorListViewModel(IServerComms networkModule, User u)
         {
             NetworkModule = networkModule;
             User = u;

@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
@@ -44,11 +43,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         }
         //Creates a collection of users to be displayed
         //by the main page in the hamburger menu
-        public ObservableCollection<UserViewModel> Users
+        public ObservableCollection<User> Users
         {
             get;
             private set;
-        } = new ObservableCollection<UserViewModel>();
+        } = new ObservableCollection<User>();
         //Creates a collection of items to be shown if the user has not yet been authenticated
         public ObservableCollection<UnauthenticatedMenuItem> UnauthenticatedList
         {
@@ -67,11 +66,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         {
             //Creates a message whenever users are added or updated
             //via the user form
-            MessagingCenter.Subscribe<LoginService, UserViewModel>
+            MessagingCenter.Subscribe<LoginService, User>
                 (this, Events.UserAdded, OnUserAdded);
-            MessagingCenter.Subscribe<RegistrationFormViewModel, UserViewModel>
+            MessagingCenter.Subscribe<RegistrationFormViewModel, User>
                 (this, Events.UserAdded, OnUserAdded);
-            MessagingCenter.Subscribe<Forms.UserFormViewModel, UserViewModel>
+            MessagingCenter.Subscribe<Forms.UserFormViewModel, User>
                 (this, Events.UserAdded, OnUserAdded);
             NetworkModule = networkModule;
             LoginService = loginService; 
@@ -106,17 +105,17 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: LoginFormViewModel, RegistrationFormViewModel
         Date: June 26 2020
         */
-        private void OnUserAdded(LoginService src, UserViewModel user)
+        private void OnUserAdded(LoginService src, User user)
         {
             Users.Add(user);
             Authenticated = true;
         }
-        private void OnUserAdded(RegistrationFormViewModel src, UserViewModel user)
+        private void OnUserAdded(RegistrationFormViewModel src, User user)
         {
             Users.Add(user);
             Authenticated = true;
         }
-        private void OnUserAdded(Forms.UserFormViewModel src, UserViewModel user)
+        private void OnUserAdded(Forms.UserFormViewModel src, User user)
         {
             Users.Add(user);
             Authenticated = true;

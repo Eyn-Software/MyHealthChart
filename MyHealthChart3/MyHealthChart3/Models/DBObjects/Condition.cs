@@ -1,5 +1,4 @@
-﻿using MyHealthChart3.ViewModels.ModelCounterparts;
-namespace MyHealthChart3.Models
+﻿namespace MyHealthChart3.Models
 {
     public class Condition
     {
@@ -7,7 +6,7 @@ namespace MyHealthChart3.Models
         {
 
         }
-        public Condition(UserViewModel User)
+        public Condition(User User)
         {
             Type = "";
             UId = User.Id;

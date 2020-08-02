@@ -1,6 +1,5 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using MyHealthChart3.Views.Forms;
 using Xamarin.Forms;
@@ -11,9 +10,9 @@ namespace MyHealthChart3.Views.Lists
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AppointmentList : ContentPage
     {
-        UserViewModel User;
+        User User;
         IServerComms NetworkModule;
-        public AppointmentList(UserViewModel Usr, IServerComms networkModule)
+        public AppointmentList(User Usr, IServerComms networkModule)
         {
             InitializeComponent();
             User = Usr;

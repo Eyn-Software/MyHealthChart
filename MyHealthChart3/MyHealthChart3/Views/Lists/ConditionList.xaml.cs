@@ -1,5 +1,5 @@
-﻿using MyHealthChart3.Services;
-using MyHealthChart3.ViewModels.ModelCounterparts;
+﻿using MyHealthChart3.Models;
+using MyHealthChart3.Services;
 using MyHealthChart3.ViewModels.ViewCounterparts;
 using MyHealthChart3.Views.Forms;
 using System;
@@ -11,9 +11,9 @@ namespace MyHealthChart3.Views.Lists
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConditionList : ContentPage
     {
-        UserViewModel user;
+        User user;
         IServerComms networkmodule;
-        public ConditionList(UserViewModel User, IServerComms NetworkModule)
+        public ConditionList(User User, IServerComms NetworkModule)
         {
             InitializeComponent();
             user = User;
