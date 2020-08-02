@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyHealthChart3.Models
 {
@@ -30,8 +27,5 @@ namespace MyHealthChart3.Models
         NV, NH, NJ, NM, NY, NC, ND, OH, OK,
         OR, PA, RI, SC, SD, TN, TX, UT, VT,
         VA, WA, WV, WI, WY
-    }
-    class Enumerables
-    {
     }
 }

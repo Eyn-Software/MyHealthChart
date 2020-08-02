@@ -1,26 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyHealthChart3.Models
+﻿namespace MyHealthChart3.Models
 {
-    public enum MenuItemType
+    public enum UnauthenticatedMenuItemType
     {
         Register,
-        Login,
-        Guest
+        Login
     }
     public class UnauthenticatedMenuItem
     {
-        public MenuItemType Id
-        {
-            get;
-            set;
-        }
-        public string Title
-        {
-            get;
-            set;
-        }
+        public UnauthenticatedMenuItemType Id { get; set; }
+        public string Title { get; set; }
     }
 }

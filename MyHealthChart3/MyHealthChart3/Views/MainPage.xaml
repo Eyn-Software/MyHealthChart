@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="d"
-            x:Class="MyHealthChart3.Views.MainPage" 
-            BackgroundImageSource="LoginBackground.png">
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                  mc:Ignorable="d"
+                  x:Class="MyHealthChart3.Views.MainPage" 
+                  BackgroundImageSource="LoginBackground.png">
 
     <MasterDetailPage.Master>
         <ContentPage
@@ -18,43 +18,43 @@
 
                 </Grid>
                 <Grid Margin="0,20,0,20" Padding="0,20" >
-                    <ListView HasUnevenRows="False"
-                              BackgroundColor="Transparent"
-                              ItemSelected="UserSelected"
-                              ItemsSource="{Binding Users}"
-                              IsVisible="{Binding Authenticated}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
+                    <StackLayout>
+                        <!--User List-->
+                        <listview:SfListView  BackgroundColor="Transparent"     ItemTapped="UserSelected"
+                                              ItemsSource="{Binding Users}" IsVisible="{Binding Authenticated}">
+                            <listview:SfListView.ItemTemplate>
+                                <DataTemplate>
                                     <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
                                         <Label Text="{Binding Name}" FontSize="24"/>
                                     </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                </DataTemplate>
+                            </listview:SfListView.ItemTemplate>
+                        </listview:SfListView>
 
-                    <ListView HasUnevenRows="False"
-                              BackgroundColor="Transparent"
-                              ItemsSource="{Binding UnauthenticatedList}"
-                              ItemSelected="UnauthenticatedSelected"
-                              IsVisible="{Binding Unauthenticated}">
-                        <d:ListView.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Item 1</x:String>
-                                <x:String>Item 2</x:String>
-                            </x:Array>
-                        </d:ListView.ItemsSource>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid Padding="10">
+                        <!--Unauthenticated List-->
+                        <listview:SfListView  BackgroundColor="Transparent" ItemsSource="{Binding UnauthenticatedList}"
+                                              ItemTapped="UnauthenticatedSelected" IsVisible="{Binding Unauthenticated}">
+                            <listview:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
                                         <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20"/>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </listview:SfListView.ItemTemplate>
+                        </listview:SfListView>
+                    
+                        <!--General List-->
+                        <listview:SfListView  BackgroundColor="Transparent" ItemsSource="{Binding GeneralList}"
+                                              ItemTapped="GeneralSelected">
+                            <listview:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
+                                        <Label Text="{Binding Title}" FontSize="20"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </listview:SfListView.ItemTemplate>
+                        </listview:SfListView>
+                    </StackLayout>
                 </Grid>
             </Grid>
         </ContentPage>

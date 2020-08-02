@@ -54,6 +54,12 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         } = new ObservableCollection<UnauthenticatedMenuItem>();
+        //Creates a collection of general items to always show in the sidebar
+        public ObservableCollection<GeneralMenuItem> GeneralList
+        {
+            get;
+            private set;
+        } = new ObservableCollection<GeneralMenuItem>();
         /*
         Name: MainPageViewModel
         Purpose: Initialization of the main page view model
@@ -86,9 +92,13 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             }
             UnauthenticatedList = new ObservableCollection<UnauthenticatedMenuItem>
             {
-                new UnauthenticatedMenuItem {Id = MenuItemType.Register, Title="Register" },
-                new UnauthenticatedMenuItem {Id = MenuItemType.Login, Title="Log in" },
-                new UnauthenticatedMenuItem {Id = MenuItemType.Guest, Title="Continue as a guest"}
+                new UnauthenticatedMenuItem {Id = UnauthenticatedMenuItemType.Register, Title="Register" },
+                new UnauthenticatedMenuItem {Id = UnauthenticatedMenuItemType.Login, Title="Log in" }
+            };
+            GeneralList = new ObservableCollection<GeneralMenuItem>
+            {
+                new GeneralMenuItem {Id = GeneralMenuItemType.About, Title="About"},
+                new GeneralMenuItem {Id = GeneralMenuItemType.LogOut, Title="Log Out"}
             };
 
         }

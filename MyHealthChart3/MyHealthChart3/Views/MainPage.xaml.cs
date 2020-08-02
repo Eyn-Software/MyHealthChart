@@ -36,24 +36,34 @@ namespace MyHealthChart3.Views
             //ViewModel.GetUsersCmd.Execute(null);
             base.OnAppearing();
         }
-        public void UserSelected(object sender, SelectedItemChangedEventArgs e)
+        public void UserSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
             IsPresented = false;
-            User SelectedUser = e.SelectedItem as User;
+            User SelectedUser = e.ItemData as User;
             Detail = new NavigationPage(new OptionList(SelectedUser, NetworkModule));
         }
-        public void UnauthenticatedSelected(object sender, SelectedItemChangedEventArgs e)
+        public void UnauthenticatedSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
             IsPresented = false;
-            UnauthenticatedMenuItem SelectedItem = e.SelectedItem as UnauthenticatedMenuItem;
-            if (SelectedItem.Id == MenuItemType.Register)
-            {
+            UnauthenticatedMenuItem SelectedItem = e.ItemData as UnauthenticatedMenuItem;
+            if (SelectedItem.Id == UnauthenticatedMenuItemType.Register)
                 Detail = new NavigationPage(new RegistrationForm(LoginService, NetworkModule, NotificationService));
-            }
-            else if (SelectedItem.Id == MenuItemType.Login)
-            {
+            else if (SelectedItem.Id == UnauthenticatedMenuItemType.Login)
                 Detail = new NavigationPage(new LoginForm(LoginService, NetworkModule, NotificationService));
+        }
+        public void GeneralSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        {
+            IsPresented = false;
+            GeneralMenuItem SelectedItem = e.ItemData as GeneralMenuItem;
+            if (SelectedItem.Id == GeneralMenuItemType.About)
+                Detail = new NavigationPage(new About());
+            else if (SelectedItem.Id == GeneralMenuItemType.LogOut)
+            {
+                Application.Current.Properties.Clear();
+                ViewModel.Authenticated = false;
+                Detail = new NavigationPage(new WelcomePage());
             }
+
         }
 
         //Creates the ViewModel object of type MainPageViewModel
