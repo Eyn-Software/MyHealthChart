@@ -1,8 +1,6 @@
 ﻿using MyHealthChart3.Models;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyHealthChart3.Services

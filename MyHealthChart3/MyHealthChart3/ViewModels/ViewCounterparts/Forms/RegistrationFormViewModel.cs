@@ -12,7 +12,9 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
 {
     public class RegistrationFormViewModel : BaseViewModel
     {
+        private ILoginService LoginService;
         private IServerComms NetworkModule;
+        private INotificationService NotificationService;
         private RegistrationFormModel dataobject;
         private bool namehaserror;
         private bool birthdayhaserror;
@@ -171,9 +173,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             get;
             private set;
         }
-        public RegistrationFormViewModel(IServerComms networkModule)
+        public RegistrationFormViewModel(ILoginService loginservice, IServerComms networkModule, INotificationService notificationService)
         {
+            LoginService = loginservice;
             NetworkModule = networkModule;
+            NotificationService = notificationService;
             DataObject = new RegistrationFormModel();
 
             SubmitCmd = new Command(async () => await Submit());
@@ -211,6 +215,10 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             //Sends in the relevant data if 
             if(!NameHasError && !BirthdayHasError && !EmailHasError && !PasswordHasError && !ConfirmPasswordHasError)
             {
+                Models.LoginFormModel Login = new Models.LoginFormModel();
+                Login.Email = DataObject.Email;
+                Login.Password = DataObject.Password;
+                await LoginService.SetCredentials(Login);
                 List<UserViewModel> Users = await NetworkModule.Register(DataObject);
                 foreach (UserViewModel User in Users)
                 {

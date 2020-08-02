@@ -1,4 +1,5 @@
-﻿using MyHealthChart3.ViewModels.ViewCounterparts;
+﻿using MyHealthChart3.Services;
+using MyHealthChart3.ViewModels.ViewCounterparts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,10 +8,10 @@ namespace MyHealthChart3.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationForm : ContentPage
     {
-        public RegistrationForm(Services.IServerComms networkModule)
+        public RegistrationForm(ILoginService LoginService, IServerComms NetworkModule, INotificationService NotificationService)
         {
             InitializeComponent();
-            ViewModel = new RegistrationFormViewModel(networkModule);
+            ViewModel = new RegistrationFormViewModel(LoginService, NetworkModule, NotificationService);
         }
         public RegistrationFormViewModel ViewModel
         {

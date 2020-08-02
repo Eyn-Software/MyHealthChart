@@ -13,16 +13,21 @@ namespace MyHealthChart3.Views
     public partial class MainPage : MasterDetailPage
     {
         IServerComms NetworkModule;
+        ILoginService LoginService;
+        INotificationService NotificationService;
         public MainPage()
         {
             InitializeComponent();
-
             //Sets the initial detail page to the welcome page
             Detail = new NavigationPage(new WelcomePage());
             //Creates an interface on which to send data to the server
             NetworkModule = new ServerComm();
+            //Creates a login interface to help with initial user authentication
+            LoginService = new LoginService();
+            //Creates a notification service to store any reminders
+            NotificationService = new NotificationService();
 
-            ViewModel = new MainPageViewModel(NetworkModule);
+            ViewModel = new MainPageViewModel(LoginService, NetworkModule, NotificationService);
         }
 
         //Upon appearing, this executes the Get Users command in the 
@@ -44,11 +49,11 @@ namespace MyHealthChart3.Views
             UnauthenticatedMenuItem SelectedItem = e.SelectedItem as UnauthenticatedMenuItem;
             if (SelectedItem.Id == MenuItemType.Register)
             {
-                Detail = new NavigationPage(new RegistrationForm(NetworkModule));
+                Detail = new NavigationPage(new RegistrationForm(LoginService, NetworkModule, NotificationService));
             }
             else if (SelectedItem.Id == MenuItemType.Login)
             {
-                Detail = new NavigationPage(new LoginForm(NetworkModule));
+                Detail = new NavigationPage(new LoginForm(LoginService, NetworkModule, NotificationService));
             }
         }
 

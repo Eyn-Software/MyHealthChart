@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Plugin.LocalNotifications;
 
-namespace MyHealthChart3.Services.Notifications
+namespace MyHealthChart3.Services
 {
     public class NotificationService : INotificationService
     {

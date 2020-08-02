@@ -9,8 +9,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
     public class MainPageViewModel : BaseViewModel
     {
         private IServerComms NetworkModule;
+        private ILoginService LoginService;
+        private INotificationService NotificationService;
         private bool authenticated;
         private bool unauthenticated;
+        private LoginFormModel LoginCreds;
 
         //Tells whether the user is authenticated, and 
         //sets certain list items' visibility value
@@ -60,25 +63,43 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: MainPage
         Date: June 29 2020
         */
-        public MainPageViewModel(IServerComms networkModule)
+        public MainPageViewModel(ILoginService loginService, IServerComms networkModule, INotificationService notificationService)
         {
             //Creates a message whenever users are added or updated
             //via the user form
-            MessagingCenter.Subscribe<LoginFormViewModel, UserViewModel>
+            MessagingCenter.Subscribe<LoginService, UserViewModel>
                 (this, Events.UserAdded, OnUserAdded);
             MessagingCenter.Subscribe<RegistrationFormViewModel, UserViewModel>
                 (this, Events.UserAdded, OnUserAdded);
             MessagingCenter.Subscribe<Forms.UserFormViewModel, UserViewModel>
                 (this, Events.UserAdded, OnUserAdded);
             NetworkModule = networkModule;
+            LoginService = loginService;
+            NotificationService = notificationService;
             Authenticated = false;
+            LoginCreds = new LoginFormModel();
 
+            ////Testing only
+            Application.Current.Properties.Clear();
+
+            if (Application.Current.Properties.ContainsKey("Email") && Application.Current.Properties.ContainsKey("Password"))
+            {
+                LoginCreds.Email = Application.Current.Properties["Email"] as string;
+                LoginCreds.Password = Application.Current.Properties["Password"] as string;
+                SetUsers();
+            }
             UnauthenticatedList = new ObservableCollection<UnauthenticatedMenuItem>
             {
                 new UnauthenticatedMenuItem {Id = MenuItemType.Register, Title="Register" },
                 new UnauthenticatedMenuItem {Id = MenuItemType.Login, Title="Log in" },
                 new UnauthenticatedMenuItem {Id = MenuItemType.Guest, Title="Continue as a guest"}
             };
+
+        }
+        public async void SetUsers()
+        {
+            if((await LoginService.SetUsers(LoginCreds, NetworkModule, NotificationService)).Equals("Success"))
+                (Application.Current.MainPage as MasterDetailPage).Detail = new NavigationPage((Page)System.Activator.CreateInstance(typeof(Views.WelcomePage)));
         }
         /*
         Name: OnUserAdded
@@ -88,7 +109,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         Used by: LoginFormViewModel, RegistrationFormViewModel
         Date: June 26 2020
         */
-        private void OnUserAdded(LoginFormViewModel src, UserViewModel user)
+        private void OnUserAdded(LoginService src, UserViewModel user)
         {
             Users.Add(user);
             Authenticated = true;

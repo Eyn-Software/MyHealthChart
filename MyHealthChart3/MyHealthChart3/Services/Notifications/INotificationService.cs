@@ -1,7 +1,7 @@
 ﻿using MyHealthChart3.Models;
 using MyHealthChart3.Models.ViewDataObjects;
 
-namespace MyHealthChart3.Services.Notifications
+namespace MyHealthChart3.Services
 {
     public interface INotificationService
     {
