@@ -6,7 +6,8 @@
              xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.DoctorList"
-             BackgroundImageSource="LoginBackground.png">
+             BackgroundImageSource="LoginBackground.png"
+             Title="Doctors">
     
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >

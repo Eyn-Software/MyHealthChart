@@ -4,12 +4,56 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MyHealthChart3.Views.About">
+             x:Class="MyHealthChart3.Views.About"
+             BackgroundImageSource="ListBackground.png">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" BackgroundColor="CornflowerBlue">
+                <Image
+                    Source="AboutIcon.png"
+                    VerticalOptions="Center"
+                    HeightRequest="125"
+                    Margin="30,30,0,30"/>
+                <Label Text="My Health Chart" Margin="30,60,0,30" FontSize="30"/>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <Label FontSize="26">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="My Health Chart 1.0" FontSize="26"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="My Health Chart is a medical app used to centralize all of a user's records in one place." FontSize="22"/>
+                    <Label FontSize="22">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="With My Health Chart, you can save information about appointments, doctors, " />
+                                    <Span Text="prescriptions, vaccinations, and any medical notes which you may have." />
+                                    <Span Text="In addition, My Health Chart allows users to save reminders to go to an appointment " />
+                                    <Span Text="or take a prescription." />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="22">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="My Health Chart uses C# and Xaml " />
+                                    <Span Text="prescriptions, vaccinations, and any medical notes which you may have." />
+                                    <Span Text="In addition, My Health Chart allows users to save reminders to go to an appointment " />
+                                    <Span Text="or take a prescription." />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

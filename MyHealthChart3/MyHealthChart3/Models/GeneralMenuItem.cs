@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MyHealthChart3.Models
+﻿namespace MyHealthChart3.Models
 {
     public enum GeneralMenuItemType
     {
-        About, 
-        [Display(Name = "Log Out")] LogOut
+        About
     }
-    public class GeneralMenuItem
+    public class GeneralMenuItem : MenuItem
     {
         public GeneralMenuItemType Id { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
     }
 }

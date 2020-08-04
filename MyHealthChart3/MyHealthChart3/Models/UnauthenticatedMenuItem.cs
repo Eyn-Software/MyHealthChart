@@ -5,9 +5,9 @@
         Register,
         Login
     }
-    public class UnauthenticatedMenuItem
+    public class UnauthenticatedMenuItem : MenuItem
     {
         public UnauthenticatedMenuItemType Id { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
     }
 }

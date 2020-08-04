@@ -5,25 +5,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.WelcomePage"
-             BackgroundImageSource="LoginBackground.png">
+             BackgroundImageSource="HomePage.png">
 
+    <!--Name: WelcomePage
+        Purpose: Displays a welcoming text to the user
+        Author: Samuel McManus
+        Uses: N/A
+        Used by: WelcomePage.xaml.cs
+        Date: August 3, 2020
+        -->
     <ContentPage.Content>
         <StackLayout>
             <Label
                 Text="Welcome To"
                 VerticalOptions="Start"
                 HorizontalOptions="CenterAndExpand"
-                TextColor="White"
                 FontSize="Large"
-                Margin="0,40,0,0" />
+                Margin="0,40,0,0" 
+                TextColor="White"/>
 
             <Label
                 Text="My Health Chart"
                 VerticalOptions="Start"
                 HorizontalOptions="CenterAndExpand"
-                TextColor="White"
                 FontSize="28"
-                Margin="0,0,0,0" />
+                Margin="0,0,0,0" 
+                TextColor="White"/>
 
         </StackLayout>
     </ContentPage.Content>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyHealthChart3.Models
 {
-    public class User
+    public class User : MenuItem
     {
         public User()
         {

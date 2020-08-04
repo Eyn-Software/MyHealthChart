@@ -6,7 +6,8 @@ xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfL
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MyHealthChart3.Views.Lists.ConditionList"
-             BackgroundImageSource="LoginBackground.png">
+             BackgroundImageSource="LoginBackground.png"
+             Title="Conditions">
     
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  VerticalOptions="Center" HorizontalOptions="Center" Spacing="30" >

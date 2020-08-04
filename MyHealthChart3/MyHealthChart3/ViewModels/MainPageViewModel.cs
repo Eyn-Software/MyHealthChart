@@ -11,7 +11,6 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
         private ILoginService LoginService;
         private INotificationService NotificationService;
         private bool authenticated;
-        private bool unauthenticated;
         private LoginFormModel LoginCreds;
 
         //Tells whether the user is authenticated, and 
@@ -25,20 +24,7 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             set
             {
                 SetValue(ref authenticated, value);
-                Unauthenticated = !authenticated;
-            }
-        }
-        //Tells whether the user is authenticated, and 
-        //sets certain list items' visibility value
-        public bool Unauthenticated
-        {
-            get
-            {
-                return unauthenticated;
-            }
-            set
-            {
-                SetValue(ref unauthenticated, value);
+                SetList();
             }
         }
         //Creates a collection of users to be displayed
@@ -49,17 +35,11 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
             private set;
         } = new ObservableCollection<User>();
         //Creates a collection of items to be shown if the user has not yet been authenticated
-        public ObservableCollection<UnauthenticatedMenuItem> UnauthenticatedList
+        public ObservableCollection<Models.MenuItem> ItemList
         {
             get;
             private set;
-        } = new ObservableCollection<UnauthenticatedMenuItem>();
-        //Creates a collection of general items to always show in the sidebar
-        public ObservableCollection<GeneralMenuItem> GeneralList
-        {
-            get;
-            private set;
-        } = new ObservableCollection<GeneralMenuItem>();
+        } = new ObservableCollection<Models.MenuItem>();
         /*
         Name: MainPageViewModel
         Purpose: Initialization of the main page view model
@@ -90,17 +70,26 @@ namespace MyHealthChart3.ViewModels.ViewCounterparts
                 LoginCreds.Password = Application.Current.Properties["Password"] as string;
                 SetUsers(); 
             }
-            UnauthenticatedList = new ObservableCollection<UnauthenticatedMenuItem>
+        }
+        public void SetList()
+        {
+            if (Authenticated)
             {
-                new UnauthenticatedMenuItem {Id = UnauthenticatedMenuItemType.Register, Title="Register" },
-                new UnauthenticatedMenuItem {Id = UnauthenticatedMenuItemType.Login, Title="Log in" }
-            };
-            GeneralList = new ObservableCollection<GeneralMenuItem>
+                ItemList.Clear();
+                ItemList.Add(new GeneralMenuItem { Id = GeneralMenuItemType.About, Name = "About" });
+                foreach(User u in Users)
+                {
+                    ItemList.Add(u);
+                }
+                ItemList.Add(new AuthenticatedMenuItem { Id = AuthenticatedItemType.LogOut, Name = "Log Out" });
+            }
+            else
             {
-                new GeneralMenuItem {Id = GeneralMenuItemType.About, Title="About"},
-                new GeneralMenuItem {Id = GeneralMenuItemType.LogOut, Title="Log Out"}
-            };
-
+                ItemList.Clear();
+                ItemList.Add(new GeneralMenuItem { Id = GeneralMenuItemType.About, Name = "About" });
+                ItemList.Add(new UnauthenticatedMenuItem { Id = UnauthenticatedMenuItemType.Register, Name = "Register" });
+                ItemList.Add(new UnauthenticatedMenuItem { Id = UnauthenticatedMenuItemType.Login, Name = "Log in" });
+            }
         }
         public async void SetUsers()
         {

@@ -36,36 +36,40 @@ namespace MyHealthChart3.Views
             //ViewModel.GetUsersCmd.Execute(null);
             base.OnAppearing();
         }
-        public void UserSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
+        /*
+        Name: ItemSelected
+        Purpose: Chooses which of the potential menu actions to perform based on the
+                 type of item selected
+        Author: Samuel McManus
+        Uses: OptionList, RegistrationForm, LoginForm, WelcomePage
+        Used by: MainPage
+        Date: August 3, 2020
+        */
+        public void ItemSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
             IsPresented = false;
             User SelectedUser = e.ItemData as User;
-            Detail = new NavigationPage(new OptionList(SelectedUser, NetworkModule));
-        }
-        public void UnauthenticatedSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
-        {
-            IsPresented = false;
-            UnauthenticatedMenuItem SelectedItem = e.ItemData as UnauthenticatedMenuItem;
-            if (SelectedItem.Id == UnauthenticatedMenuItemType.Register)
-                Detail = new NavigationPage(new RegistrationForm(LoginService, NetworkModule, NotificationService));
-            else if (SelectedItem.Id == UnauthenticatedMenuItemType.Login)
-                Detail = new NavigationPage(new LoginForm(LoginService, NetworkModule, NotificationService));
-        }
-        public void GeneralSelected(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
-        {
-            IsPresented = false;
-            GeneralMenuItem SelectedItem = e.ItemData as GeneralMenuItem;
-            if (SelectedItem.Id == GeneralMenuItemType.About)
+            if (SelectedUser != null)
+                Detail = new NavigationPage(new OptionList(SelectedUser, NetworkModule));
+            UnauthenticatedMenuItem UnauthItem = e.ItemData as UnauthenticatedMenuItem;
+            if(UnauthItem != null)
+            {
+                if (UnauthItem.Id == UnauthenticatedMenuItemType.Register)
+                    Detail = new NavigationPage(new RegistrationForm(LoginService, NetworkModule, NotificationService));
+                else
+                    Detail = new NavigationPage(new LoginForm(LoginService, NetworkModule, NotificationService));
+            }
+            GeneralMenuItem GeneralItem = e.ItemData as GeneralMenuItem;
+            if (GeneralItem != null)
                 Detail = new NavigationPage(new About());
-            else if (SelectedItem.Id == GeneralMenuItemType.LogOut)
+            AuthenticatedMenuItem AuthItem = e.ItemData as AuthenticatedMenuItem;
+            if(AuthItem != null)
             {
                 Application.Current.Properties.Clear();
                 ViewModel.Authenticated = false;
                 Detail = new NavigationPage(new WelcomePage());
             }
-
         }
-
         //Creates the ViewModel object of type MainPageViewModel
         //This sets the binding context of the xaml page to the
         //MainPageViewModel

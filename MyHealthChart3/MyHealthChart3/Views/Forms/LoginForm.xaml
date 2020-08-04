@@ -7,7 +7,7 @@
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
-             BackgroundImageSource="LoginBackground.png"
+             BackgroundImageSource="FormBackground.png"
              x:Class="MyHealthChart3.Views.LoginForm">
     
     <ContentPage.Content>

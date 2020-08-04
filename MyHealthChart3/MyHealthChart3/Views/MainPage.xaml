@@ -4,59 +4,45 @@
                   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                   mc:Ignorable="d"
-                  x:Class="MyHealthChart3.Views.MainPage" 
-                  BackgroundImageSource="LoginBackground.png">
+                  x:Class="MyHealthChart3.Views.MainPage">
 
+    <!--Name: MainPage
+        Purpose: Displays a list of menu items and 
+                 a detail page 
+        Author: Samuel McManus
+        Uses: OptionList, RegistrationForm, LoginForm, WelcomePage
+        Used by: MainPage.xaml.cs, MainPageViewModel.cs
+        Date: August 3, 2020
+        -->
+    
     <MasterDetailPage.Master>
         <ContentPage
             Title="Menu"
             BackgroundColor="White"
             Icon="FormBackground.png">
-            <Grid>
-                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                    <Image Source="FormBackground.png" Aspect="AspectFill" />
+            <ScrollView>
+                <Grid>
+                    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Image Source="MenuBackground.png" Aspect="AspectFill" />
 
+                    </Grid>
+                    <Grid Margin="0,20,0,20" Padding="0,20" >
+                        <StackLayout>
+                            <!--Unauthenticated List-->
+                            <listview:SfListView  BackgroundColor="Transparent" ItemsSource="{Binding ItemList}"
+                                                  ItemTapped="ItemSelected" ItemSize="55">
+                                <listview:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
+                                            <Label Text="{Binding Name}" FontSize="28" TextColor="White"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </listview:SfListView.ItemTemplate>
+                            </listview:SfListView>
+                        </StackLayout>
+                    </Grid>
                 </Grid>
-                <Grid Margin="0,20,0,20" Padding="0,20" >
-                    <StackLayout>
-                        <!--User List-->
-                        <listview:SfListView  BackgroundColor="Transparent"     ItemTapped="UserSelected"
-                                              ItemsSource="{Binding Users}" IsVisible="{Binding Authenticated}">
-                            <listview:SfListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
-                                        <Label Text="{Binding Name}" FontSize="24"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </listview:SfListView.ItemTemplate>
-                        </listview:SfListView>
-
-                        <!--Unauthenticated List-->
-                        <listview:SfListView  BackgroundColor="Transparent" ItemsSource="{Binding UnauthenticatedList}"
-                                              ItemTapped="UnauthenticatedSelected" IsVisible="{Binding Unauthenticated}">
-                            <listview:SfListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
-                                        <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </listview:SfListView.ItemTemplate>
-                        </listview:SfListView>
-                    
-                        <!--General List-->
-                        <listview:SfListView  BackgroundColor="Transparent" ItemsSource="{Binding GeneralList}"
-                                              ItemTapped="GeneralSelected">
-                            <listview:SfListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout BackgroundColor="Transparent" Orientation="Vertical" Margin="15,10,0,0">
-                                        <Label Text="{Binding Title}" FontSize="20"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </listview:SfListView.ItemTemplate>
-                        </listview:SfListView>
-                    </StackLayout>
-                </Grid>
-            </Grid>
+            </ScrollView>
         </ContentPage>
     </MasterDetailPage.Master>
 
